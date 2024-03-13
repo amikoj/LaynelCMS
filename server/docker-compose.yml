@@ -1,0 +1,13 @@
+# 项目的根目录，与Dockerfile文件同级
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "7001:7001"
+    links:
+      - redis
+    depends_on:
+      - redis
+  redis:
+    image: redis
