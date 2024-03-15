@@ -70,6 +70,8 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String?
   name      String?  @unique
+  nick      String?  @unique
+  password  String   @default("Aa111111")
   age       Int      @default(0)
   gender    Int      @default(1) // 1 男 2 女
   profile   Profile?

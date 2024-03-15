@@ -626,6 +626,24 @@
     "@midwayjs/async-hooks-context-manager" "^3.15.0"
     "@midwayjs/event-bus" "1.9.4"
 
+"@midwayjs/cache-manager@^3.15.2":
+  version "3.15.2"
+  resolved "https://registry.npmmirror.com/@midwayjs/cache-manager/-/cache-manager-3.15.2.tgz#4e55bf9d6aed5ee62379f21d3fca241e37309250"
+  integrity sha512-BnGXC/FEZR1uUL5rJzmpEGfSWcnJbbICfC45jeqSE1vwGyPJeDD0r2Vz2bAb1qc34kk6TFDtLDAdIXvOdO5gjA==
+  dependencies:
+    lodash.clonedeep "4.5.0"
+    lru-cache "7.18.3"
+
+"@midwayjs/captcha@3":
+  version "3.15.2"
+  resolved "https://registry.npmmirror.com/@midwayjs/captcha/-/captcha-3.15.2.tgz#a7a4336ccd162a3d4d757900b512c1a850f96b3e"
+  integrity sha512-+ZjZQL+9kwu5SLH/xtNbjL3YayjxE0l9po/fQFeFfDfM1GS+NKveV1sjMUHziwGMwDt7jKpswbvaO1aCNSzHIw==
+  dependencies:
+    "@midwayjs/cache-manager" "^3.15.2"
+    mini-svg-data-uri "1.4.4"
+    nanoid "3.3.7"
+    svg-captcha "1.4.0"
+
 "@midwayjs/cookies@^1.0.2":
   version "1.2.0"
   resolved "https://registry.npmmirror.com/@midwayjs/cookies/-/cookies-1.2.0.tgz#2b15abdec6664f35b6d3ddd6d64435899aae1625"
@@ -3424,6 +3442,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash.clonedeep@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npmmirror.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
+
 lodash.includes@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npmmirror.com/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
@@ -3488,6 +3511,11 @@ lowercase-keys@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmmirror.com/lowercase-keys/-/lowercase-keys-2.0.0.tgz#2603e78b7b4b0006cbca2fbcc8a3202558ac9479"
   integrity sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==
+
+lru-cache@7.18.3:
+  version "7.18.3"
+  resolved "https://registry.npmmirror.com/lru-cache/-/lru-cache-7.18.3.tgz#f793896e0fd0e954a59dfdd82f0773808df6aa89"
+  integrity sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==
 
 lru-cache@^5.1.1:
   version "5.1.1"
@@ -3617,6 +3645,11 @@ min-indent@^1.0.0:
   resolved "https://registry.npmmirror.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
+mini-svg-data-uri@1.4.4:
+  version "1.4.4"
+  resolved "https://registry.npmmirror.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
+  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
+
 minimatch@^3.0.4, minimatch@^3.1.1:
   version "3.1.2"
   resolved "https://registry.npmmirror.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
@@ -3689,6 +3722,11 @@ mylas@^2.1.9:
   version "2.1.13"
   resolved "https://registry.npmmirror.com/mylas/-/mylas-2.1.13.tgz#1e23b37d58fdcc76e15d8a5ed23f9ae9fc0cbdf4"
   integrity sha512-+MrqnJRtxdF+xngFfUUkIMQrUUL0KsxbADUkn23Z/4ibGg192Q+z+CQyiYwvWTsYjJygmMR8+w3ZDa98Zh6ESg==
+
+nanoid@3.3.7:
+  version "3.3.7"
+  resolved "https://registry.npmmirror.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
+  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
 
 natural-compare-lite@^1.4.0:
   version "1.4.0"
@@ -3787,6 +3825,13 @@ only@~0.0.2:
   version "0.0.2"
   resolved "https://registry.npmmirror.com/only/-/only-0.0.2.tgz#2afde84d03e50b9a8edc444e30610a70295edfb4"
   integrity sha512-Fvw+Jemq5fjjyWz6CpKx6w9s7xxqo3+JCyM0WXWeCSOboZ8ABkyvP8ID4CZuChA/wxSx+XSJmdOm8rGVyJ1hdQ==
+
+opentype.js@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.npmmirror.com/opentype.js/-/opentype.js-0.7.3.tgz#40fb8ce18bfd60e74448efdfe442834098397aab"
+  integrity sha512-Veui5vl2bLonFJ/SjX/WRWJT3SncgiZNnKUyahmXCc2sa1xXW15u3R/3TN5+JFiP7RsjK5ER4HA5eWaEmV9deA==
+  dependencies:
+    tiny-inflate "^1.0.2"
 
 optionator@^0.9.1:
   version "0.9.3"
@@ -4477,6 +4522,13 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmmirror.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
+svg-captcha@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmmirror.com/svg-captcha/-/svg-captcha-1.4.0.tgz#32ead3c6463936c218bb3bc9ed04fea4eeffe492"
+  integrity sha512-/fkkhavXPE57zRRCjNqAP3txRCSncpMx3NnNZL7iEoyAtYwUjPhJxW6FQTQPG5UPEmCrbFoXS10C3YdJlW7PDg==
+  dependencies:
+    opentype.js "^0.7.3"
+
 swagger-ui-dist@^5.11.10:
   version "5.11.10"
   resolved "https://registry.npmmirror.com/swagger-ui-dist/-/swagger-ui-dist-5.11.10.tgz#99722e8f496c8f689f2585404791aef16b0b3b10"
@@ -4511,6 +4563,11 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.npmmirror.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
+
+tiny-inflate@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.npmmirror.com/tiny-inflate/-/tiny-inflate-1.0.3.tgz#122715494913a1805166aaf7c93467933eea26c4"
+  integrity sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==
 
 tmp@^0.0.33:
   version "0.0.33"

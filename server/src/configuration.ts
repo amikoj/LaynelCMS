@@ -4,6 +4,7 @@ import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import * as swagger from '@midwayjs/swagger';
 import * as jwt from '@midwayjs/jwt';
+import * as captcha from '@midwayjs/captcha';
 import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
 import { JSONMiddleware } from './middleware/json.middleware';
@@ -17,6 +18,7 @@ import { DefaultErrorFilter } from './filter/default.filter';
     koa,
     validate,
     jwt,
+    captcha,
     {
       component: info, // 启用的组件
       enabledEnvironment: ['local'], // 组件启用的环境
