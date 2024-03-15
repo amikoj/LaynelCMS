@@ -8,7 +8,7 @@ export class NotFoundFilter {
     // ctx.redirect('/404.html');
     ctx.logger.error(err);
     return {
-      status: 404,
+      code: 404,
       message: 'the reuqest path is not found',
     };
   }

@@ -6,6 +6,11 @@ export default {
   koa: {
     port: 7001,
   },
+  validate: {
+    validationOptions: {
+      allowUnknown: true, // 全局生效
+    },
+  },
   jwt: {
     secret: 'xxxxxxxxxxxxxx', // fs.readFileSync('xxxxx.key')
     sign: {

@@ -6,7 +6,8 @@ import * as swagger from '@midwayjs/swagger';
 import * as jwt from '@midwayjs/jwt';
 import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
-import { AuthMiddleware } from './middleware/auth.middleware';
+import { JSONMiddleware } from './middleware/json.middleware';
+// import { AuthMiddleware } from './middleware/auth.middleware';
 import { InternalServerErrorFilter } from './filter/internal.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
@@ -33,8 +34,8 @@ export class MainConfiguration {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware]);
-    this.app.getMiddleware().insertLast(AuthMiddleware);
+    this.app.useMiddleware([ReportMiddleware, JSONMiddleware]);
+    // this.app.getMiddleware().insertLast(AuthMiddleware);
     // add filter
     this.app.useFilter([
       NotFoundFilter,

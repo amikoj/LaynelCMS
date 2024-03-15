@@ -2,15 +2,14 @@
 import { Rule, RuleType } from '@midwayjs/validate';
 
 export class UserDTO {
-  @Rule(RuleType.number().required())
-  id: number;
-
   @Rule(RuleType.string().required())
-  firstName: string;
+  name: string;
 
-  @Rule(RuleType.string().max(10))
-  lastName: string;
-
-  @Rule(RuleType.number().max(60))
+  @Rule(RuleType.number().min(0).max(999))
   age: number;
+
+  @Rule(RuleType.number().max(2).min(1))
+  gender: number;
+
+  [key: string]: any;
 }
