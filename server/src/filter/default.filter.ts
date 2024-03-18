@@ -1,13 +1,13 @@
-import { Catch } from '@midwayjs/core';
-import { Context } from '@midwayjs/koa';
+import { Catch, MidwayHttpError } from '@midwayjs/core';
 
 @Catch()
 export class DefaultErrorFilter {
-  async catch(err: Error, ctx: Context) {
+  async catch(err: MidwayHttpError) {
     // 所有的未分类错误会到这里
+    console.log('get err:', String(err));
     return {
-      success: false,
-      message: err.message,
+      code: err.code ?? '500',
+      message: String(err.message ?? err.name),
     };
   }
 }

@@ -7,11 +7,11 @@ import * as jwt from '@midwayjs/jwt';
 import * as captcha from '@midwayjs/captcha';
 import * as view from '@midwayjs/view-ejs';
 import * as staticFile from '@midwayjs/static-file';
+import * as passport from '@midwayjs/passport';
 import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
 import { JSONMiddleware } from './middleware/json.middleware';
-// import { AuthMiddleware } from './middleware/auth.middleware';
-import { InternalServerErrorFilter } from './filter/internal.filter';
+import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
 
@@ -23,6 +23,7 @@ import { DefaultErrorFilter } from './filter/default.filter';
     jwt,
     captcha,
     staticFile,
+    passport,
     {
       component: info, // 启用的组件
       enabledEnvironment: ['local'], // 组件启用的环境
@@ -41,12 +42,8 @@ export class MainConfiguration {
   async onReady() {
     // add middleware
     this.app.useMiddleware([ReportMiddleware, JSONMiddleware]);
-    // this.app.getMiddleware().insertLast(AuthMiddleware);
+    this.app.getMiddleware().insertLast(JwtPassportMiddleware);
     // add filter
-    this.app.useFilter([
-      NotFoundFilter,
-      DefaultErrorFilter,
-      InternalServerErrorFilter,
-    ]);
+    this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
   }
 }

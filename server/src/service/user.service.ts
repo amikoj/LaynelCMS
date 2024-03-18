@@ -3,20 +3,22 @@ import { prisma } from '../prisma';
 import { isNullOrUndefined } from '@midwayjs/core/dist/util/types';
 import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
+import { omit } from 'lodash';
 
 @Provide()
 export class UserService {
   // 获取用户信息
-  async getUser(id: number) {
-    if (isNullOrUndefined(id)) return null;
+  async getUser(user: UserDTO) {
+    if (isNullOrUndefined(user) && Object.keys(user).length) return null;
 
-    const current = await prisma.user.findUnique({
+    const current = await prisma.user.findFirst({
       where: {
-        id,
+        ...user,
       },
     });
-    console.log('get current user:', current);
-    return current;
+    return {
+      ...omit(current, ['password', 'createdAt', 'updatedAt']),
+    };
   }
 
   // 新增用户信息

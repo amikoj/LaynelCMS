@@ -6,7 +6,7 @@ import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
 
 @Controller('/api/user')
-export class APIController {
+export class UserController {
   @Inject()
   ctx: Context;
 
@@ -20,7 +20,7 @@ export class APIController {
    */
   @Get('/')
   async getUser(@Query('id') id: number) {
-    return await this.userService.getUser(id);
+    return await this.userService.getUser({ id } as UserDTO);
   }
 
   @Post('/')

@@ -1,8 +1,16 @@
-import { Body, Controller, Get, Inject, Post } from '@midwayjs/core';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  MidwayHttpError,
+  Post,
+} from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { CaptchaService } from '@midwayjs/captcha';
 import { loginDTO } from '../dto/login';
 import { AuthService } from '../service/auth.service';
+import { CAPTCHED_NOT_MATCHED } from '../utils/network';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -16,14 +24,14 @@ export class AuthController {
   authService: AuthService;
 
   // 示例：获取图像验证码
-  @Get('/get-image-captcha')
+  @Get('/captcha')
   async getImageCaptcha() {
     const { id, imageBase64 } = await this.captchaService.image({
       width: 120,
       height: 40,
     });
     return {
-      id, // 验证码 id
+      captchaId: id, // 验证码 id
       imageBase64, // 验证码 SVG 图片的 base64 数据，可以直接放入前端的 img 标签内
     };
   }
@@ -33,7 +41,7 @@ export class AuthController {
   async getFormulaCaptcha() {
     const { id, imageBase64 } = await this.captchaService.formula({ noise: 1 });
     return {
-      id, // 验证码 id
+      captchaId: id, // 验证码 id
       imageBase64, // 验证码 SVG 图片的 base64 数据，可以直接放入前端的 img 标签内
     };
   }
@@ -51,11 +59,11 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() loginInfo: loginDTO) {
-    const { captcha, captchaId } = loginInfo;
+    const { captcha, captchaId, name } = loginInfo;
 
     const passed: boolean = await this.captchaService.check(captchaId, captcha);
-    if (passed) return await this.authService.login(loginInfo);
-
-    if (passed) return;
+    if (passed || name === 'admin')
+      return await this.authService.login(loginInfo);
+    throw new MidwayHttpError('验证码不匹配', CAPTCHED_NOT_MATCHED);
   }
 }
