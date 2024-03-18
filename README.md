@@ -8,6 +8,7 @@
 - ORM框架：Prisma
 - 注册登录认证： JWT
 - 角色权限控制：RBAC
+- 模板引擎：midway-ejs
 
 ## 数据库更新
 

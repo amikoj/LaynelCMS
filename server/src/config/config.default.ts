@@ -1,4 +1,7 @@
 import { MidwayConfig } from '@midwayjs/core';
+import path = require('path');
+
+console.log('get path:', path.join(__dirname, '../../theme/default'));
 
 export default {
   // use for cookie sign key, should change to your own and keep security
@@ -11,6 +14,21 @@ export default {
       allowUnknown: true, // 全局生效
     },
   },
+  view: {
+    // 模板引擎
+    defaultExtension: '.ejs',
+    defaultViewEngine: 'ejs',
+    rootDir: {
+      // default: path.join(__dirname, '../../theme/default'),
+      anotherRoot: path.join(__dirname, '../../theme/default'),
+    },
+    mapping: {
+      '.ejs': 'ejs',
+    },
+  },
+  // ejs config
+  ejs: {},
+  staticFile: {}, // 静态托管
   jwt: {
     secret: 'xxxxxxxxxxxxxx', // fs.readFileSync('xxxxx.key')
     sign: {
