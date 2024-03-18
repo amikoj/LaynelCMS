@@ -4,7 +4,10 @@ import { isNullOrUndefined } from '@midwayjs/core/dist/util/types';
 import { RoleDTO } from '../dto/role';
 import { QueryInfoDTO } from '../dto/query';
 import { omit } from 'lodash';
-import { VAILDATE_PARAMS_NOT_MATCHED } from '../utils/network';
+import {
+  DATA_SET_NOT_EXIST,
+  VAILDATE_PARAMS_NOT_MATCHED,
+} from '../utils/network';
 
 @Provide()
 export class RoleService {
@@ -15,6 +18,7 @@ export class RoleService {
     const current = await prisma.role.findFirst({
       where: {
         ...role,
+        isDeleted: false,
       },
     });
     return {
@@ -61,12 +65,23 @@ export class RoleService {
   async updateRole(role: RoleDTO) {
     if (!role.id)
       throw new MidwayHttpError('角色ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
-    return await prisma.role.update({
-      where: {
-        id: role?.id,
-      },
-      data: { ...role },
-    });
+
+    try {
+      const current = await prisma.role.update({
+        where: {
+          id: role?.id,
+          isDeleted: false,
+        },
+        data: { ...role },
+      });
+
+      return current;
+    } catch (err: any) {
+      throw new MidwayHttpError(
+        err.message ?? '当前数据不存在',
+        err.code ?? DATA_SET_NOT_EXIST
+      );
+    }
   }
 
   // 删除

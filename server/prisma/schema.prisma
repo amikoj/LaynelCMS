@@ -20,6 +20,7 @@ model Category {
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 model Post {
@@ -33,6 +34,7 @@ model Post {
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
   categories Category[]
+  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 model Permissions {
@@ -53,6 +55,7 @@ model Role {
   permissions Permissions[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  isDeleted   Boolean  @default(false) // 设置删除flag
 }
 
 model Profile {
@@ -63,6 +66,7 @@ model Profile {
   userId       Int      @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 // 用户信息
@@ -74,7 +78,8 @@ model User {
   password  String   @default("Aa111111")
   age       Int      @default(0)
   gender    Int      @default(1) // 1 男 2 女
-  profile   Profile?
+  isDeleted Boolean  @default(false) // 设置删除flag
+  profile   Profile? 
   roles     Role[]
   posts     Post[]
   createdAt DateTime @default(now())

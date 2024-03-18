@@ -14,6 +14,7 @@ export class UserService {
     const current = await prisma.user.findFirst({
       where: {
         ...user,
+        isDeleted: false,
       },
     });
     return {
@@ -47,6 +48,7 @@ export class UserService {
       take: limit,
       where: {
         ...options,
+        isDeleted: false,
       },
       orderBy: {
         updatedAt: 'desc',
@@ -62,6 +64,7 @@ export class UserService {
     return await prisma.user.update({
       where: {
         id: user?.id,
+        isDeleted: false,
       },
       data: { ...user },
     });
@@ -72,6 +75,7 @@ export class UserService {
     return await prisma.user.delete({
       where: {
         id,
+        isDeleted: false,
       },
     });
   }
