@@ -33,7 +33,8 @@ model Post {
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
   categories Category[]
-  isDeleted Boolean  @default(false) // 设置删除flag
+  tags       Tag[]
+  isDeleted  Boolean    @default(false) // 设置删除flag
 }
 
 model Permissions {
@@ -41,7 +42,7 @@ model Permissions {
   name  String  @unique
   desc  String?
   key   String  @unique
-  path  String? 
+  path  String?
   type  Int     @default(1) // 1:页面 2:功能按钮
   roles Role[]
 }
@@ -76,9 +77,51 @@ model User {
   age       Int      @default(0)
   gender    Int      @default(1) // 1 男 2 女
   isDeleted Boolean  @default(false) // 设置删除flag
-  profile   Profile? 
+  profile   Profile?
   roles     Role[]
   posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+}
+
+model Menu {
+  id        Int      @id @default(autoincrement())
+  name      String
+  desc      String?
+  type      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MenuItem {
+  id        Int      @id @default(autoincrement())
+  name      String
+  alias     String?
+  link      String?
+  pid       Int
+  path      String?
+  order     Int      @default(1)
+  type      Int
+  desc      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 小工具模块
+model Modules {
+  id        Int      @id @default(autoincrement())
+  name      String
+  content   String
+  position  String
+  order     Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
