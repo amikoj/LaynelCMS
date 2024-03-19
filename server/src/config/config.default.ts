@@ -18,7 +18,7 @@ export default {
     defaultViewEngine: 'ejs',
     rootDir: {
       // default: path.join(__dirname, '../../theme/default'),
-      anotherRoot: path.join(__dirname, '../../theme/default'),
+      anotherRoot: path.join(__dirname, '../../theme'),
     },
     mapping: {
       '.ejs': 'ejs',
@@ -26,7 +26,14 @@ export default {
   },
   // ejs config
   ejs: {},
-  staticFile: {}, // 静态托管
+  staticFile: {
+    dirs: {
+      default: {
+        prefix: '/static',
+        dir: 'public',
+      },
+    },
+  }, // 静态托管
   jwt: {
     secret: 'laynel-cms-admin', // fs.readFileSync('xxxxx.key')
     expiresIn: '2d', // https://github.com/vercel/ms

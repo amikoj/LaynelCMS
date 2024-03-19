@@ -1,5 +1,5 @@
 import { Aspect, IMethodAspect, JoinPoint } from '@midwayjs/core';
-import { HomeController } from '../controller/home.controller';
+import { HomeController } from '../controller/web.controller';
 
 @Aspect(HomeController)
 export class ReportInfo implements IMethodAspect {
