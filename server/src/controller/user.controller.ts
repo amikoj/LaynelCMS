@@ -1,10 +1,23 @@
-import { Inject, Controller, Get, Query, Body, Post } from '@midwayjs/core';
+import {
+  Inject,
+  Controller,
+  Get,
+  Query,
+  Body,
+  Post,
+  Put,
+  Del,
+  MidwayHttpError,
+} from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
-import { Validate } from '@midwayjs/validate';
 import { UserService } from '../service/user.service';
 import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
+import { ApiTags } from '@midwayjs/swagger';
+import { RuleType, Valid } from '@midwayjs/validate';
+import { VAILDATE_PARAMS_NOT_MATCHED } from '../utils/network';
 
+@ApiTags(['user'])
 @Controller('/api/user')
 export class UserController {
   @Inject()
@@ -23,18 +36,27 @@ export class UserController {
     return await this.userService.getUser({ id } as UserDTO);
   }
 
-  @Post('/')
-  @Validate({
-    errorStatus: 422,
-  })
+  @Put('/')
   async add(@Body() user: UserDTO) {
     return await this.userService.addUser(user);
   }
 
+  @Post('/')
+  async update(@Body() role: UserDTO) {
+    return await this.userService.updateUser(role);
+  }
+
+  @Del('/')
+  async del(@Valid(RuleType.number().required()) @Body('id') id: number) {
+    if (id === 1)
+      throw new MidwayHttpError(
+        'admin用户不可操作',
+        VAILDATE_PARAMS_NOT_MATCHED
+      );
+    return await this.userService.delUser(id);
+  }
+
   @Post('/page')
-  @Validate({
-    errorStatus: 422,
-  })
   async page(@Body() query: QueryInfoDTO) {
     return await this.userService.list(query);
   }

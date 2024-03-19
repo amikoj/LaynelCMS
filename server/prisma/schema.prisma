@@ -20,7 +20,6 @@ model Category {
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 model Post {
@@ -55,7 +54,6 @@ model Role {
   permissions Permissions[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  isDeleted   Boolean  @default(false) // 设置删除flag
 }
 
 model Profile {
@@ -66,7 +64,6 @@ model Profile {
   userId       Int      @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 // 用户信息

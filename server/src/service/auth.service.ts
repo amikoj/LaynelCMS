@@ -1,5 +1,5 @@
 import { Inject, MidwayHttpError, Provide } from '@midwayjs/core';
-import { loginDTO } from '../dto/login';
+import { LoginDTO } from '../dto/login';
 import { JwtService } from '@midwayjs/jwt';
 import { prisma } from '../prisma';
 import { USER_WHIT_PASSWORD_NOT_MATCHED } from '../utils/network';
@@ -11,7 +11,7 @@ export class AuthService {
   @Inject()
   jwt: JwtService;
 
-  async login(loginInfo: loginDTO) {
+  async login(loginInfo: LoginDTO) {
     const { name, password } = loginInfo;
     const current = await prisma.user.findUnique({
       where: {

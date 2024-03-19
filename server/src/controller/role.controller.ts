@@ -6,15 +6,17 @@ import {
   Body,
   Post,
   Put,
+  Del,
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
-import { Validate } from '@midwayjs/validate';
+import { RuleType, Valid } from '@midwayjs/validate';
 import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
 import { RoleService } from '../service/role.service';
 import { RoleDTO } from '../dto/role';
-import { VAILDATE_PARAMS_NOT_MATCHED } from '../utils/network';
+import { ApiTags } from '@midwayjs/swagger';
 
+@ApiTags(['role'])
 @Controller('/api/role')
 export class RoleController {
   @Inject()
@@ -34,25 +36,21 @@ export class RoleController {
   }
 
   @Put('/')
-  @Validate({
-    errorStatus: VAILDATE_PARAMS_NOT_MATCHED,
-  })
   async add(@Body() role: RoleDTO) {
     return await this.roleService.addRole(role);
   }
 
+  @Del('/')
+  async del(@Valid(RuleType.number().required()) @Body('id') id: number) {
+    return await this.roleService.delRole(id);
+  }
+
   @Post('/')
-  @Validate({
-    errorStatus: VAILDATE_PARAMS_NOT_MATCHED,
-  })
   async update(@Body() role: RoleDTO) {
     return await this.roleService.updateRole(role);
   }
 
   @Post('/page')
-  @Validate({
-    errorStatus: 422,
-  })
   async page(@Body() query: QueryInfoDTO) {
     return await this.roleService.list(query);
   }

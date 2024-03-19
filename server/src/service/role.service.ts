@@ -6,6 +6,7 @@ import { QueryInfoDTO } from '../dto/query';
 import { omit } from 'lodash';
 import {
   DATA_SET_NOT_EXIST,
+  OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 
@@ -18,7 +19,6 @@ export class RoleService {
     const current = await prisma.role.findFirst({
       where: {
         ...role,
-        isDeleted: false,
       },
     });
     return {
@@ -70,7 +70,6 @@ export class RoleService {
       const current = await prisma.role.update({
         where: {
           id: role?.id,
-          isDeleted: false,
         },
         data: { ...role },
       });
@@ -86,10 +85,35 @@ export class RoleService {
 
   // 删除
   async delRole(id: number) {
-    return await prisma.user.delete({
-      where: {
-        id,
-      },
-    });
+    try {
+      const result = await prisma.role.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          users: true,
+        },
+      });
+      if (result && result.users?.length > 0) {
+        console.log('当前角色已关联用户，请先删除角色下的用户');
+        throw new MidwayHttpError(
+          '当前角色已关联用户，请先删除角色下的用户',
+          OPERATOR_WITH_RELATION
+        );
+      } else if (!result) {
+        throw new MidwayHttpError('角色不存在', DATA_SET_NOT_EXIST);
+      } else {
+        // 角色表真删除
+        await prisma.role.delete({
+          where: { id },
+        });
+        return {};
+      }
+    } catch (err: any) {
+      throw new MidwayHttpError(
+        err.message ?? '当前数据不存在',
+        err.code ?? DATA_SET_NOT_EXIST
+      );
+    }
   }
 }

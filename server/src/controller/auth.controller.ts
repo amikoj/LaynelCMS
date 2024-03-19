@@ -8,10 +8,12 @@ import {
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { CaptchaService } from '@midwayjs/captcha';
-import { loginDTO } from '../dto/login';
+import { LoginDTO } from '../dto/login';
 import { AuthService } from '../service/auth.service';
 import { CAPTCHED_NOT_MATCHED } from '../utils/network';
+import { ApiTags } from '@midwayjs/swagger';
 
+@ApiTags(['auth'])
 @Controller('/api/auth')
 export class AuthController {
   @Inject()
@@ -58,7 +60,7 @@ export class AuthController {
   }
 
   @Post('/login')
-  async login(@Body() loginInfo: loginDTO) {
+  async login(@Body() loginInfo: LoginDTO) {
     const { captcha, captchaId, name } = loginInfo;
 
     const passed: boolean = await this.captchaService.check(captchaId, captcha);

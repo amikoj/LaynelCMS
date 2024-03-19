@@ -34,6 +34,21 @@ export default {
   passport: {
     session: false,
   },
+  swagger: {
+    auth: {
+      authType: 'bearer',
+    },
+    tags: [
+      {
+        name: 'role',
+        description: '角色管理',
+      },
+      {
+        name: 'user',
+        description: '用户管理',
+      },
+    ],
+  },
   // redis: {
   //   client: {
   //     port: 6379, // redis容器的端口

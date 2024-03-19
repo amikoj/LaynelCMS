@@ -6,8 +6,10 @@ import {
   Config,
   Get,
 } from '@midwayjs/core';
+import { ApiTags } from '@midwayjs/swagger';
 
 // 系统服务动态更新
+@ApiTags(['config'])
 @Controller('/config')
 export class ConfigController {
   @Config('view')
