@@ -1,11 +1,15 @@
-import { Configuration, App } from '@midwayjs/core';
+import {
+  Configuration,
+  App,
+  MidwayWebRouterService,
+  Inject,
+} from '@midwayjs/core';
 import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import * as swagger from '@midwayjs/swagger';
 import * as jwt from '@midwayjs/jwt';
 import * as captcha from '@midwayjs/captcha';
-// import * as view from '@midwayjs/view-ejs';
 import * as view from '@midwayjs/view-nunjucks';
 import * as staticFile from '@midwayjs/static-file';
 import * as passport from '@midwayjs/passport';
@@ -40,11 +44,17 @@ export class MainConfiguration {
   @App('koa')
   app: koa.Application;
 
+  @Inject()
+  webRouterService: MidwayWebRouterService;
+
   async onReady() {
     // add middleware
     this.app.useMiddleware([ReportMiddleware, JSONMiddleware]);
     this.app.getMiddleware().insertLast(JwtPassportMiddleware);
     // add filter
     this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+
+    const list = this.webRouterService.getFlattenRouterTable();
+    console.log('get router list:', list);
   }
 }

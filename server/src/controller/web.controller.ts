@@ -4,13 +4,12 @@ import { ApiExcludeController } from '@midwayjs/swagger';
 
 @ApiExcludeController()
 @Controller('/')
-export class HomeController {
+export class WebController {
   @Inject()
   ctx: Context;
 
   @Get('/')
   async render() {
-    console.log('get render------------');
     await this.ctx.render('default/home', {
       data: 'world',
     });

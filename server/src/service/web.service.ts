@@ -9,12 +9,12 @@ export class WebService {
 
   async config() {
     // 模板配置
-    const configTemplate = await prisma.modules.findUnique({
+    const c = await prisma.modules.findUnique({
       where: {
         id: 1,
       },
     });
 
-    return {};
+    return { ...c };
   }
 }

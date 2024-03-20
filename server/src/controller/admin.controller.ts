@@ -10,8 +10,6 @@ export class AdminController {
 
   @Get('/login')
   async login() {
-    await this.ctx.render('login', {
-      data: 'world',
-    });
+    await this.ctx.render('admin/login');
   }
 }
