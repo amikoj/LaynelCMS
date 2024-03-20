@@ -115,13 +115,27 @@ model MenuItem {
   updatedAt DateTime @updatedAt
 }
 
-// 小工具模块
+// 插件配置
 model Modules {
   id        Int      @id @default(autoincrement())
   name      String
   content   String
   position  String
   order     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 模板配置
+model Templates {
+  id        Int      @id @default(autoincrement())
+  name      String
+  version   String
+  isActive  Boolean  @default(false)
+  path      String // 主题库地址
+  author    String
+  content   String
+  desc      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

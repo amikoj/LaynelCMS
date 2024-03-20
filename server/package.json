@@ -17,6 +17,7 @@
     "@midwayjs/swagger": "3",
     "@midwayjs/validate": "3",
     "@midwayjs/view-ejs": "3",
+    "@midwayjs/view-nunjucks": "3",
     "@prisma/client": "^5.11.0",
     "bcrypt": "^5.1.1",
     "i": "^0.3.7",

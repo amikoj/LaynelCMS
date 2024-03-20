@@ -14,14 +14,17 @@ export default {
   },
   view: {
     // 模板引擎
-    defaultExtension: '.ejs',
-    defaultViewEngine: 'ejs',
+
+    // defaultExtension: '.ejs',
+    // defaultViewEngine: 'ejs',
+    defaultViewEngine: 'nunjucks',
+    defaultExtension: '.nj',
+    mapping: {
+      '.nj': 'nunjucks',
+    },
     rootDir: {
       // default: path.join(__dirname, '../../theme/default'),
       anotherRoot: path.join(__dirname, '../../theme'),
-    },
-    mapping: {
-      '.ejs': 'ejs',
     },
   },
   // ejs config

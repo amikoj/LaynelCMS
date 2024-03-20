@@ -11,7 +11,7 @@ export class HomeController {
   @Get('/')
   async render() {
     console.log('get render------------');
-    await this.ctx.render('web/index', {
+    await this.ctx.render('default/home', {
       data: 'world',
     });
   }

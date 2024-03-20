@@ -1,0 +1,8 @@
+{% extends "web/components/basic.nj" %}
+{% block title %}
+        Layel CMS Web
+{% endblock %}
+
+{% block main %}
+这是首页界面布局
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "../components/basic.nj" %}
+{% block title %}
+        Layel CMS Web
+{% endblock %}
+
+{% block main %}
+{% endblock %}
