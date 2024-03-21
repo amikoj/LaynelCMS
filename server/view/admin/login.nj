@@ -4,7 +4,7 @@
 
         <div class="container justify-content-center ">
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <h5 class="card-header text-xl py-3">登录</h5>
                         <div class="card-body pt-3">
@@ -37,3 +37,5 @@
         </div>
 
     {% endblock %}
+
+    
