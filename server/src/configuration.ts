@@ -47,6 +47,9 @@ export class MainConfiguration {
   @Inject()
   webRouterService: MidwayWebRouterService;
 
+  @Inject()
+  env: view.NunjucksEnvironment;
+
   async onReady() {
     // add middleware
     this.app.useMiddleware([ReportMiddleware, JSONMiddleware]);
