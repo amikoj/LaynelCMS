@@ -6,7 +6,7 @@
     "lib": ["ESNext","DOM"], // 最新的 es 语法提示，同时不引入 dom 相关的定义文件
     // "module": "esnext", // 源代码使用模块类型
     "moduleResolution": "Node", // 能在 esm 项目中解析 cjs 模块
-     "outDir": "./", // 编译后的文件存到到哪个目录
+    "outDir": "./lib", // 编译后的文件存到到哪个目录
     "removeComments": false, // 编译删除注释，这里选择保留
     "target": "es6", // 目标 ECMAScript 版本， Node v6之后就已经支持 es6 了
   },
