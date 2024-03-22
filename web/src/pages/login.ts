@@ -4,24 +4,36 @@ import { HttpStatus } from "../enums/http-enum";
 import { USER_NAME_KEY, setToken } from "../store/token";
 import storage from "../utils/storage";
 import { ResponseBody } from "../interface";
+import Toastify from "toastify-js";
+import { Toast } from "../utils/util";
+import { Page } from "../core/base";
+
+export const CAPTCHA_REFRESH: string = "login.refreshCaptcha"; // 刷新
+export const LOGIN_SUCCESS: string = "login.success"; // 登录成功
+export const LOGIN_FAILED: string = "login.failed"; // 登录失败
 
 /**
  * @description 登陆页面聚合功能
  */
-export class Login {
+export default class Login extends Page {
   loginForm: LoginDTO;
 
   /**
    * @description 初始化操作，初始化数据，发起验证码请求
    */
   constructor() {
+    super();
     this.loginForm = {
       username: "",
       password: "",
       captcha: "",
       captchaId: "",
     };
-    this.getCaptchaBase64(); // 初始化获取captche
+  }
+
+  onReady(): void {
+    // 页面已完成加载,请求获取验证码
+    this.getCaptchaBase64();
   }
 
   /**
@@ -33,6 +45,7 @@ export class Login {
     if (res.code === HttpStatus.SUCCESS_CODE) {
       const { captchaId, imageBase64 } = res.data;
       this.loginForm.captchaId = captchaId;
+      this.fire(CAPTCHA_REFRESH, res.data); // 通过事件发送
       return imageBase64;
     }
   }
@@ -65,6 +78,7 @@ export class Login {
       };
       result.data.push(error);
     }
+    if (result.data.length) Toast(`校验不通过`, 3000);
 
     return result.data.length ? result : null;
   }
@@ -82,11 +96,20 @@ export class Login {
         JSON.stringify({ id, email, name, nick, age }),
       );
       window.location.href = "/admin/dashborad"; //跳转首页
+      this.fire(LOGIN_SUCCESS, res); // 登录成功事件
+
+      Toastify({
+        text: `登陆成功`,
+        backgroundColor: "green",
+      });
     } else {
       console.log("登陆失败：", res.message);
+      Toastify({
+        text: `登陆失败：${res.message}`,
+        backgroundColor: "red",
+      });
+      this.fire(LOGIN_FAILED, res); // 登录失败
       throw new Error(`登陆失败：${res.message}`);
     }
   }
 }
-
-export default new Login();
