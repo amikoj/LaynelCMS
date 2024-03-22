@@ -27,9 +27,9 @@ export default {
   ),
   output: [
     {
-      format: "esm",
+      format: "iife",
       dir: "./lib",
-      entryFileNames: "[name].esm.js",
+      entryFileNames: "[name].bundle.js",
     },
   ],
   plugins: [

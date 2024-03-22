@@ -46,6 +46,8 @@ export default class Login extends Page {
       const { captchaId, imageBase64 } = res.data;
       this.loginForm.captchaId = captchaId;
       this.fire(CAPTCHA_REFRESH, res.data); // 通过事件发送
+      // 设置
+      document.getElementById("captcha").setAttribute("src", captchaId);
       return imageBase64;
     }
   }

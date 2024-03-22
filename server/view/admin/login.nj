@@ -1,5 +1,6 @@
 {% extends "./base.nj" %}
 {% block body %}
+    {# <script src="/static/js/login.esm.js" type='module'></script> #}
     <div class="flex items-center bg-[url('/static/imgs/login-bg.jpg')] h-screen">
 
         <div class="container justify-content-center ">
@@ -41,35 +42,10 @@
             </div>
         </div>
 
-        <script>
-            const Login = LaynelCMS.Login.default
+        <script type='module'>
+            import Login from '/static/js/login.esm.js'
             const login = new Login()
-            login.onMounted = function () {
-                $('#captcha').on('click', function () {
-                    console.log('get onClick----------------')
-                })
-
-                $('#submitBtn').on('click', function () {
-                    login
-                        .validate()
-                        .then(function (res) {
-                            console.log('get res:',res)
-                            if (!res) {
-                             
-
-                                login
-                                    .login()
-                                    .then(function (res) {
-                                        console.log('get res:')
-                                    })
-                            }
-
-                        })
-                })
-            }
-            login.on("login.refreshCaptcha", function (res) {
-                $('#captcha').attr('src', res.imageBase64)
-            })
+            console.log('get login:', login)
         </script>
 
     {% endblock %}
