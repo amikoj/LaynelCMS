@@ -3,8 +3,6 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import del from "rollup-plugin-delete";
-import postcss from "rollup-plugin-postcss";
-import autoprefixer from "autoprefixer";
 import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 import { globSync } from "glob";
@@ -47,9 +45,6 @@ export default {
     commonjs(),
     typescript({
       tsconfig: "./tsconfig.json",
-    }),
-    postcss({
-      plugins: [autoprefixer()],
     }),
     terser(),
     json(),
