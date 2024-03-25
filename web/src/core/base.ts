@@ -1,10 +1,22 @@
 import eventBus, { EventBus } from "../utils/eventbus";
+import $ from "jquery";
+import request, { useGet, usePost } from "../utils/request";
+import { AxiosInstance } from "axios";
 
 export abstract class Page {
   _eventBus: EventBus;
+  $: JQueryStatic;
+  useGet: any;
+  usePost: any;
+  request: AxiosInstance;
 
   constructor() {
     this._eventBus = eventBus;
+    this.$ = $;
+    this.useGet = useGet;
+    this.usePost = usePost;
+    this.request = request
+
     this.initListener();
   }
 
@@ -72,7 +84,4 @@ export abstract class Page {
   off(events: any[] | any, callback: any) {
     this._eventBus.off(events, callback);
   }
-
-
-  
 }

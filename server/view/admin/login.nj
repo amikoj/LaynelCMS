@@ -1,11 +1,10 @@
 {% extends "./base.nj" %}
 {% block body %}
-    {# <script src="/static/js/login.esm.js" type='module'></script> #}
     <div class="flex items-center bg-[url('/static/imgs/login-bg.jpg')] h-screen">
 
-        <div class="container justify-content-center ">
+        <div class="container-md justify-content-center ">
             <div class="row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-8 col-lg-5">
                     <div class="card">
                         <h5 class="card-header text-xl py-3">登录</h5>
                         <div class="card-body pt-3">
@@ -21,7 +20,7 @@
                                 <div class="mb-4">
                                     <label class="mb-1 text-gray-300 block">验证码</label>
                                     <div class="input-group cursor-pointer ">
-                                        <input type="password" class="form-control h-[46px]" id="password" placeholder="验证码">
+                                        <input  class="form-control h-[46px]" id="captchajInput" placeholder="验证码">
                                         <span class="input-group-text" id="basic-addon2">
                                             <img class="h-[28px]" id="captcha">
                                         </span>
@@ -42,10 +41,13 @@
             </div>
         </div>
 
-        <script type='module'>
-            import Login from '/static/js/login.esm.js'
-            const login = new Login()
-            console.log('get login:', login)
+    {% endblock %}
+
+    {% block startup %}
+        <script>
+            const login =  new LaynelCMS.Login.default()
+            console.log('get login:',login)
+            
         </script>
 
     {% endblock %}

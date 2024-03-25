@@ -29,6 +29,13 @@ export default class Login extends Page {
       captcha: "",
       captchaId: "",
     };
+    this.initView();
+  }
+
+  initView() {
+    this.$("#captcha").on("click", () => {
+      this.getCaptchaBase64();
+    });
   }
 
   onReady(): void {
@@ -47,7 +54,7 @@ export default class Login extends Page {
       this.loginForm.captchaId = captchaId;
       this.fire(CAPTCHA_REFRESH, res.data); // 通过事件发送
       // 设置
-      document.getElementById("captcha").setAttribute("src", captchaId);
+      this.$("#captcha").attr("src", imageBase64);
       return imageBase64;
     }
   }

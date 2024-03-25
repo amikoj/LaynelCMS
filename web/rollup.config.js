@@ -5,29 +5,32 @@ import typescript from "@rollup/plugin-typescript";
 import del from "rollup-plugin-delete";
 import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
-import { globSync } from "glob";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import copy from "rollup-plugin-copy";
 
 export default {
-  // input: "src/index.ts",
-  input: Object.fromEntries(
-    globSync("src/pages/*.ts").map((file) => [
-      path.relative(
-        "src",
-        file.slice(0, file.length - path.extname(file).length),
-      ),
-      // 这里可以将相对路径扩展为绝对路径，例如
-      // src/nested/foo 会变成 /project/src/nested/foo.js
-      fileURLToPath(new URL(file, import.meta.url)),
-    ]),
-  ),
+  input: "src/index.ts",
+  // input: Object.fromEntries(
+  //   globSync("src/pages/*.ts").map((file) => [
+  //     path.relative(
+  //       "src",
+  //       file.slice(0, file.length - path.extname(file).length),
+  //     ),
+  //     // 这里可以将相对路径扩展为绝对路径，例如
+  //     // src/nested/foo 会变成 /project/src/nested/foo.js
+  //     fileURLToPath(new URL(file, import.meta.url)),
+  //   ]),
+  // ),
   output: [
     {
       format: "iife",
       dir: "./lib",
       entryFileNames: "[name].bundle.js",
+    },
+    {
+      format: "umd",
+      dir: "./lib",
+      entryFileNames: "[name].umd.js",
+      name: "LaynelCMS",
     },
   ],
   plugins: [
@@ -49,7 +52,7 @@ export default {
     terser(),
     json(),
     copy({
-      targets: [{ src: "lib/pages/*.esm.js", dest: "../server/public/js" }],
+      targets: [{ src: "lib/*.js", dest: "../server/public/js" }],
       hook: "writeBundle",
       verbose: true,
     }),
