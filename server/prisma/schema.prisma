@@ -73,7 +73,7 @@ model User {
   email     String?
   name      String?  @unique
   nick      String?  @unique
-  password  String   @default("Aa111111")
+  password  String   @default("2BC68D71FC41C028")
   age       Int      @default(0)
   gender    Int      @default(1) // 1 男 2 女
   isDeleted Boolean  @default(false) // 设置删除flag
