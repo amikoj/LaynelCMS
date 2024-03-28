@@ -7,6 +7,7 @@ export declare abstract class Page {
     useGet: any;
     usePost: any;
     request: AxiosInstance;
+    toastify: any;
     constructor();
     /**
      *@description 屏幕尺寸改变
@@ -29,4 +30,10 @@ export declare abstract class Page {
     fire(event: any, data: any): void;
     on(events: string[] | string, callback: any, that?: any): void;
     off(events: any[] | any, callback: any): void;
+    /**
+     *  通过form id获取form数据
+     * @param id
+     */
+    getFormData(id: string): {};
+    toast(op: any, type?: any): void;
 }

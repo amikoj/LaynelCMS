@@ -8,20 +8,20 @@
                     <div class="card">
                         <h5 class="card-header text-xl py-3">登录</h5>
                         <div class="card-body pt-3">
-                            <form class="pb-3">
+                            <form class="pb-3" id="loginForm">
                                 <div class="form-group mb-3">
-                                    <label class="mb-1 text-gray-300">用户名</label>
-                                    <input type="text" class="form-control h-[46px]" id="username" placeholder="用户名">
+                                    <label class="mb-1 text-gray-300" >用户名</label>
+                                    <input type="text" class="form-control h-[46px]" name="name" placeholder="用户名">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="mb-1 text-gray-300">密码</label>
-                                    <input type="password" class="form-control h-[46px]" id="password" placeholder="密码">
+                                    <label class="mb-1 text-gray-300" >密码</label>
+                                    <input type="password" class="form-control h-[46px]" name="password" placeholder="密码">
                                 </div>
                                 <div class="mb-4">
-                                    <label class="mb-1 text-gray-300 block">验证码</label>
+                                    <label class="mb-1 text-gray-300 block" >验证码</label>
                                     <div class="input-group cursor-pointer ">
-                                        <input  class="form-control h-[46px]" id="captchajInput" placeholder="验证码">
-                                        <span class="input-group-text" id="basic-addon2">
+                                        <input  class="form-control h-[46px]" id="captchajInput" placeholder="验证码" name="captcha">
+                                        <span class="input-group-text bg-[#9495ED]" id="basic-addon2">
                                             <img class="h-[28px]" id="captcha">
                                         </span>
                                     </div>
@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="form-check relative">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="agree">
                                     <label class="form-check-label text-primary text-sm" for="flexCheckDefault">我已阅读并同意《用户协议》</label>
                                     <a id='submitBtn' class="btn btn-primary absolute top-[-8px] right-0">登录</a>
                                 </div>
@@ -46,8 +46,6 @@
     {% block startup %}
         <script>
             const login =  new LaynelCMS.Login.default()
-            console.log('get login:',login)
-            
         </script>
 
     {% endblock %}

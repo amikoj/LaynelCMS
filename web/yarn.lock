@@ -1276,6 +1276,11 @@
   resolved "https://registry.npmmirror.com/@types/sizzle/-/sizzle-2.3.8.tgz#518609aefb797da19bf222feb199e8f653ff7627"
   integrity sha512-0vWLNK2D5MT9dg0iOo8GlKguPAU02QjmZitPEsXRuJXU/OGIOt9vT9Fc26wtYuavLxtO45v9PGleoL9Z0k1LHg==
 
+"@types/toastify-js@^1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@types/toastify-js/-/toastify-js-1.12.3.tgz#a9f696401aba3f79ba9e5540849cc69a99e69b77"
+  integrity sha512-9RjLlbAHMSaae/KZNHGv19VG4gcLIm3YjvacCXBtfMfYn26h76YP5oxXI8k26q4iKXCB9LNfv18lsoS0JnFPTg==
+
 "@typescript-eslint/eslint-plugin@^7.3.1":
   version "7.3.1"
   resolved "https://registry.npmmirror.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-7.3.1.tgz#0d8f38a6c8a1802139e62184ee7a68ed024f30a1"

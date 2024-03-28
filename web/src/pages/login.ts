@@ -4,8 +4,7 @@ import { HttpStatus } from "../enums/http-enum";
 import { USER_NAME_KEY, setToken } from "../store/token";
 import storage from "../utils/storage";
 import { ResponseBody } from "../interface";
-import Toastify from "toastify-js";
-import { Toast } from "../utils/util";
+import { md5 } from '../utils/md5'
 import { Page } from "../core/base";
 
 export const CAPTCHA_REFRESH: string = "login.refreshCaptcha"; // 刷新
@@ -24,7 +23,7 @@ export default class Login extends Page {
   constructor() {
     super();
     this.loginForm = {
-      username: "",
+      name: "",
       password: "",
       captcha: "",
       captchaId: "",
@@ -34,8 +33,17 @@ export default class Login extends Page {
 
   initView() {
     this.$("#captcha").on("click", () => {
+      console.log('refresh verify code')
       this.getCaptchaBase64();
     });
+
+    this.$('#submitBtn').on('click', () => {
+      const formData: LoginDTO = this.getFormData('loginForm')  as LoginDTO
+      Object.assign(this.loginForm, formData)
+      // 发起登陆请求
+      this.login()
+
+    })
   }
 
   onReady(): void {
@@ -72,9 +80,9 @@ export default class Login extends Page {
       result.data.push(error);
     }
 
-    if (!this.loginForm.username) {
+    if (!this.loginForm.name) {
       const error: ValidateInfo = {
-        prop: "username",
+        prop: "name",
         message: "用户名不能为空",
       };
       result.data.push(error);
@@ -87,7 +95,7 @@ export default class Login extends Page {
       };
       result.data.push(error);
     }
-    if (result.data.length) Toast(`校验不通过`, 3000);
+    if (result.data.length) this.toast(`校验不通过`, 'error');
 
     return result.data.length ? result : null;
   }
@@ -96,7 +104,13 @@ export default class Login extends Page {
    * @description 用户登陆
    */
   async login() {
-    const res: ResponseBody<any> = await usePost("/auth/login", this.loginForm);
+
+    const validate =  await this.validate()
+    if(validate) return
+
+
+    const data = {...this.loginForm, password: md5(this.loginForm.password).toUpperCase()}
+    const res: ResponseBody<any> = await usePost("/auth/login", data);
     if (res.code === HttpStatus.SUCCESS_CODE) {
       const { id, email, name, nick, age, token } = res.data;
       setToken(token); // 保存token
@@ -107,13 +121,13 @@ export default class Login extends Page {
       window.location.href = "/admin/dashborad"; //跳转首页
       this.fire(LOGIN_SUCCESS, res); // 登录成功事件
 
-      Toastify({
+      this.toast({
         text: `登陆成功`,
         backgroundColor: "green",
       });
     } else {
       console.log("登陆失败：", res.message);
-      Toastify({
+      this.toast({
         text: `登陆失败：${res.message}`,
         backgroundColor: "red",
       });
