@@ -73,7 +73,6 @@ const instancePromise = <R = any, T = any>(
   });
 };
 
-
 export const useGet = <R = any, T = any>(
   url: string,
   params?: T,
