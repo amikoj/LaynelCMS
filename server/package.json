@@ -60,7 +60,7 @@
     "generate": "prisma db push --force-reset --accept-data-loss"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node src/prisma/seed.ts"
   },
   "repository": {
     "type": "git",
