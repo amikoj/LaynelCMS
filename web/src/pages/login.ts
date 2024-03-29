@@ -4,7 +4,7 @@ import { HttpStatus } from "../enums/http-enum";
 import { USER_NAME_KEY, setToken } from "../store/token";
 import storage from "../utils/storage";
 import { ResponseBody } from "../interface";
-import { md5 } from '../utils/md5'
+import { md5 } from "../utils/md5";
 import { Page } from "../core/base";
 
 export const CAPTCHA_REFRESH: string = "login.refreshCaptcha"; // 刷新
@@ -33,17 +33,16 @@ export default class Login extends Page {
 
   initView() {
     this.$("#captcha").on("click", () => {
-      console.log('refresh verify code')
+      console.log("refresh verify code");
       this.getCaptchaBase64();
     });
 
-    this.$('#submitBtn').on('click', () => {
-      const formData: LoginDTO = this.getFormData('loginForm')  as LoginDTO
-      Object.assign(this.loginForm, formData)
+    this.$("#submitBtn").on("click", () => {
+      const formData: LoginDTO = this.getFormData("loginForm") as LoginDTO;
+      Object.assign(this.loginForm, formData);
       // 发起登陆请求
-      this.login()
-
-    })
+      this.login();
+    });
   }
 
   onReady(): void {
@@ -95,7 +94,7 @@ export default class Login extends Page {
       };
       result.data.push(error);
     }
-    if (result.data.length) this.toast(`校验不通过`, 'error');
+    if (result.data.length) this.toast(`校验不通过`, "error");
 
     return result.data.length ? result : null;
   }
@@ -104,12 +103,13 @@ export default class Login extends Page {
    * @description 用户登陆
    */
   async login() {
+    const validate = await this.validate();
+    if (validate) return;
 
-    const validate =  await this.validate()
-    if(validate) return
-
-
-    const data = {...this.loginForm, password: md5(this.loginForm.password).toUpperCase()}
+    const data = {
+      ...this.loginForm,
+      password: md5(this.loginForm.password).toUpperCase(),
+    };
     const res: ResponseBody<any> = await usePost("/auth/login", data);
     if (res.code === HttpStatus.SUCCESS_CODE) {
       const { id, email, name, nick, age, token } = res.data;

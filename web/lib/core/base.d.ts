@@ -1,6 +1,7 @@
 /// <reference types="jquery" />
 import { EventBus } from "../utils/eventbus";
 import { AxiosInstance } from "axios";
+import { Route } from "../interface";
 export declare abstract class Page {
     _eventBus: EventBus;
     $: JQueryStatic;
@@ -8,7 +9,9 @@ export declare abstract class Page {
     usePost: any;
     request: AxiosInstance;
     toastify: any;
+    route: Route;
     constructor();
+    onCheckPermission(): void;
     /**
      *@description 屏幕尺寸改变
      */
@@ -36,4 +39,9 @@ export declare abstract class Page {
      */
     getFormData(id: string): {};
     toast(op: any, type?: any): void;
+    /**
+     * 当前页面是否已登录
+     */
+    islogined(): boolean;
+    getToken(): any;
 }

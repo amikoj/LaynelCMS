@@ -8,3 +8,12 @@ export interface RequestConfigExtra {
     customDev?: boolean;
     loading?: boolean;
 }
+export interface Route {
+    hash: string;
+    host: string;
+    hostname: string;
+    href: string;
+    pathname: string;
+    port: string;
+    protocol: string;
+}

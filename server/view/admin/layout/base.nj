@@ -1,0 +1,18 @@
+{% extends "../base.nj" %}
+
+{% block body %}
+
+    {% include "./nav.nj" %}
+    {% block main %}
+        <main>
+            {% block content %}
+                <div class="flex justify-center items-center font-blod text-lg">
+页面开发中，敬请期待！
+        </div>
+            {% endblock %}
+
+        </main>
+
+    {% endblock %}
+
+{% endblock %}
