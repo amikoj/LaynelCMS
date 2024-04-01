@@ -63,7 +63,6 @@ export class AdminController {
   /**
    * 小工具管理
    */
-  @Get('/appearance')
   @Get('/appearance/tool')
   async tool() {
     await this.ctx.render('admin/appearance/tool');
