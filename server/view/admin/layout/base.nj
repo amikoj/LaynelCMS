@@ -2,7 +2,13 @@
 
 {% block body %}
 
-    {% include "./nav.nj" %}
+   
+
+    {# {% include "./horizonal-layout.nj" %}
+
+    {% include "./vertical-layout.nj" %} #}
+
+    {% include "./header.nj" %}
     {% block main %}
         <main>
             {% block content %}
