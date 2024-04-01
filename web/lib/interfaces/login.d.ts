@@ -7,3 +7,13 @@ export interface LoginDTO {
     captcha: string;
     captchaId: string;
 }
+/**
+ * 当前登陆用户信息
+ */
+export interface UserInfo {
+    id?: number;
+    email?: string;
+    icon?: string;
+    nick?: string;
+    age?: number;
+}

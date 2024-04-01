@@ -1,1 +1,9 @@
 {% extends "./layout/base.nj" %}
+
+{% block startup %}
+        <script>
+            const dashboard =  new LaynelCMS.Dashboard()
+            
+        </script>
+    
+{% endblock %}

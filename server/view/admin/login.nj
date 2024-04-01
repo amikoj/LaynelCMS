@@ -45,7 +45,7 @@
 
     {% block startup %}
         <script>
-            const login =  new LaynelCMS.Login.default()
+            const login =  new LaynelCMS.Login()
         </script>
 
     {% endblock %}

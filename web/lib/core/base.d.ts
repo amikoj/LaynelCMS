@@ -2,6 +2,7 @@
 import { EventBus } from "../utils/eventbus";
 import { AxiosInstance } from "axios";
 import { Route } from "../interface";
+import { Storage } from "../utils/storage";
 export declare abstract class Page {
     _eventBus: EventBus;
     $: JQueryStatic;
@@ -10,6 +11,7 @@ export declare abstract class Page {
     request: AxiosInstance;
     toastify: any;
     route: Route;
+    storage: Storage;
     constructor();
     onCheckPermission(): void;
     /**

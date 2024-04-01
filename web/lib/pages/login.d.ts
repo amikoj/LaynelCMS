@@ -6,7 +6,7 @@ export declare const LOGIN_FAILED: string;
 /**
  * @description 登陆页面聚合功能
  */
-export default class Login extends Page {
+export declare class Login extends Page {
     loginForm: LoginDTO;
     /**
      * @description 初始化操作，初始化数据，发起验证码请求

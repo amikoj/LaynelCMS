@@ -14,7 +14,7 @@ export const LOGIN_FAILED: string = "login.failed"; // 登录失败
 /**
  * @description 登陆页面聚合功能
  */
-export default class Login extends Page {
+export class Login extends Page {
   loginForm: LoginDTO;
 
   /**
