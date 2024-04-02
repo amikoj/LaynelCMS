@@ -5,35 +5,20 @@
 
 <div class="page">
     {% include "./header.nj" %}
+    {% include "./nav.nj" %}
 
 
     <div class="page-wrapper">
         <div class="page-body">
             <div class="container-xl">
+                {% block content %}
                 <div class="flex justify-center items-center font-blod text-lg">
-
-                    <div class="page">
-
-                        {% include "./nav.nj" %}
-                        <div class="page-wrapper">
-                            <div class="page-body">
-                                <div class="container-xl">
-                                    {% block content %}
-                                    <div class="flex justify-center items-center font-blod text-lg">
-                                        页面开发中，敬请期待！
-                                    </div>
-                                    {% endblock %}
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    页面开发中，敬请期待！
                 </div>
+                {% endblock %}
+
+
             </div>
-
-
         </div>
     </div>
 </div>

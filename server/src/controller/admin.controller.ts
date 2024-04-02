@@ -30,7 +30,7 @@ export class AdminController {
 
   @Get('/system/roles')
   async roleManager() {
-    await this.ctx.render('admin/system/user');
+    await this.ctx.render('admin/system/roles');
   }
 
   /**

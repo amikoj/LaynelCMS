@@ -1,7 +1,11 @@
 {% extends "./base.nj" %}
+
+{% block  head %}
+<script src="https://cdn.tailwindcss.com"></script>
+    
+{% endblock %}
 {% block body %}
     <div class="flex items-center bg-[url('/static/imgs/login-bg.jpg')] h-screen">
-
         <div class="container-md justify-content-center ">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-5">
@@ -41,7 +45,7 @@
             </div>
         </div>
 
-    {% endblock %}
+{% endblock %}
 
     {% block startup %}
         <script>
