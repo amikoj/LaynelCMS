@@ -2,9 +2,9 @@
 
 {% block body %}
 
-
+{#
 <div class="page">
-    {% include "./header.nj" %}
+
     {% include "./nav.nj" %}
 
 
@@ -21,11 +21,30 @@
             </div>
         </div>
     </div>
-</div>
+</div> #}
 
 
+<main class="relative h-screen overflow-hidden bg-gray-100 dark:bg-gray-800">
+    <div class="flex items-start justify-between">
+        {# nav #}
+        {% include "./nav.nj" %}
 
+        <div class="flex flex-col w-full md:space-y-4">
+            {# header #}
+            {% include "./header.nj" %}
 
+            <div class="h-screen px-4 pb-24 overflow-auto md:px-6">
+
+                {% block content %}
+                    
+                {% endblock %}
+                {% include "./footer.nj" %}
+            </div>
+
+            
+        </div>
+    </div>
+</main>
 
 
 

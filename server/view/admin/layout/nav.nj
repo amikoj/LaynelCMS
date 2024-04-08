@@ -1,318 +1,60 @@
-<nav class="navbar-expand-md">
-  <div class="collapse navbar-collapse" id="navbar-menu">
-    <div class="navbar navbar-light">
-      <div class="container-xl">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/dashborad">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <polyline points="5 12 3 12 12 3 21 12 19 12"></polyline>
-                  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                主页
-              </span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" role="button"
-              aria-expanded="false">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"></polyline>
-                  <line x1="12" y1="12" x2="20" y2="7.5"></line>
-                  <line x1="12" y1="12" x2="12" y2="21"></line>
-                  <line x1="12" y1="12" x2="4" y2="7.5"></line>
-                  <line x1="16" y1="5.25" x2="8" y2="9.75"></line>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                插件管理
-              </span>
-            </a>
-            <div class="dropdown-menu">
-              <div class="dropdown-menu-columns">
-                <div class="dropdown-menu-column">
-                  <a class="dropdown-item" href="../empty.html">
-                    Empty page
-                  </a>
-                  <a class="dropdown-item" href="../accordion.html">
-                    Accordion
-                  </a>
-                  <a class="dropdown-item" href="../blank.html">
-                    Blank page
-                  </a>
-                  <a class="dropdown-item" href="../buttons.html">
-                    Buttons
-                  </a>
-                  <a class="dropdown-item" href="../cards.html">
-                    Cards
-                  </a>
-                  <a class="dropdown-item" href="../cards-masonry.html">
-                    Cards Masonry
-                  </a>
-                  <a class="dropdown-item" href="../colors.html">
-                    Colors
-                  </a>
-                  <a class="dropdown-item" href="../dropdowns.html">
-                    Dropdowns
-                  </a>
-                  <a class="dropdown-item" href="../icons.html">
-                    Icons
-                  </a>
-                  <a class="dropdown-item" href="../modals.html">
-                    Modals
-                  </a>
-                  <a class="dropdown-item" href="../maps.html">
-                    Maps
-                  </a>
-                  <a class="dropdown-item" href="../map-fullsize.html">
-                    Map fullsize
-                  </a>
-                  <a class="dropdown-item" href="../maps-vector.html">
-                    Vector maps
-                  </a>
-                </div>
-                <div class="dropdown-menu-column">
-                  <a class="dropdown-item" href="../navigation.html">
-                    Navigation
-                  </a>
-                  <a class="dropdown-item" href="../charts.html">
-                    Charts
-                  </a>
-                  <a class="dropdown-item" href="../pagination.html">
-                    Pagination
-                  </a>
-                  <a class="dropdown-item" href="../skeleton.html">
-                    Skeleton
-                  </a>
-                  <a class="dropdown-item" href="../tabs.html">
-                    Tabs
-                  </a>
-                  <a class="dropdown-item" href="../tables.html">
-                    Tables
-                  </a>
-                  <a class="dropdown-item" href="../carousel.html">
-                    Carousel
-                  </a>
-                  <a class="dropdown-item" href="../lists.html">
-                    Lists
-                  </a>
-                  <a class="dropdown-item" href="../typography.html">
-                    Typography
-                  </a>
-                  <a class="dropdown-item" href="../markdown.html">
-                    Markdown
-                  </a>
-                  <div class="dropend">
-                    <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication" data-bs-toggle="dropdown"
-                      role="button" aria-expanded="false">
-                      Authentication
-                    </a>
-                    <div class="dropdown-menu">
-                      <a href="../sign-in.html" class="dropdown-item">Sign in</a>
-                      <a href="../sign-up.html" class="dropdown-item">Sign up</a>
-                      <a href="../forgot-password.html" class="dropdown-item">Forgot password</a>
-                      <a href="../terms-of-service.html" class="dropdown-item">Terms of service</a>
-                      <a href="../auth-lock.html" class="dropdown-item">Lock screen</a>
-                    </div>
-                  </div>
-                  <div class="dropend">
-                    <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown"
-                      role="button" aria-expanded="false">
-                      Error pages
-                    </a>
-                    <div class="dropdown-menu">
-                      <a href="../error-404.html" class="dropdown-item">404 page</a>
-                      <a href="../error-500.html" class="dropdown-item">500 page</a>
-                      <a href="../error-maintenance.html" class="dropdown-item">Maintenance page</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../form-elements.html">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <polyline points="9 11 12 14 20 6"></polyline>
-                  <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"></path>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                Form elements
-              </span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" role="button"
-              aria-expanded="false">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/star -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z">
-                  </path>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                Extra
-              </span>
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="../activity.html">
-                Activity
-              </a>
-              <a class="dropdown-item" href="../gallery.html">
-                Gallery
-              </a>
-              <a class="dropdown-item" href="../invoice.html">
-                Invoice
-              </a>
-              <a class="dropdown-item" href="../search-results.html">
-                Search results
-              </a>
-              <a class="dropdown-item" href="../pricing.html">
-                Pricing cards
-              </a>
-              <a class="dropdown-item" href="../users.html">
-                Users
-              </a>
-              <a class="dropdown-item" href="../license.html">
-                License
-              </a>
-              <a class="dropdown-item" href="../music.html">
-                Music
-              </a>
-              <a class="dropdown-item" href="../widgets.html">
-                Widgets
-              </a>
-              <a class="dropdown-item" href="../wizard.html">
-                Wizard
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" role="button"
-              aria-expanded="false">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/layout-2 -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <rect x="4" y="4" width="6" height="5" rx="2"></rect>
-                  <rect x="4" y="13" width="6" height="7" rx="2"></rect>
-                  <rect x="14" y="4" width="6" height="7" rx="2"></rect>
-                  <rect x="14" y="15" width="6" height="5" rx="2"></rect>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                Layout
-              </span>
-            </a>
-            <div class="dropdown-menu">
-              <div class="dropdown-menu-columns">
-                <div class="dropdown-menu-column">
-                  <a class="dropdown-item" href="../layout-horizontal.html">
-                    Horizontal
-                  </a>
-                  <a class="dropdown-item" href="../layout-vertical.html">
-                    Vertical
-                  </a>
-                  <a class="dropdown-item" href="../layout-vertical-transparent.html">
-                    Vertical transparent
-                  </a>
-                  <a class="dropdown-item" href="../layout-vertical-right.html">
-                    Right vertical
-                  </a>
-                  <a class="dropdown-item" href="../layout-condensed.html">
-                    Condensed
-                  </a>
-                  <a class="dropdown-item" href="../layout-condensed-dark.html">
-                    Condensed dark
-                  </a>
-                  <a class="dropdown-item" href="../layout-combo.html">
-                    Combined
-                  </a>
-                </div>
-                <div class="dropdown-menu-column">
-                  <a class="dropdown-item" href="../layout-navbar-dark.html">
-                    Navbar dark
-                  </a>
-                  <a class="dropdown-item" href="../layout-navbar-sticky.html">
-                    Navbar sticky
-                  </a>
-                  <a class="dropdown-item" href="../layout-navbar-overlap.html">
-                    Navbar overlap
-                  </a>
-                  <a class="dropdown-item" href="../layout-dark.html">
-                    Dark mode
-                  </a>
-                  <a class="dropdown-item" href="../layout-rtl.html">
-                    RTL mode
-                  </a>
-                  <a class="dropdown-item" href="../layout-fluid.html">
-                    Fluid
-                  </a>
-                  <a class="dropdown-item" href="../layout-fluid-vertical.html">
-                    Fluid vertical
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="../docs/index.html">
-              <span
-                class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/file-text -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-                  <line x1="9" y1="9" x2="10" y2="9"></line>
-                  <line x1="9" y1="13" x2="15" y2="13"></line>
-                  <line x1="9" y1="17" x2="15" y2="17"></line>
-                </svg>
-              </span>
-              <span class="nav-link-title">
-                Documentation
-              </span>
-            </a>
-          </li>
-        </ul>
-        <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-          <form action="." method="get">
-            <div class="input-icon">
-              <span class="input-icon-addon">
-                <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <circle cx="10" cy="10" r="7"></circle>
-                  <line x1="21" y1="21" x2="15" y2="15"></line>
-                </svg>
-              </span>
-              <input type="text" class="form-control" placeholder="Search…" aria-label="Search in website">
-            </div>
-          </form>
-        </div>
+<div class="relative hidden h-screen shadow-lg lg:block w-80">
+  <div class="h-full bg-white dark:bg-gray-700">
+      <div class="flex items-center justify-start pt-6 ml-8">
+          <p class="text-xl font-bold dark:text-white">
+              Laynel CMS管理系统
+          </p>
       </div>
-    </div>
+      <nav class="mt-6">
+          <div>
+              <a class="flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-800 transition-colors duration-200 border-l-4 border-purple-500 dark:text-white" href="#">
+                  <span class="text-left">
+                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1472 992v480q0 26-19 45t-45 19h-384v-384h-256v384h-384q-26 0-45-19t-19-45v-480q0-1 .5-3t.5-3l575-474 575 474q1 2 1 6zm223-69l-62 74q-8 9-21 11h-3q-13 0-21-7l-692-577-692 577q-12 8-24 7-13-2-21-11l-62-74q-8-10-7-23.5t11-21.5l719-599q32-26 76-26t76 26l244 204v-195q0-14 9-23t23-9h192q14 0 23 9t9 23v408l219 182q10 8 11 21.5t-7 23.5z">
+                          </path>
+                      </svg>
+                  </span>
+                  <span class="mx-2 text-sm font-normal">
+                      首页
+                  </span>
+              </a>
+              <a class="flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-400 transition-colors duration-200 border-l-4 border-transparent hover:text-gray-800" href="#">
+                  <span class="text-left">
+                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1070 1178l306-564h-654l-306 564h654zm722-282q0 182-71 348t-191 286-286 191-348 71-348-71-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z">
+                          </path>
+                      </svg>
+                  </span>
+                  <span class="mx-2 text-sm font-normal">
+                      Refered Projects
+                      <span class="w-4 h-2 p-1 ml-4 text-xs text-gray-400 bg-gray-200 rounded-lg">
+                          0
+                      </span>
+                  </span>
+              </a>
+              <a class="flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-400 transition-colors duration-200 border-l-4 border-transparent hover:text-gray-800" href="#">
+                  <span class="text-left">
+                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z">
+                          </path>
+                      </svg>
+                  </span>
+                  <span class="mx-4 text-sm font-normal">
+                      Resources
+                  </span>
+              </a>
+              <a class="flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-400 transition-colors duration-200 border-l-4 border-transparent hover:text-gray-800" href="#">
+                  <span class="text-left">
+                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M580 461q0-41-25-66t-66-25q-43 0-76 25.5t-33 65.5q0 39 33 64.5t76 25.5q41 0 66-24.5t25-65.5zm743 507q0-28-25.5-50t-65.5-22q-27 0-49.5 22.5t-22.5 49.5q0 28 22.5 50.5t49.5 22.5q40 0 65.5-22t25.5-51zm-236-507q0-41-24.5-66t-65.5-25q-43 0-76 25.5t-33 65.5q0 39 33 64.5t76 25.5q41 0 65.5-24.5t24.5-65.5zm635 507q0-28-26-50t-65-22q-27 0-49.5 22.5t-22.5 49.5q0 28 22.5 50.5t49.5 22.5q39 0 65-22t26-51zm-266-397q-31-4-70-4-169 0-311 77t-223.5 208.5-81.5 287.5q0 78 23 152-35 3-68 3-26 0-50-1.5t-55-6.5-44.5-7-54.5-10.5-50-10.5l-253 127 72-218q-290-203-290-490 0-169 97.5-311t264-223.5 363.5-81.5q176 0 332.5 66t262 182.5 136.5 260.5zm592 561q0 117-68.5 223.5t-185.5 193.5l55 181-199-109q-150 37-218 37-169 0-311-70.5t-223.5-191.5-81.5-264 81.5-264 223.5-191.5 311-70.5q161 0 303 70.5t227.5 192 85.5 263.5z">
+                          </path>
+                      </svg>
+                  </span>
+                  <span class="mx-4 text-sm font-normal">
+                      Store feedback
+                  </span>
+              </a>
+          </div>
+      </nav>
   </div>
-</nav>
+</div>
