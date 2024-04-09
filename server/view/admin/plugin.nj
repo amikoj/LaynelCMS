@@ -1,0 +1,6 @@
+{% extends "./layout/base.nj" %}
+
+{% block content %}
+plugin
+
+{% endblock%}

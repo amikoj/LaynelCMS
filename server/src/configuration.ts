@@ -57,7 +57,7 @@ export class MainConfiguration {
     // add filter
     this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
 
-    const list = this.webRouterService.getFlattenRouterTable();
-    console.log('get router list:', list);
+    // const list = this.webRouterService.getFlattenRouterTable();
+    // console.log('get router list:', await list);
   }
 }

@@ -1,0 +1,6 @@
+{% extends "./layout/base.nj" %}
+
+{% block content %}
+文章列表
+
+{% endblock%}
