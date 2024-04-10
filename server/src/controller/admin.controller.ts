@@ -27,10 +27,11 @@ export class AdminController {
   }
 
 
-  @Get('/:path')
+  @Get('/*')
   async page() {
     const params = this.ctx.params
-    await this.adminService.render(params.path)
+    console.log('get params:', params)
+    await this.adminService.render(params['0'])
   }
 
 }

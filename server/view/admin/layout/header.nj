@@ -30,7 +30,7 @@
       <span class="w-1 h-8 bg-gray-200 rounded-lg">
       </span>
       <a href="#" class="relative block">
-        <img alt="profil" src="/images/person/1.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+        {# <img alt="profil" src="/images/person/1.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " /> #}
       </a>
       <button class="flex items-center text-gray-500 dark:text-white text-md">
         Charlie R

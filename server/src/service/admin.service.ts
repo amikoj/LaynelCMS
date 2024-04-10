@@ -27,6 +27,11 @@ interface ExtraData {
     menu: MenuItem[],
 }
 
+
+const whiteList = [
+    'login'
+]
+
 // 后台管理系统
 @Provide()
 export class AdminService {
@@ -54,12 +59,16 @@ export class AdminService {
      */
     transformTree(menus: MenuItem[]) {
         const map = _.keyBy(JSON.parse(JSON.stringify(menus)), 'id')
-        const array = []
         menus.forEach((menu: MenuItem) => {
-            if (menu.parentId === null) array.push(menu)
-            else if (map[menu.parentId]) (map[menu.parentId].children ??= []).push(menu)
+            if (map[menu.parentId]) {
+              if(!map[menu.parentId].children)  map[menu.parentId].children = [menu]
+              else map[menu.parentId].children.push(menu)
+
+              delete map[menu.id]
+        
+            }
         })
-        return array
+        return Object.values(map)
     }
 
 
@@ -75,24 +84,29 @@ export class AdminService {
                 parentId: null,
                 id: 1,
                 type: MenuType.PAGE,
+                icon:'icon-dashborad',
             }, {
                 path: "article",
                 title: "文章管理",
                 id: 6,
                 type: MenuType.PAGE,
                 parentId: null,
+                icon:'icon-icon_dashborad',
             }, {
                 path: "plugin",
                 title: "插件管理",
                 id: 5,
                 parentId: null,
-                type: MenuType.PAGE
+                type: MenuType.PAGE,
+                icon:'icon-plugin6',
             }, {
                 path: "system",
                 title: "系统管理",
                 id: 2,
                 parentId: null,
                 type: MenuType.DIR,
+                icon:'icon-icon-test16',
+                redirect: 'system/users'
             }, {
                 path: "system/users",
                 title: "用户管理",
@@ -122,14 +136,18 @@ export class AdminService {
 
         options.path = path
 
+        console.log('get menu:',this.data.menu)
+
+        if(whiteList.includes(path)) 
+        return await this.ctx.render(`admin/${path}`, { ...this.data, ...options })
+
         const target = this.menus.find((menu: MenuItem) => menu.path === path)
         if(target) {
-
             let currentPath = path
             if(target.redirect) currentPath = target.redirect
             const p = target.extra ? `pages/${currentPath}`:currentPath
 
-            if(target.redirect) return await this.ctx.redirect(`admin/${p}`)
+            if(target.redirect) return await this.ctx.redirect(`/admin/${p}`)
             return await this.ctx.render(`admin/${p}`, { ...this.data, ...options });
         }
         return await this.ctx.render('admin/404', { ...this.data, ...options });

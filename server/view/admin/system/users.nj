@@ -1,1 +1,1 @@
-{% extends "./layout/base.nj" %}
+{% extends "../layout/base.nj" %}

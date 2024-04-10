@@ -1,3 +1,44 @@
+{% macro rendMenuItem(menus, currentPath) %}
+<ul class="list-none py-">
+    {% for item in menus %}
+    <li class=" w-full p-2 pl-6 my-2 text-gray-800 transition-colors duration-200 py-0">
+        {% if item.path === currentPath %}
+        <div class="flex items-center justify-start text-[#4f46e5] font-bold" >
+            {% else %}
+            <div class="flex items-center justify-start ">
+                {% endif %}
+                {% if item.type === 2 %}
+                <a href="/admin/{{item.path}}">
+                    {% endif %}
+                    {% if item.icon %}
+                    <span class="text-left">
+                        <i class="iconfont {{item.icon}}"> </i>
+                    </span>
+                    {% endif %}
+                    <span class="mx-2 text-sm font-normal">
+                        {{item.title}}
+                    </span>
+                    {% if item.type === 2 %}
+                </a>
+
+                {% endif %}
+            </div>
+
+            {% if item.children %}
+            {{ rendMenuItem(item.children, currentPath)}}
+
+
+            {% endif %}
+
+    </li>
+
+    {% endfor %}
+</ul>
+
+{% endmacro %}
+
+
+
 <div class="relative hidden h-screen shadow-lg lg:block w-80">
     <div class="h-full bg-white dark:bg-gray-700">
         <div class="flex items-center justify-start pt-6 ml-8">
@@ -6,40 +47,9 @@
             </p>
         </div>
         <nav class="mt-6">
-            <div>
+            <div class=" text-xl">
 
-                {# <a
-                    class="flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-800 transition-colors duration-200 border-l-4 border-purple-500 dark:text-white"
-                    href={{item.path}}> #}
-                    {% for item in menu %}
-
-                    {% if item.path === path %}
-                    <a class='flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-800 transition-colors duration-200 border-l-4 border-purple-500 dark:text-white'
-                        href={{item.path}}>
-
-                        {% else %}
-                        <a class='flex items-center justify-start w-full p-2 pl-6 my-2 text-gray-800 transition-colors duration-200 border-l-4 border-transparent hover:text-gray-800'
-                            href={{item.path}}>
-
-                            {% endif %}
-
-
-
-
-                            <span class="text-left">
-                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 1792 1792"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M1472 992v480q0 26-19 45t-45 19h-384v-384h-256v384h-384q-26 0-45-19t-19-45v-480q0-1 .5-3t.5-3l575-474 575 474q1 2 1 6zm223-69l-62 74q-8 9-21 11h-3q-13 0-21-7l-692-577-692 577q-12 8-24 7-13-2-21-11l-62-74q-8-10-7-23.5t11-21.5l719-599q32-26 76-26t76 26l244 204v-195q0-14 9-23t23-9h192q14 0 23 9t9 23v408l219 182q10 8 11 21.5t-7 23.5z">
-                                    </path>
-                                </svg>
-                            </span>
-                            <span class="mx-2 text-sm font-normal">
-                                {{item.title}}
-                            </span>
-                        </a>
-
-                        {% endfor %}
+                {{rendMenuItem(menu, path)}}
             </div>
         </nav>
     </div>

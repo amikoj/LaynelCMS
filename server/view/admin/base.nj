@@ -2,6 +2,7 @@
 
 {% block head %}
 
+<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/c/font_4502774_co8ilf1kdgk.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 {# <script src="https://lib.baomitu.com/jquery/3.5.1/jquery.min.js"></script> #}
 <style>
