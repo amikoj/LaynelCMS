@@ -1,6 +1,37 @@
 {% extends "./layout/base.nj" %}
 
+{% from "./componets/table.nj"  import ProTable %}
+
+{{ ProTable({
+    columns:[
+    {
+        dataIndex: 'index',
+        title:'序号',
+    },    {
+        dataIndex: 'title',
+        title:'标题',
+    },    {
+        dataIndex: '',
+        title:'分类',
+    },    {
+        dataIndex: 'index',
+        title:'序号',
+    }
+    
+    ]
+})}}
+
+
+
 {% block content %}
 文章列表
 
 {% endblock%}
+
+
+{% block startup %}
+<script>
+    const login = new LaynelCMS.Article()
+</script>
+
+{% endblock %}

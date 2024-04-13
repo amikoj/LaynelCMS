@@ -1,0 +1,34 @@
+
+
+{% macro ProTable(args) %}
+
+
+<div class="pro-table">
+
+
+  <div class="pro-search-form"> 
+
+
+  </div>
+
+
+  
+<table >
+
+
+
+</table>
+
+</div>
+
+  
+{% endmacro %}
+
+
+
+
+
+
+
+
+

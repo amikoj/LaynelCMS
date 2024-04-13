@@ -59,5 +59,11 @@ export class MainConfiguration {
 
     // const list = this.webRouterService.getFlattenRouterTable();
     // console.log('get router list:', await list);
+
+    this.env.addFilter('toString', (obj: any) => {
+      const json = JSON.stringify(obj);
+      console.log('get json:', json);
+      return json;
+    });
   }
 }

@@ -14,3 +14,18 @@ export function Toast(msg, duration) {
     }, d * 1000);
   }, duration);
 }
+
+const encodeNames = {
+  "&amp;": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&apos;": "'",
+  "&#039;": "'",
+};
+
+export const decodeName = (str = "") =>
+  str?.replace(
+    /(?:&amp;|&lt;|&gt;|&quot;|&apos;|&#039;)/gm,
+    (s) => encodeNames[s],
+  );
