@@ -4,46 +4,46 @@ import { AxiosInstance } from "axios";
 import { Route } from "../interface";
 import { Storage } from "../utils/storage";
 export declare abstract class Page {
-  _eventBus: EventBus;
-  $: JQueryStatic;
-  useGet: any;
-  usePost: any;
-  request: AxiosInstance;
-  toastify: any;
-  route: Route;
-  storage: Storage;
-  constructor();
-  onCheckPermission(): void;
-  /**
-   *@description 屏幕尺寸改变
-   */
-  onResize(): void;
-  /**
-   * @description dom构建完成后即可执行
-   */
-  onReady(): void;
-  /**
-   * @description dom加载完成，加载顺序 onReady -> onLoad -> onMounted
-   */
-  onLoad(): void;
-  /**
-   * @description window加载完成【页面所有资源，包含网络请求的静态资源全部完成加载后触发】
-   */
-  onMounted(): void;
-  initListener(): void;
-  get(key: string): any;
-  fire(event: any, data: any): void;
-  on(events: string[] | string, callback: any, that?: any): void;
-  off(events: any[] | any, callback: any): void;
-  /**
-   *  通过form id获取form数据
-   * @param id
-   */
-  getFormData(id: string): object;
-  toast(op: any, type?: any): void;
-  /**
-   * 当前页面是否已登录
-   */
-  islogined(): boolean;
-  getToken(): any;
+    _eventBus: EventBus;
+    $: JQueryStatic;
+    useGet: any;
+    usePost: any;
+    request: AxiosInstance;
+    toastify: any;
+    route: Route;
+    storage: Storage;
+    constructor();
+    onCheckPermission(): void;
+    /**
+     *@description 屏幕尺寸改变
+     */
+    onResize(): void;
+    /**
+     * @description dom构建完成后即可执行
+     */
+    onReady(): void;
+    /**
+     * @description dom加载完成，加载顺序 onReady -> onLoad -> onMounted
+     */
+    onLoad(): void;
+    /**
+     * @description window加载完成【页面所有资源，包含网络请求的静态资源全部完成加载后触发】
+     */
+    onMounted(): void;
+    initListener(): void;
+    get(key: string): any;
+    fire(event: any, data: any): void;
+    on(events: string[] | string, callback: any, that?: any): void;
+    off(events: any[] | any, callback: any): void;
+    /**
+     *  通过form id获取form数据
+     * @param id
+     */
+    getFormData(id: string): {};
+    toast(op: any, type?: any): void;
+    /**
+     * 当前页面是否已登录
+     */
+    islogined(): boolean;
+    getToken(): any;
 }

@@ -1,8 +1,18 @@
 {% extends "web/components/base.nj" %}
-{% block title %}
-        Layel CMS Web
-{% endblock %}
+
 
 {% block main %}
-这是首页界面布局
+<div class="min-h-[300px] max-w-[1280px] mx-auto">
+        <div class='bg-white py-[15px] rounded'> 
+                <h1> 计算机基础知识 </h1>
+
+
+
+        </div>
+
+
+        
+
+</div>
+
 {% endblock %}

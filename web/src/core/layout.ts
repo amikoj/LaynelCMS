@@ -16,7 +16,7 @@ export abstract class BaseLayout extends Page {
     this.layoutType = LayoutTypes.Vertical;
     this.loadUserInfo();
     this.initView();
-    this.routes = JSON.parse(decodeName(window.laynel?.menu));
+    this.routes = JSON.parse(decodeName(window?.laynel?.menu));
     console.log("get routes:", this.routes);
   }
 
