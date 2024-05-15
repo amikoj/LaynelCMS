@@ -11,7 +11,17 @@ export class WebController {
   @Get('/')
   async render() {
     await this.ctx.render('default/home', {
-      data: 'world',
+      data: [
+        {
+          title: '计算机基础知识',
+          chapts: [
+            {
+              title: '',
+              href: '',
+            },
+          ],
+        },
+      ],
     });
   }
 }
