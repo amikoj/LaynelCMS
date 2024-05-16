@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-      - "7001:7001"
+      - "7001:9001"
     links:
       - redis
     depends_on:

@@ -34,7 +34,7 @@ const users = [
     roles: {
       connect: [{ id: 1 }],
     },
-    password: '2BC68D71FC41C028',
+    password: 'Aa111111', // Aa111111
   },
   {
     email: '1710600212@qq.com',
@@ -45,7 +45,18 @@ const users = [
     roles: {
       connect: [{ id: 1 }, { id: 2 }],
     },
-    password: '2BC68D71FC41C028',
+    password: 'Aa111111',
+  },
+  {
+    email: '1710600212@qq.com',
+    name: 'test',
+    nick: 'test',
+    age: 1,
+    gender: 1,
+    roles: {
+      connect: [{ id: 1 }, { id: 2 }],
+    },
+    password: 'Aa111111',
   },
 ];
 
@@ -65,14 +76,14 @@ export async function main() {
   );
 }
 
-// main()
-//   .then((res: any) => {
-//     console.log('---------初始化数据成功--------');
-//   })
-//   .catch(e => {
-//     console.error(e);
-//     process.exit(1);
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
+main()
+  .then((res: any) => {
+    console.log('---------初始化数据成功--------', res);
+  })
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

@@ -1,5 +1,6 @@
 import {
   Body,
+  Config,
   Controller,
   Get,
   Inject,
@@ -11,13 +12,17 @@ import { CaptchaService } from '@midwayjs/captcha';
 import { LoginDTO } from '../dto/login';
 import { AuthService } from '../service/auth.service';
 import { CAPTCHED_NOT_MATCHED } from '../utils/network';
-import { ApiTags } from '@midwayjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@midwayjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags(['auth'])
 @Controller('/api/auth')
 export class AuthController {
   @Inject()
   ctx: Context;
+
+  @Config('captcha')
+  captchaConfig;
 
   @Inject()
   captchaService: CaptchaService;
@@ -61,11 +66,26 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() loginInfo: LoginDTO) {
-    const { captcha, captchaId, name } = loginInfo;
+    const { captcha, captchaId, username } = loginInfo;
 
-    const passed: boolean = await this.captchaService.check(captchaId, captcha);
-    if (passed || name === 'admin')
+    if (this.captchaConfig.enable) {
+      // 是否开启验证码
+      const passed: boolean = await this.captchaService.check(
+        captchaId,
+        captcha
+      );
+      if (passed || username === 'admin')
+        return await this.authService.login(loginInfo);
+      throw new MidwayHttpError('验证码不匹配', CAPTCHED_NOT_MATCHED);
+    } else {
       return await this.authService.login(loginInfo);
-    throw new MidwayHttpError('验证码不匹配', CAPTCHED_NOT_MATCHED);
+    }
+  }
+
+  // 获取菜单列表
+
+  @Get('/menu')
+  async menu() {
+    return await this.authService.menu();
   }
 }

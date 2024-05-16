@@ -67,4 +67,8 @@ export default {
   //     db: 0,
   //   },
   // },
+  captcha: {
+    // 验证码校验
+    enable: false, // 是否开启
+  },
 } as MidwayConfig;

@@ -12,6 +12,7 @@ export class AuthMiddleware implements IMiddleware<Context, NextFunction> {
 
   resolve() {
     return async (ctx: Context, next: NextFunction) => {
+      console.log('get Context:', ctx);
       // 判断下有没有校验信息
       if (!ctx.headers['authorization']) {
         throw new httpError.UnauthorizedError();

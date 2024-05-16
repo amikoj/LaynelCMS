@@ -6,14 +6,14 @@ import { Rule, RuleType } from '@midwayjs/validate';
  */
 export class LoginDTO {
   @ApiProperty({ example: 'Kitty', description: '验证码ID' })
-  @Rule(RuleType.string().required())
-  captchaId: string;
+  @Rule(RuleType.string())
+  captchaId?: string;
   @ApiProperty({ example: 'Kitty', description: '验证码' })
-  @Rule(RuleType.string().required())
-  captcha: string;
+  @Rule(RuleType.string())
+  captcha?: string;
   @ApiProperty({ example: 'Kitty', description: '用户名' })
   @Rule(RuleType.string().required())
-  name: string;
+  username: string;
   @ApiProperty({ example: '123456', description: '密码' })
   @Rule(RuleType.string().required())
   password: string;

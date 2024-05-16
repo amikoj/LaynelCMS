@@ -7,5 +7,4 @@ import { ApiTags } from '@midwayjs/swagger';
 export class TemplateController {
   @Inject()
   ctx: Context;
-
 }

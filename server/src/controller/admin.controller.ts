@@ -3,18 +3,14 @@ import { Context } from '@midwayjs/koa';
 import { ApiExcludeController } from '@midwayjs/swagger';
 import { AdminService } from '../service/admin.service';
 
-
-
 @Controller('/admin')
 @ApiExcludeController()
 export class AdminController {
   @Inject()
   ctx: Context;
 
-
   @Inject()
   adminService: AdminService;
-
 
   @Get('/login')
   async login() {
@@ -26,12 +22,10 @@ export class AdminController {
     await this.adminService.render('dashborad');
   }
 
-
   @Get('/*')
   async page() {
-    const params = this.ctx.params
-    console.log('get params:', params)
-    await this.adminService.render(params['0'])
+    const params = this.ctx.params;
+    console.log('get params:', params);
+    await this.adminService.render(params['0']);
   }
-
 }
