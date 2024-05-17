@@ -26,11 +26,11 @@ export interface LoginResultModel {
 export interface GetUserInfoModel {
   roles: RoleInfo[];
   // 用户id
-  userId: string | number;
+  id: string | number;
   // 用户名
-  username: string;
+  name: string;
   // 真实名字
-  realName: string;
+  nick: string;
   // 头像
   avatar: string;
   // 介绍

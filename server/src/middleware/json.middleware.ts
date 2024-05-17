@@ -8,6 +8,7 @@ const IGNORE_PATH = ['/api/login'];
 export class JSONMiddleware implements IMiddleware<Context, NextFunction> {
   resolve() {
     return async (ctx: Context, next: NextFunction) => {
+      console.log(' listenering request url:', ctx.url);
       const _res = await next();
       const result: IResposeOptions = {
         code: 0,

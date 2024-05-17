@@ -17,12 +17,18 @@ export class UserService {
     if (isNullOrUndefined(user) && Object.keys(user).length) return null;
     const current = await prisma.user.findFirst({
       where: {
-        ...omit(user, ['password', 'roles']),
+        ...omit(user, ['password', 'roles', 'isDeleted']),
         isDeleted: false,
+      },
+      include: {
+        roles: true,
       },
     });
     return {
       ...omit(current, ['password', 'createdAt', 'updatedAt']),
+      roles: current.roles?.map((role: any) =>
+        omit(role, ['createdAt', 'updatedAt'])
+      ),
     };
   }
 
