@@ -5,7 +5,7 @@ import { PassportMiddleware, AuthenticateOptions } from '@midwayjs/passport';
 import { JwtStrategy } from '../strategy/jwt.strategy';
 import { Context } from '@midwayjs/koa';
 
-const IGNORE_PATH = ['/api/auth/login', '/api/auth/captcha'];
+const IGNORE_PATH = ['/auth/login', '/api/auth/captcha'];
 
 @Middleware()
 export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
