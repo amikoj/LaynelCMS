@@ -72,9 +72,8 @@ export class AuthService {
       if (menu.pid === null) target.push(map[menu.id]);
       else {
         if (menu.hidden)
-          map[menu.id].meta.currentActiveMenu = map[menu.pid]
-            .path((map[menu.pid].children ??= []))
-            .push(map[menu.id]);
+          map[menu.id].meta.currentActiveMenu = map[menu.pid]?.path;
+        (map[menu.pid].children ??= []).push(map[menu.id]);
       }
     });
     return target;

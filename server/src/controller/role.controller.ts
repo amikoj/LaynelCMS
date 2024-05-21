@@ -10,7 +10,6 @@ import {
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { RuleType, Valid } from '@midwayjs/validate';
-import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
 import { RoleService } from '../service/role.service';
 import { RoleDTO } from '../dto/role';
@@ -32,7 +31,7 @@ export class RoleController {
    */
   @Get('/')
   async getRole(@Query('id') id: number) {
-    return await this.roleService.getRole({ id } as UserDTO);
+    return await this.roleService.getRole({ id } as RoleDTO);
   }
 
   @Put('/')
@@ -52,6 +51,11 @@ export class RoleController {
 
   @Post('/page')
   async page(@Body() query: QueryInfoDTO) {
-    return await this.roleService.list(query);
+    return await this.roleService.page(query);
+  }
+
+  @Get('/list')
+  async list() {
+    return await this.roleService.list();
   }
 }

@@ -10,23 +10,32 @@ const roles = [
     id: 1,
     name: '系统管理员',
     desc: '系统管理员',
+    code: 'admin',
+    sort: 1,
+    status: 1,
   },
   {
     id: 2,
     name: '管理员',
     desc: '后台管理员',
+    code: 'system',
+    sort: 2,
+    status: 1,
   },
   {
     id: 3,
     name: '运维',
     desc: '运维人员',
+    code: 'operation',
+    sort: 1,
+    status: 1,
   },
 ];
 
 // 初始化数据
 const users = [
   {
-    // email: 'hfcaidev@gmail.com',
+    email: 'hfcaidev@gmail.com',
     name: 'admin',
     nick: '管理员',
     age: 1,
@@ -36,9 +45,10 @@ const users = [
     },
     password: 'Aa111111', // Aa111111
     avatar: '',
+    remark: '超级管理员',
   },
   {
-    // email: '1710600212@qq.com',
+    email: '1710600212@qq.com',
     name: 'cai',
     nick: '胖蔡',
     age: 1,
@@ -48,9 +58,10 @@ const users = [
     },
     password: 'Aa111111',
     avatar: '',
+    remark: '测试用户',
   },
   {
-    // email: '1710600212@qq.com',
+    email: '1710600212@qq.com',
     name: 'test',
     nick: 'test',
     age: 1,
@@ -60,6 +71,7 @@ const users = [
     },
     password: 'Aa111111',
     avatar: '',
+    remark: '测试用户2',
   },
 ];
 

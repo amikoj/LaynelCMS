@@ -55,6 +55,9 @@ model Permissions {
 model Role {
   id          Int           @id @default(autoincrement())
   name        String        @unique
+  code        String        @unique
+  sort        Int           @default(1)
+  status      Int           @default(1) // 1 启用 2 禁用
   desc        String?
   users       User[]
   permissions Permissions[]
@@ -82,6 +85,7 @@ model User {
   age       Int      @default(0)
   gender    Int      @default(1) // 1 男 2 女
   isDeleted Boolean  @default(false) // 设置删除flag
+  remark    String?
   avatar    String?  // 头像地址
   profile   Profile?
   roles     Role[]

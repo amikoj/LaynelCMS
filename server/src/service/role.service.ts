@@ -1,7 +1,7 @@
 import { MidwayHttpError, Provide } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { isNullOrUndefined } from '@midwayjs/core/dist/util/types';
-import { RoleDTO } from '../dto/role';
+import { RoleDTO, RoleStatusEnum } from '../dto/role';
 import { QueryInfoDTO } from '../dto/query';
 import { omit } from 'lodash';
 import {
@@ -44,20 +44,32 @@ export class RoleService {
   }
 
   // 列表查询
-  async list(query: QueryInfoDTO) {
-    const { page = 1, limit = 15, ...options } = query;
-    console.log('get query:', query);
+  async page(query: QueryInfoDTO) {
+    const { page = 1, pageSize = 15 } = query;
     const result = await prisma.role.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
       where: {
-        ...options,
+        status: RoleStatusEnum.ACTIVE,
+      },
+      orderBy: {
+        sort: 'asc',
+      },
+    });
+
+    return result;
+  }
+
+  async list() {
+    const result = await prisma.role.findMany({
+      select: {
+        id: true,
+        name: true,
       },
       orderBy: {
         updatedAt: 'desc',
       },
     });
-
     return result;
   }
 

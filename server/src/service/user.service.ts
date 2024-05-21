@@ -73,20 +73,42 @@ export class UserService {
 
   // 列表查询
   async list(query: QueryInfoDTO) {
-    const { page = 1, limit = 15, ...options } = query;
+    const { page = 1, pageSize = 15, name = '', nick = '' } = query;
+
     const result = await prisma.user.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
       where: {
-        ...omit(options, ['pageSize']),
         isDeleted: false,
+        name: {
+          contains: name,
+        },
+        nick: {
+          contains: nick,
+        },
       },
       orderBy: {
         updatedAt: 'desc',
       },
+      select: {
+        id: true,
+        name: true,
+        nick: true,
+        age: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+        gender: true,
+        email: true,
+        roles: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        remark: true,
+      },
     });
-
-    console.log('get result:', result);
     return result;
   }
 
