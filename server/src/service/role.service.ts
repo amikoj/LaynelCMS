@@ -49,9 +49,6 @@ export class RoleService {
     const result = await prisma.role.findMany({
       skip: (page - 1) * pageSize,
       take: pageSize,
-      where: {
-        status: RoleStatusEnum.ACTIVE,
-      },
       orderBy: {
         sort: 'asc',
       },
@@ -62,6 +59,9 @@ export class RoleService {
 
   async list() {
     const result = await prisma.role.findMany({
+      where: {
+        status: RoleStatusEnum.ACTIVE,
+      },
       select: {
         id: true,
         name: true,

@@ -1,6 +1,5 @@
-import { MidwayHttpError, Provide } from '@midwayjs/core';
+import { MidwayHttpError, Provide, Inject } from '@midwayjs/core';
 import { prisma } from '../prisma';
-import { isNullOrUndefined } from '@midwayjs/core/dist/util/types';
 import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
 import { omit } from 'lodash';
@@ -9,12 +8,15 @@ import {
   OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
+import { Context } from '@midwayjs/koa';
 
 @Provide()
 export class UserService {
+  @Inject()
+  ctx: Context;
   // 获取用户信息
   async getUser(user: UserDTO) {
-    if (isNullOrUndefined(user) && Object.keys(user).length) return null;
+    if (!user.id) user.name = this.ctx.state.user.name;
     const current = await prisma.user.findFirst({
       where: {
         ...omit(user, ['password', 'roles', 'isDeleted']),
@@ -25,7 +27,7 @@ export class UserService {
       },
     });
     return {
-      ...omit(current, ['password', 'createdAt', 'updatedAt']),
+      ...omit(current, ['password', 'createdAt', 'updatedAt', 'isDeleted']),
       roles: current.roles?.map((role: any) =>
         omit(role, ['createdAt', 'updatedAt'])
       ),

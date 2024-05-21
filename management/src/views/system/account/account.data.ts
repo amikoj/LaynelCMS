@@ -1,6 +1,7 @@
 import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import dayjs from 'dayjs';
 
 export const columns: BasicColumn[] = [
   {
@@ -22,13 +23,16 @@ export const columns: BasicColumn[] = [
     title: '创建时间',
     dataIndex: 'createdAt',
     width: 180,
+    format(text) {
+      return dayjs(text).format('YYYY-MM-DD HH:mm');
+    },
   },
   {
     title: '角色',
     dataIndex: 'roles',
     width: 200,
     format(_text, record) {
-      return record.roles.map((role: any) => role.name).join(',')
+      return record.roles.map((role: any) => role.name).join(',');
     },
   },
   {

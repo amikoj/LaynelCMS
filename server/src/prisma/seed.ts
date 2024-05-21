@@ -118,7 +118,7 @@ const permissions = [
     id: 3,
     name: 'AccountManagement',
     path: '/system/account',
-    component: '/demo/system/account/index',
+    component: '/system/account/index',
     type: 1,
     title: '用户管理',
     pid: 2,
@@ -130,7 +130,7 @@ const permissions = [
     id: 4,
     name: 'RoleManagement',
     path: '/system/role',
-    component: '/demo/system/role/index',
+    component: '/system/role/index',
     type: 1,
     title: '角色管理',
     pid: 2,
@@ -142,7 +142,7 @@ const permissions = [
     id: 5,
     name: 'MenuManagement',
     path: '/system/menu',
-    component: '/demo/system/menu/index',
+    component: '/system/menu/index',
     type: 1,
     title: '菜单管理',
     pid: 2,
@@ -155,7 +155,7 @@ const permissions = [
     id: 6,
     name: 'AccountDetail',
     path: '/system/account_detail/:id',
-    component: '/demo/system/account/AccountDetail',
+    component: '/system/account/AccountDetail',
     type: 1,
     title: '用户详情',
     pid: 2,
@@ -199,14 +199,14 @@ export async function main() {
   ]);
 }
 
-main()
-  .then((res: any) => {
-    console.log('---------初始化数据成功--------', res);
-  })
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// main()
+//   .then((res: any) => {
+//     console.log('---------初始化数据成功--------', res);
+//   })
+//   .catch(e => {
+//     console.error(e);
+//     process.exit(1);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });
