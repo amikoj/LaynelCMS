@@ -88,7 +88,7 @@
 
         // 重新获取用户信息和菜单
         userStore.getUserInfoAction();
-        permissionStore.changePermissionCode();
+        // permissionStore.changePermissionCode();
       }
 
       return {
