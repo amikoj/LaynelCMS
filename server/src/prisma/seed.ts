@@ -35,6 +35,7 @@ const roles = [
 // 初始化数据
 const users = [
   {
+    id: 1,
     email: 'hfcaidev@gmail.com',
     name: 'admin',
     nick: '管理员',
@@ -48,6 +49,7 @@ const users = [
     remark: '超级管理员',
   },
   {
+    id: 2,
     email: '1710600212@qq.com',
     name: 'cai',
     nick: '胖蔡',
@@ -61,6 +63,7 @@ const users = [
     remark: '测试用户',
   },
   {
+    id: 3,
     email: '1710600212@qq.com',
     name: 'test',
     nick: 'test',
@@ -199,14 +202,14 @@ export async function main() {
   ]);
 }
 
-// main()
-//   .then((res: any) => {
-//     console.log('---------初始化数据成功--------', res);
-//   })
-//   .catch(e => {
-//     console.error(e);
-//     process.exit(1);
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
+main()
+  .then((res: any) => {
+    console.log('---------初始化数据成功--------', res);
+  })
+  .catch(e => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
