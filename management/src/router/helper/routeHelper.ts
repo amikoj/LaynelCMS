@@ -44,7 +44,7 @@ function dynamicImport(
   dynamicViewsModules: Record<string, () => Promise<Recordable>>,
   component: string,
 ) {
-  console.log('------------------get dynamicImport component----------------：', component);
+  // console.log('------------------get dynamicImport component----------------：', component);
   const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
     const k = key.replace('../../views', '');

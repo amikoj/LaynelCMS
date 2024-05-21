@@ -20,6 +20,7 @@ enum Api {
   MenuList = '/system/getMenuList',
   RolePageList = '/role/page',
   GetAllRoleList = '/role/list',
+  addAccount = '/user'
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -42,3 +43,12 @@ export const setRoleStatus = (id: number, status: string) =>
 
 export const isAccountExist = (account: string) =>
   defHttp.post({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+
+
+export const addAccount = (model: any) =>
+  defHttp.put({ url: Api.addAccount, data: model }) 
+
+  
+export const updateAccount = (model: any) => defHttp.post({url: Api.addAccount, data: model})
+
+export const delAccount = (id: any) => defHttp.delete({url: Api.addAccount, data: {id}})

@@ -42,8 +42,8 @@ export class UserController {
   }
 
   @Post('/')
-  async update(@Body() role: UserDTO) {
-    return await this.userService.updateUser(role);
+  async update(@Body() user: UserDTO) {
+    return await this.userService.updateUser(user);
   }
 
   @Del('/')

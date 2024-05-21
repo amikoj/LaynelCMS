@@ -31,5 +31,5 @@ export class UserDTO {
 
   [key: string]: any;
 
-  roles?: string; // 使用,分割好连接多个角色id
+  roles?: number[]; // 使用,分割好连接多个角色id
 }

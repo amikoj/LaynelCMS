@@ -1,4 +1,4 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
+import { getAllRoleList } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import dayjs from 'dayjs';
@@ -79,6 +79,7 @@ export const accountFormSchema: FormSchema[] = [
       labelField: 'name',
       valueField: 'id',
       mode: 'multiple',
+      labelInValue: true,
     },
     required: true,
   },

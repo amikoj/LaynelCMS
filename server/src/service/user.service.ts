@@ -43,10 +43,10 @@ export class UserService {
     if (user.roles) {
       // 连接现有数据
       data.roles = {
-        connect: user.roles.split(',').map((id: any) => {
+        connect: user.roles.map((id: number) => {
           return {
-            id: Number(id),
-          };
+            id,
+          }
         }),
       };
     }
@@ -124,13 +124,9 @@ export class UserService {
 
     // 连接现有数据
     data.roles = {
-      set: user.roles
-        ? user.roles.split(',').map((id: any) => {
-            return {
-              id: Number(id),
-            };
-          })
-        : [],
+      set: (user.roles ?? []).map((id: any) => {
+        return { id }
+      }),
     };
     try {
       return await prisma.user.update({

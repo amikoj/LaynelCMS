@@ -45,6 +45,9 @@ export default {
     session: false,
   },
   swagger: {
+    title:' Laynel CMS管理系统',
+    description: 'Laynel CMS swagger 文档',
+    tagSortable: true,
     auth: {
       authType: 'bearer',
     },
@@ -52,6 +55,7 @@ export default {
       {
         name: 'role',
         description: '角色管理',
+        
       },
       {
         name: 'user',
