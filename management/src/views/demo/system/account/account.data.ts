@@ -5,12 +5,12 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '用户名',
-    dataIndex: 'account',
+    dataIndex: 'name',
     width: 120,
   },
   {
     title: '昵称',
-    dataIndex: 'nickname',
+    dataIndex: 'nick',
     width: 120,
   },
   {

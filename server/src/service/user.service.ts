@@ -78,7 +78,7 @@ export class UserService {
       skip: (page - 1) * limit,
       take: limit,
       where: {
-        ...options,
+        ...omit(options, ['pageSize']),
         isDeleted: false,
       },
       orderBy: {

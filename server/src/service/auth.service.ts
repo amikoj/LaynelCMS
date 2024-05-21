@@ -32,6 +32,7 @@ export class AuthService {
         id: current.id,
         name: current.name,
         nick: current.nick,
+        roles: current.roles.map((role: any) => role.id),
       });
 
       return {
@@ -50,89 +51,62 @@ export class AuthService {
     }
   }
 
+  transferMenu(menus: any[]) {
+    const map = menus.reduce((target: any, current: any) => {
+      target[current.id] = {
+        path: current.path,
+        component: current.component,
+        name: current.name,
+        redirect: current.redirect,
+        meta: {
+          title: current.title,
+          icon: current.icon,
+          showMenu: !current.hidden,
+        },
+      };
+      return target;
+    }, {});
+    const target: any[] = [];
+
+    menus.forEach((menu: any) => {
+      if (menu.pid === null) target.push(map[menu.id]);
+      else {
+        if (menu.hidden)
+          map[menu.id].meta.currentActiveMenu = map[menu.pid]
+            .path((map[menu.pid].children ??= []))
+            .push(map[menu.id]);
+      }
+    });
+    return target;
+  }
+
   async menu() {
-    // console.log('get ctx:', this.ctx.state);
-    return [
-      {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: 'LAYOUT',
-        redirect: '/dashboard/analysis',
-        meta: {
-          title: 'routes.dashboard.dashboard',
-          hideChildrenInMenu: true,
-          icon: 'bx:bx-home',
+    const permissions = await prisma.permissions.findMany({
+      where: {
+        type: 1,
+        roles: {
+          some: {
+            id: {
+              in: this.ctx.state.user.roles,
+            },
+          },
         },
       },
-      {
-        path: '/system',
-        name: 'System',
-        component: 'LAYOUT',
-        redirect: '/system/account',
-        meta: {
-          icon: 'ion:settings-outline',
-          title: 'routes.demo.system.moduleName',
-        },
-        children: [
-          {
-            path: 'account',
-            name: 'AccountManagement',
-            meta: {
-              title: 'routes.demo.system.account',
-              ignoreKeepAlive: true,
-            },
-            component: '/demo/system/account/index',
-          },
-          {
-            path: 'account_detail/:id',
-            name: 'AccountDetail',
-            meta: {
-              hideMenu: true,
-              title: 'routes.demo.system.account_detail',
-              ignoreKeepAlive: true,
-              showMenu: false,
-              currentActiveMenu: '/system/account',
-            },
-            component: '/demo/system/account/AccountDetail',
-          },
-          {
-            path: 'role',
-            name: 'RoleManagement',
-            meta: {
-              title: 'routes.demo.system.role',
-              ignoreKeepAlive: true,
-            },
-            component: '/demo/system/role/index',
-          },
-          {
-            path: 'menu',
-            name: 'MenuManagement',
-            meta: {
-              title: 'routes.demo.system.menu',
-              ignoreKeepAlive: true,
-            },
-            component: '/demo/system/menu/index',
-          },
-          {
-            path: 'dept',
-            name: 'DeptManagement',
-            meta: {
-              title: 'routes.demo.system.dept',
-              ignoreKeepAlive: true,
-            },
-            component: '/demo/system/dept/index',
-          },
-          {
-            path: 'changePassword',
-            name: 'ChangePassword',
-            meta: {
-              title: 'routes.demo.system.password',
-              ignoreKeepAlive: true,
-            },
-            component: '/demo/system/password/index',
-          },
-        ],
+      select: {
+        name: true,
+        id: true,
+        pid: true,
+        component: true,
+        icon: true,
+        redirect: true,
+        path: true,
+        title: true,
+        hidden: true,
       },
-    ];
+    });
+
+    // console.log('get permissions:', this.transferMenu(permissions));
+
+    return this.transferMenu(permissions);
   }
 }

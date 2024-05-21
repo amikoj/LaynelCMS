@@ -39,7 +39,7 @@
           });
         }
 
-        const treeData = await getDeptList();
+        // const treeData = await getDeptList();
         updateSchema([
           {
             field: 'pwd',
@@ -47,7 +47,7 @@
           },
           {
             field: 'dept',
-            componentProps: { treeData },
+            componentProps: { treeData: [] },
           },
         ]);
       });

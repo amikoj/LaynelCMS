@@ -147,6 +147,7 @@ const permissions = [
     type: 1,
     title: '用户详情',
     pid: 2,
+    hidden: true,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -157,6 +158,9 @@ export async function main() {
   console.log('---------seed.js 被执行--------');
   await prisma.role.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.menuItem.deleteMany({});
+  await prisma.permissions.deleteMany({});
+  await prisma.menu.deleteMany({});
 
   // 创建默认角色
   // await prisma.role.createMany({ data: roles });
