@@ -43,6 +43,7 @@ model Permissions {
   desc  String?
   path  String?
   type  Int     @default(1) // 1:页面 2:功能按钮
+  status Int    @default(1) // 1:启用 2:禁用
   icon  String?
   redirect String?
   title  String

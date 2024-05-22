@@ -16,7 +16,7 @@ import { RoleDTO } from '../dto/role';
 import { ApiTags } from '@midwayjs/swagger';
 
 @ApiTags(['role'])
-@Controller('/api/role')
+@Controller('/role')
 export class RoleController {
   @Inject()
   ctx: Context;

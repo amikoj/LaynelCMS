@@ -16,7 +16,7 @@ import { ApiBearerAuth, ApiTags } from '@midwayjs/swagger';
 
 @ApiBearerAuth()
 @ApiTags(['auth'])
-@Controller('/api/auth')
+@Controller('/auth')
 export class AuthController {
   @Inject()
   ctx: Context;

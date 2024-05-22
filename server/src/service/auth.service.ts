@@ -62,6 +62,7 @@ export class AuthService {
           title: current.title,
           icon: current.icon,
           showMenu: !current.hidden,
+          hideMenu: current.hidden,
         },
       };
       return target;
@@ -71,8 +72,8 @@ export class AuthService {
     menus.forEach((menu: any) => {
       if (menu.pid === null) target.push(map[menu.id]);
       else {
-        if (menu.hidden)
-          map[menu.id].meta.currentActiveMenu = map[menu.pid]?.path;
+        // if (menu.hidden)
+        //   map[menu.id].meta.currentActiveMenu = map[menu.pid]?.path;
         (map[menu.pid].children ??= []).push(map[menu.id]);
       }
     });
@@ -90,6 +91,7 @@ export class AuthService {
             },
           },
         },
+        status: 1,
       },
       select: {
         name: true,

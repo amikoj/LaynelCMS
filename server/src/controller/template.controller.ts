@@ -3,7 +3,7 @@ import { Context } from '@midwayjs/koa';
 import { ApiTags } from '@midwayjs/swagger';
 
 @ApiTags(['role'])
-@Controller('/api/template')
+@Controller('/template')
 export class TemplateController {
   @Inject()
   ctx: Context;

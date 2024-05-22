@@ -18,7 +18,7 @@ import { RuleType, Valid } from '@midwayjs/validate';
 import { VAILDATE_PARAMS_NOT_MATCHED } from '../utils/network';
 
 @ApiTags(['user'])
-@Controller('/api/user')
+@Controller('/user')
 export class UserController {
   @Inject()
   ctx: Context;

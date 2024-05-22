@@ -2,8 +2,10 @@ import { Post, Inject, Controller } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { JwtService } from '@midwayjs/jwt';
 import { JwtPassportMiddleware } from '../middleware/jwt.middleware';
+import { ApiTags } from '@midwayjs/swagger';
 
-@Controller('/api/jwt')
+@ApiTags(['jwt'])
+@Controller('/jwt')
 export class JwtController {
   @Inject()
   jwt: JwtService;

@@ -8,7 +8,7 @@ export class QueryInfoDTO {
   page: number;
 
   @Rule(RuleType.number().min(1).max(200))
-  limit: number;
+  pageSize: number;
 
-  [key: string]: any
+  [key: string]: any;
 }
