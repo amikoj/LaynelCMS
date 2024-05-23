@@ -97,9 +97,9 @@ const permissions = [
     name: 'Dashboard',
     path: '/dashboard',
     component: '/dashboard/analysis/index',
-    type: 1,
-    title: '仪表盘',
+    type: 0,
     icon: 'bx:bx-home',
+    title: '仪表盘',
     roles: {
       connect: [{ id: 1 }],
     },
@@ -110,9 +110,9 @@ const permissions = [
     path: '/system',
     component: 'LAYOUT',
     redirect: '/system/account',
-    type: 1,
-    title: '系统管理',
+    type: 0,
     icon: 'ion:settings-outline',
+    title: '系统管理',
     roles: {
       connect: [{ id: 1 }],
     },

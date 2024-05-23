@@ -1,15 +1,9 @@
-import {
-  Body,
-  Config,
-  Controller,
-  Get,
-  Inject,
-} from '@midwayjs/core';
+import { Body, Config, Controller, Get, Inject } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { CaptchaService } from '@midwayjs/captcha';
-import { AuthService } from '../service/auth.service';
 import { ApiBearerAuth, ApiTags } from '@midwayjs/swagger';
 import { MenuService } from '../service/menu.service';
+import { QueryInfoDTO } from '../dto/query';
 
 @ApiBearerAuth()
 @ApiTags(['menu'])

@@ -5,7 +5,7 @@ import { PassportMiddleware, AuthenticateOptions } from '@midwayjs/passport';
 import { JwtStrategy } from '../strategy/jwt.strategy';
 import { Context } from '@midwayjs/koa';
 
-const IGNORE_PATH = ['/api/auth/login', '/api/auth/captcha'];
+const IGNORE_PATH = ['/auth/login', '/auth/captcha'];
 
 @Middleware()
 export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
@@ -15,7 +15,7 @@ export class JwtPassportMiddleware extends PassportMiddleware(JwtStrategy) {
 
   ignore(ctx: Context): boolean {
     const path = ctx.path;
-    const isIgnore = !path.startsWith('/api/') || IGNORE_PATH.includes(path);
+    const isIgnore = IGNORE_PATH.includes(path);
     return isIgnore;
   }
 }

@@ -16,6 +16,7 @@ export class UserService {
   ctx: Context;
   // 获取用户信息
   async getUser(user: UserDTO) {
+    console.log('get user:', this.ctx.state);
     if (!user.id) user.name = this.ctx.state.user.name;
     const current = await prisma.user.findFirst({
       where: {
@@ -46,7 +47,7 @@ export class UserService {
         connect: user.roles.map((id: number) => {
           return {
             id,
-          }
+          };
         }),
       };
     }
@@ -125,7 +126,7 @@ export class UserService {
     // 连接现有数据
     data.roles = {
       set: (user.roles ?? []).map((id: any) => {
-        return { id }
+        return { id };
       }),
     };
     try {

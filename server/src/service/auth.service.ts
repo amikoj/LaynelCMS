@@ -83,7 +83,9 @@ export class AuthService {
   async menu() {
     const permissions = await prisma.permissions.findMany({
       where: {
-        type: 1,
+        type: {
+          not: 2,
+        },
         roles: {
           some: {
             id: {
@@ -91,7 +93,7 @@ export class AuthService {
             },
           },
         },
-        status: 1,
+        status: true,
       },
       select: {
         name: true,

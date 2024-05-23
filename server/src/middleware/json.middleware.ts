@@ -2,7 +2,7 @@ import { Middleware, IMiddleware } from '@midwayjs/core';
 import { NextFunction, Context } from '@midwayjs/koa';
 import { IResposeOptions } from '../interface';
 
-const IGNORE_PATH = ['/api/login'];
+const IGNORE_PATH = ['/login'];
 
 @Middleware()
 export class JSONMiddleware implements IMiddleware<Context, NextFunction> {
@@ -30,7 +30,7 @@ export class JSONMiddleware implements IMiddleware<Context, NextFunction> {
 
   ignore(ctx: Context): boolean {
     const path = ctx.path;
-    const isIgnore = !path.startsWith('/api/') || IGNORE_PATH.includes(path);
+    const isIgnore = IGNORE_PATH.includes(path);
     return isIgnore;
   }
 }

@@ -130,6 +130,7 @@ const transform: AxiosTransform = {
         config.params = undefined;
       }
     }
+    // console.log('get config:', config);
     return config;
   },
 
@@ -152,6 +153,7 @@ const transform: AxiosTransform = {
    * @description: 响应拦截器处理
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
+    // console.log('get response:', res)
     return res;
   },
 
@@ -203,8 +205,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authenticationScheme: '',
         timeout: 10 * 1000,
         // 基础接口地址
-        baseURL: globSetting.apiUrl,
-
+        // baseURL: globSetting.apiUrl,
+        baseURL: '',
         headers: { 'Content-Type': ContentTypeEnum.JSON },
         // 如果是form-data格式
         // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },

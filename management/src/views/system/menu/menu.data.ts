@@ -7,7 +7,7 @@ import { Icon } from '/@/components/Icon';
 export const columns: BasicColumn[] = [
   {
     title: '菜单名称',
-    dataIndex: 'menuName',
+    dataIndex: 'title',
     width: 200,
     align: 'left',
   },
@@ -21,7 +21,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '权限标识',
-    dataIndex: 'permission',
+    dataIndex: 'name',
     width: 180,
   },
   {
@@ -30,7 +30,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
   {
@@ -39,7 +39,7 @@ export const columns: BasicColumn[] = [
     width: 80,
     customRender: ({ record }) => {
       const status = record.status;
-      const enable = ~~status === 0;
+      const enable = ~~status === 1;
       const color = enable ? 'green' : 'red';
       const text = enable ? '启用' : '停用';
       return h(Tag, { color: color }, () => text);
@@ -47,7 +47,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'createAt',
     width: 180,
   },
 ];
@@ -58,7 +58,7 @@ const isButton = (type: string) => type === '2';
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'menuName',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -70,7 +70,7 @@ export const searchFormSchema: FormSchema[] = [
     componentProps: {
       options: [
         { label: '启用', value: 1 },
-        { label: '停用', value: 2 },
+        { label: '禁用', value: 0 },
       ],
     },
     colProps: { span: 8 },
@@ -85,22 +85,22 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '目录', value: '0' },
-        { label: '菜单', value: '1' },
-        { label: '按钮', value: '2' },
+        { label: '目录', value: 0 },
+        { label: '菜单', value: 1 },
+        { label: '按钮', value: 2 },
       ],
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'menuName',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     required: true,
   },
 
   {
-    field: 'parentMenu',
+    field: 'pid',
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {
@@ -114,7 +114,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'orderNo',
+    field: 'sort',
     label: '排序',
     component: 'InputNumber',
     required: true,
@@ -128,7 +128,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'routePath',
+    field: 'path',
     label: '路由地址',
     component: 'Input',
     required: true,
@@ -141,7 +141,7 @@ export const formSchema: FormSchema[] = [
     ifShow: ({ values }) => isMenu(values.type),
   },
   {
-    field: 'permission',
+    field: 'name',
     label: '权限标识',
     component: 'Input',
     ifShow: ({ values }) => !isDir(values.type),
@@ -153,8 +153,8 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '禁用', value: '1' },
+        { label: '启用', value: 1 },
+        { label: '禁用', value: 2 },
       ],
     },
   },
@@ -165,13 +165,12 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
+        { label: '是', value: 1 },
+        { label: '否', value: 0 },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),
   },
-
   {
     field: 'keepalive',
     label: '是否缓存',
@@ -179,22 +178,22 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
+        { label: '是', value: 1 },
+        { label: '否', value: 0 },
       ],
     },
     ifShow: ({ values }) => isMenu(values.type),
   },
 
   {
-    field: 'show',
+    field: 'hidden',
     label: '是否显示',
     component: 'RadioButtonGroup',
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '是', value: '0' },
-        { label: '否', value: '1' },
+        { label: '是', value: 0 },
+        { label: '否', value: 1 },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),

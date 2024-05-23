@@ -31,12 +31,16 @@ CREATE TABLE `Permissions` (
     `desc` VARCHAR(191) NULL,
     `path` VARCHAR(191) NULL,
     `type` INTEGER NOT NULL DEFAULT 1,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `icon` VARCHAR(191) NULL,
     `redirect` VARCHAR(191) NULL,
     `title` VARCHAR(191) NOT NULL,
     `hidden` BOOLEAN NOT NULL DEFAULT false,
+    `isLink` BOOLEAN NOT NULL DEFAULT false,
+    `keepalive` BOOLEAN NOT NULL DEFAULT true,
     `component` VARCHAR(191) NULL,
     `pid` INTEGER NULL,
+    `sort` INTEGER NULL DEFAULT 1,
 
     UNIQUE INDEX `Permissions_name_key`(`name`),
     PRIMARY KEY (`id`)

@@ -16,16 +16,7 @@ export class MenuService {
   transferMenu(menus: any[]) {
     const map = menus.reduce((target: any, current: any) => {
       target[current.id] = {
-        path: current.path,
-        component: current.component,
-        name: current.name,
-        redirect: current.redirect,
-        meta: {
-          title: current.title,
-          icon: current.icon,
-          showMenu: !current.hidden,
-          hideMenu: current.hidden,
-        },
+        ...current,
       };
       return target;
     }, {});
@@ -41,12 +32,9 @@ export class MenuService {
   }
 
   async menu(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15, name = '', status } = query;
+    const { name = '', status } = query;
     const permissions = await prisma.permissions.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
       where: {
-        type: 1,
         name: {
           contains: name,
         },
@@ -65,6 +53,6 @@ export class MenuService {
       },
     });
 
-    return permissions;
+    return this.transferMenu(permissions);
   }
 }

@@ -39,17 +39,20 @@ model Post {
 
 model Permissions {
   id    Int     @id @default(autoincrement())
-  name  String  @unique
+  name  String  @unique // 唯一权限标识
   desc  String?
   path  String?
-  type  Int     @default(1) // 1:页面 2:功能按钮
-  status Int    @default(1) // 1:启用 2:禁用
+  type  Int      @default(1) // 0:路径  1:页面 2:功能按钮
+  status Boolean    @default(true) // 1:启用 0:禁用
   icon  String?
   redirect String?
   title  String
   hidden   Boolean @default(false) //是否展示
+  isLink   Boolean @default(false) //是否外链
+  keepalive Boolean @default(true) // 是否缓存
   component String?
   pid  Int?
+  sort Int? @default(1) // 排序
   roles Role[]
 }
 
