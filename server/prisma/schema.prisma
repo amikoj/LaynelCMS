@@ -38,22 +38,24 @@ model Post {
 }
 
 model Permissions {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique // 唯一权限标识
-  desc  String?
-  path  String?
-  type  Int      @default(1) // 0:路径  1:页面 2:功能按钮
-  status Boolean    @default(true) // 1:启用 0:禁用
-  icon  String?
-  redirect String?
-  title  String
-  hidden   Boolean @default(false) //是否展示
-  isLink   Boolean @default(false) //是否外链
-  keepalive Boolean @default(true) // 是否缓存
+  id        Int      @id @default(autoincrement())
+  name      String   @unique // 唯一权限标识
+  desc      String?
+  path      String?
+  type      Int      @default(1) // 0:路径  1:页面 2:功能按钮
+  status    Boolean  @default(true) // 1:启用 0:禁用
+  icon      String?
+  redirect  String?
+  title     String
+  hidden    Boolean  @default(false) //是否展示
+  isLink    Boolean  @default(false) //是否外链
+  keepalive Boolean  @default(true) // 是否缓存
   component String?
-  pid  Int?
-  sort Int? @default(1) // 排序
-  roles Role[]
+  pid       Int?
+  sort      Int?     @default(1) // 排序
+  roles     Role[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Role {
@@ -82,7 +84,7 @@ model Profile {
 // 用户信息
 model User {
   id        Int      @id @default(autoincrement())
-  email     String?  
+  email     String?
   name      String?  @unique
   nick      String?  @unique
   password  String   @default("2BC68D71FC41C028")
@@ -90,7 +92,7 @@ model User {
   gender    Int      @default(1) // 1 男 2 女
   isDeleted Boolean  @default(false) // 设置删除flag
   remark    String?
-  avatar    String?  // 头像地址
+  avatar    String? // 头像地址
   profile   Profile?
   roles     Role[]
   posts     Post[]

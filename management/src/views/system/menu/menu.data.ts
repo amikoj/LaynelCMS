@@ -3,6 +3,7 @@ import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import { Icon } from '/@/components/Icon';
+import dayjs from 'dayjs';
 
 export const columns: BasicColumn[] = [
   {
@@ -10,6 +11,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'title',
     width: 200,
     align: 'left',
+  },
+  {
+    title: '排序',
+    dataIndex: 'sort',
+    width: 50,
   },
   {
     title: '图标',
@@ -28,11 +34,7 @@ export const columns: BasicColumn[] = [
     title: '组件',
     dataIndex: 'component',
   },
-  {
-    title: '排序',
-    dataIndex: 'sort',
-    width: 50,
-  },
+
   {
     title: '状态',
     dataIndex: 'status',
@@ -47,8 +49,11 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createAt',
-    width: 180,
+    dataIndex: 'createdAt',
+    format(text) {
+      return dayjs(text).format('YYYY-MM-DD HH:mm:ss')
+    },
+    width: 190,
   },
 ];
 
@@ -98,21 +103,25 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     required: true,
   },
-
   {
     field: 'pid',
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {
       replaceFields: {
-        title: 'menuName',
+        title: 'title',
         key: 'id',
         value: 'id',
       },
       getPopupContainer: () => document.body,
     },
   },
-
+  {
+    field: 'redirect',
+    label:'重定向',
+    component: 'Input',
+    ifShow: ({ values }) => isDir(values.type),
+  },
   {
     field: 'sort',
     label: '排序',
@@ -123,7 +132,6 @@ export const formSchema: FormSchema[] = [
     field: 'icon',
     label: '图标',
     component: 'IconPicker',
-    required: true,
     ifShow: ({ values }) => !isButton(values.type),
   },
 
@@ -153,20 +161,20 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '启用', value: 1 },
-        { label: '禁用', value: 2 },
+        { label: '启用', value: true },
+        { label: '禁用', value: false },
       ],
     },
   },
   {
-    field: 'isExt',
+    field: 'isLink',
     label: '是否外链',
     component: 'RadioButtonGroup',
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '是', value: 1 },
-        { label: '否', value: 0 },
+        { label: '是', value: true },
+        { label: '否', value: false },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),
@@ -178,8 +186,8 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '是', value: 1 },
-        { label: '否', value: 0 },
+        { label: '是', value: true },
+        { label: '否', value: false },
       ],
     },
     ifShow: ({ values }) => isMenu(values.type),
@@ -192,8 +200,8 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '是', value: 0 },
-        { label: '否', value: 1 },
+        { label: '是', value: false },
+        { label: '否', value: true },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),

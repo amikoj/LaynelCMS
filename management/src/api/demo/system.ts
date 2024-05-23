@@ -21,6 +21,7 @@ enum Api {
   RolePageList = '/role/page',
   GetAllRoleList = '/role/list',
   addAccount = '/user',
+  menu = '/menu'
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -49,3 +50,11 @@ export const addAccount = (model: any) => defHttp.put({ url: Api.addAccount, dat
 export const updateAccount = (model: any) => defHttp.post({ url: Api.addAccount, data: model });
 
 export const delAccount = (id: any) => defHttp.delete({ url: Api.addAccount, data: { id } });
+
+
+export const addMenu = (model: any) => defHttp.put({ url: Api.menu, data: model });
+
+
+export const updateMenu = (model: any) => defHttp.post({ url: Api.menu, data: model });
+
+export const delMenu = (id: any) => defHttp.delete({ url: Api.menu, data: { id } });
