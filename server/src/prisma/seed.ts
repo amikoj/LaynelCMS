@@ -100,6 +100,7 @@ const permissions = [
     type: 0,
     icon: 'bx:bx-home',
     title: '仪表盘',
+    sort: 1,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -113,6 +114,7 @@ const permissions = [
     type: 0,
     icon: 'ion:settings-outline',
     title: '系统管理',
+    sort: 99,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -125,6 +127,7 @@ const permissions = [
     type: 1,
     title: '用户管理',
     pid: 2,
+    sort: 1,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -137,6 +140,7 @@ const permissions = [
     type: 1,
     title: '角色管理',
     pid: 2,
+    sort: 2,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -149,6 +153,7 @@ const permissions = [
     type: 1,
     title: '菜单管理',
     pid: 2,
+    sort: 3,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -162,6 +167,7 @@ const permissions = [
     type: 1,
     title: '用户详情',
     pid: 2,
+    sort: 4,
     hidden: true,
     roles: {
       connect: [{ id: 1 }],
@@ -174,8 +180,9 @@ const permissions = [
     component: 'LAYOUT',
     redirect: '/article/list',
     type: 0,
-    icon: 'ion:ios-bookmarks-outline',
+    icon: 'majesticons:article-line',
     title: '文章管理',
+    sort: 2,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -186,7 +193,9 @@ const permissions = [
     path: '/article/list',
     component: '/system/article/index',
     type: 1,
+    pid: 7,
     title: '文章列表',
+    sort: 1,
     roles: {
       connect: [{ id: 1 }],
     },
@@ -197,7 +206,71 @@ const permissions = [
     path: '/article/list',
     component: '/system/article/category',
     type: 1,
+    pid: 7,
     title: '文章分类',
+    sort: 2,
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  },
+  {
+    id: 10,
+    name: 'Topic',
+    path: '/topic',
+    component: 'LAYOUT',
+    redirect: '/topic/list',
+    type: 0,
+    sort: 3,
+    icon: 'ph:text-columns-fill',
+    title: '专题管理',
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  },
+  {
+    id: 11,
+    name: 'TopicList',
+    path: '/topic/list',
+    component: '/system/topic/index',
+    type: 1,
+    title: '专题列表',
+    pid: 10,
+    sort: 1,
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  }, {
+    id: 12,
+    name: 'TopicSubscription',
+    path: '/topic/subscription',
+    component: '/system/topic/subscription',
+    type: 1,
+    title: '专题订阅',
+    pid: 10,
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  }, {
+    id: 13,
+    name: 'Softwate',
+    path: '/software',
+    component: 'Layout',
+    icon: 'bi:palette-fill',
+    type: 0,
+    title: '软件管理',
+    sort: 5,
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  }, {
+    id: 14,
+    name: 'SoftwateList',
+    path: '/software/list',
+    component: '/system/software/index',
+    type: 1,
+    title: '软件列表',
+    sort: 1,
+    pid: 13,
     roles: {
       connect: [{ id: 1 }],
     },

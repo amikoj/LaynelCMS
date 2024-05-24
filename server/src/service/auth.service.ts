@@ -95,6 +95,9 @@ export class AuthService {
         },
         status: true,
       },
+      orderBy: {
+        sort: 'asc'
+      },
       select: {
         name: true,
         id: true,
