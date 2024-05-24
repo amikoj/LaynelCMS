@@ -18,6 +18,7 @@ export default defineComponent({
   emits: ['success', 'register'],
   setup(_, { emit }) {
     const isUpdate = ref(true);
+    const rowId = ref(null);
 
     const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
       labelWidth: 100,
@@ -31,9 +32,9 @@ export default defineComponent({
       setDrawerProps({ confirmLoading: false });
       isUpdate.value = !!data?.isUpdate;
 
-      console.log('get record:', data)
 
       if (unref(isUpdate)) {
+        rowId.value = data.record.id
         setFieldsValue({
           ...data.record,
         });
@@ -55,8 +56,8 @@ export default defineComponent({
 
         let res
         const data = {
+          id: rowId.value,
           ...values,
-
         }
         if (!unref(isUpdate))
           res = await addMenu(data)

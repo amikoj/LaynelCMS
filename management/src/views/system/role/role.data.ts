@@ -120,8 +120,8 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
   },
   {
-    label: ' ',
-    field: 'menu',
+    label: '',
+    field: 'permissions',
     slot: 'menu',
     component: 'Input',
   },

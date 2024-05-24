@@ -20,18 +20,41 @@ export class RoleService {
       where: {
         ...role,
       },
+      include: {
+        permissions: {
+          select: {
+            id: true,
+          }
+        }
+      }
     });
-    return {
+
+    const target: any = {
       ...omit(current, ['createdAt', 'updatedAt']),
-    };
+    }
+
+    target.permissions = target.permissions.map((item: any) => item.id)
+
+    return target;
   }
 
   // 新增用户信息
   async addRole(role: RoleDTO) {
+
+    const data: any = {
+      ...(omit(role, ['id']) as RoleDTO),
+    }
+
+    if (data.permissions && data.permissions.length) {
+      data.permissions = {
+        connect: data.permissions.map((id: any) => {
+          return { id }
+        })
+      }
+    }
     return await prisma.role.create({
-      data: {
-        ...(omit(role, ['id']) as RoleDTO),
-      },
+      data,
+
     });
   }
 
@@ -79,11 +102,19 @@ export class RoleService {
       throw new MidwayHttpError('角色ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
 
     try {
+      const data = role
+      if(role.permissions && role.permissions.length) {
+        data.permissions = {
+          set: role.permissions.map((id: any) => {
+            return {id}
+          })
+        }
+      }
       const current = await prisma.role.update({
         where: {
           id: role?.id,
         },
-        data: { ...role },
+        data,
       });
 
       return current;

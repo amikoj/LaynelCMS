@@ -21,7 +21,8 @@ enum Api {
   RolePageList = '/role/page',
   GetAllRoleList = '/role/list',
   addAccount = '/user',
-  menu = '/menu'
+  menu = '/menu',
+  role = '/role'
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -51,10 +52,18 @@ export const updateAccount = (model: any) => defHttp.post({ url: Api.addAccount,
 
 export const delAccount = (id: any) => defHttp.delete({ url: Api.addAccount, data: { id } });
 
-
+// 菜单模块
 export const addMenu = (model: any) => defHttp.put({ url: Api.menu, data: model });
-
 
 export const updateMenu = (model: any) => defHttp.post({ url: Api.menu, data: model });
 
 export const delMenu = (id: any) => defHttp.delete({ url: Api.menu, data: { id } });
+
+// 角色模块
+export const getRole = (id: any) => defHttp.get({ url: Api.role, params: { id } })
+
+export const addRole = (data: any) => defHttp.put({ url: Api.role, data })
+
+export const updateRole = (data: any) => defHttp.post({ url: Api.role, data })
+
+export const delRole = (id: any) => defHttp.delete({ url: Api.role, data: { id } })
