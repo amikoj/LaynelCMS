@@ -167,6 +167,41 @@ const permissions = [
       connect: [{ id: 1 }],
     },
   },
+  {
+    id: 7,
+    name: 'Article',
+    path: '/article',
+    component: 'LAYOUT',
+    redirect: '/article/list',
+    type: 0,
+    icon: 'ion:ios-bookmarks-outline',
+    title: '文章管理',
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  },
+  {
+    id: 8,
+    name: 'ArticleList',
+    path: '/article/list',
+    component: '/system/article/index',
+    type: 1,
+    title: '文章列表',
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  },
+  {
+    id: 9,
+    name: 'ArticleCategory',
+    path: '/article/list',
+    component: '/system/article/category',
+    type: 1,
+    title: '文章分类',
+    roles: {
+      connect: [{ id: 1 }],
+    },
+  },
 ];
 
 export async function main() {

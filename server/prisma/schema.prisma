@@ -16,25 +16,68 @@ datasource db {
 model Category {
   id        Int      @id @default(autoincrement())
   name      String
-  desc      String?
+  desc      String?  @db.Text
+  pid       Int? // 父类
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  pid       Int?
+  status    Int      @default(1) // 1: 已提交  2: 已通过  3: 已拒绝
+  floor     Int      @default(0) @db.TinyInt // 评论楼层，从0开始计数
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false) // 设置删除flag
 }
 
 model Post {
   id         Int        @id @default(autoincrement())
   postUUID   String     @default(uuid())
   title      String
-  content    String?
-  published  Boolean    @default(false)
+  content    String     @db.LongText
+  published  Int        @default(0) @db.TinyInt // 0：草稿  1：发布 
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
   categories Category[]
+  comments   Comment[]
+  topics     Topic[]
   tags       Tag[]
   isDeleted  Boolean    @default(false) // 设置删除flag
+}
+
+model Topic {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  desc              String?             @db.Text
+  creator           User                @relation(fields: [creatorId], references: [id])
+  creatorId         Int
+  posts             Post[]
+  status            Int                 @default(0) @db.TinyInt // 0： 提交  1： 通过 2： 失败
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  SubscriptionTopic SubscriptionTopic[]
+}
+
+model SubscriptionTopic {
+  id        Int      @id @default(autoincrement())
+  user      User[]
+  type      Int      @default(1) @db.TinyInt // 1: 免费 2：付费
+  money     Decimal  @default(0)
+  topic     Topic    @relation(fields: [topicId], references: [id])
+  topicId   Int
+  comment   String?  @db.Text
+  source    Int      @default(1) @db.TinyInt // 1: 默认
+  createdAt DateTime @default(now())
 }
 
 model Permissions {
@@ -42,7 +85,7 @@ model Permissions {
   name      String   @unique // 唯一权限标识
   desc      String?
   path      String?
-  type      Int      @default(1) // 0:路径  1:页面 2:功能按钮
+  type      Int      @default(1) @db.TinyInt // 0:路径  1:页面 2:功能按钮
   status    Boolean  @default(true) // 1:启用 0:禁用
   icon      String?
   redirect  String?
@@ -63,7 +106,7 @@ model Role {
   name        String        @unique
   code        String        @unique
   sort        Int           @default(1)
-  status      Int           @default(1) // 1 启用 2 禁用
+  status      Int           @default(1) @db.TinyInt // 1 启用 2 禁用
   desc        String?
   users       User[]
   permissions Permissions[]
@@ -83,21 +126,24 @@ model Profile {
 
 // 用户信息
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String?
-  name      String?  @unique
-  nick      String?  @unique
-  password  String   @default("2BC68D71FC41C028")
-  age       Int      @default(0)
-  gender    Int      @default(1) // 1 男 2 女
-  isDeleted Boolean  @default(false) // 设置删除flag
-  remark    String?
-  avatar    String? // 头像地址
-  profile   Profile?
-  roles     Role[]
-  posts     Post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                Int                 @id @default(autoincrement())
+  email             String?
+  name              String?             @unique
+  nick              String?             @unique
+  password          String              @default("2BC68D71FC41C028")
+  age               Int                 @default(0)
+  gender            Int                 @default(1) @db.TinyInt // 1 男 2 女
+  isDeleted         Boolean             @default(false) // 设置删除flag
+  remark            String?
+  avatar            String? // 头像地址
+  profile           Profile?
+  roles             Role[]
+  posts             Post[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Comment           Comment[]
+  Topic             Topic[]
+  SubscriptionTopic SubscriptionTopic[]
 }
 
 model Tag {
@@ -112,7 +158,7 @@ model Menu {
   id        Int      @id @default(autoincrement())
   name      String
   desc      String?
-  type      Int
+  type      Int      @db.TinyInt
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -125,7 +171,7 @@ model MenuItem {
   pid       Int
   path      String?
   order     Int      @default(1)
-  type      Int
+  type      Int      @db.TinyInt
   desc      String?
   icon      String?
   title     String?

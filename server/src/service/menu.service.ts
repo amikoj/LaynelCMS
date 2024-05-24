@@ -4,7 +4,11 @@ import { prisma } from '../prisma';
 import { Context } from '@midwayjs/koa';
 import { QueryInfoDTO } from '../dto/query';
 import { MenuDTO } from '../dto/menu';
-import { DATA_SET_NOT_EXIST, OPERATOR_WITH_RELATION, VAILDATE_PARAMS_NOT_MATCHED } from '../utils/network';
+import {
+  DATA_SET_NOT_EXIST,
+  OPERATOR_WITH_RELATION,
+  VAILDATE_PARAMS_NOT_MATCHED,
+} from '../utils/network';
 import { omit } from 'lodash';
 
 // 权限服务
@@ -44,7 +48,7 @@ export class MenuService {
         status,
       },
       orderBy: {
-        sort: 'asc'
+        sort: 'asc',
       },
       select: {
         name: true,
@@ -68,38 +72,36 @@ export class MenuService {
     return this.transferMenu(permissions);
   }
 
-
   async getMenu(menu: MenuDTO) {
     if (menu.id) {
       const current = await prisma.permissions.findUnique({
         where: {
-          id: menu.id
-        }
-      })
-      return current
+          id: menu.id,
+        },
+      });
+      return current;
     }
     throw new MidwayHttpError('菜单id不能为空！', VAILDATE_PARAMS_NOT_MATCHED);
-
   }
 
   async addMenu(menu: MenuDTO) {
     return await prisma.permissions.create({
       data: {
         ...(omit(menu, ['id']) as any),
-      }
-    })
+      },
+    });
   }
-  
+
   async updateMenu(menu: MenuDTO) {
     if (!menu.id)
-    throw new MidwayHttpError('菜单ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
+      throw new MidwayHttpError('菜单ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
 
     try {
       const current = await prisma.permissions.update({
         where: {
           id: menu.id,
         },
-        data: { ...(menu as any)  },
+        data: { ...(menu as any) },
       });
 
       return current;
@@ -110,7 +112,6 @@ export class MenuService {
       );
     }
   }
-
 
   async delMenu(id: number) {
     try {
@@ -143,7 +144,5 @@ export class MenuService {
         err.code ?? DATA_SET_NOT_EXIST
       );
     }
-
   }
-
 }
