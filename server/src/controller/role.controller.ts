@@ -58,4 +58,14 @@ export class RoleController {
   async list() {
     return await this.roleService.list();
   }
+
+
+  /**
+   * 修改角色状态
+   * @param data { status: number, id: number} status: 1:
+   */
+  @Post('/enable')
+  async enable(@Body() data: { status: number, id: number }) {
+    return await this.roleService.enable(data)
+  }
 }

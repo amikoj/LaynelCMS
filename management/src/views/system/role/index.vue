@@ -30,12 +30,13 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage } from '/@/api/demo/system';
+  import { delRole, getRoleListByPage } from '/@/api/demo/system';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
 
   import { columns, searchFormSchema } from './role.data';
+import { message } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'RoleManagement',
@@ -76,8 +77,12 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
-        console.log(record);
+       async  function handleDelete(record: Recordable) {
+        const res = await delRole(record.id)
+        if(res) {
+          message.success('操作成功')
+          reload();
+        }
       }
 
       function handleSuccess() {

@@ -159,4 +159,31 @@ export class RoleService {
       );
     }
   }
+
+
+  async enable(data: any) {
+    if (!data.id)
+      throw new MidwayHttpError('角色ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
+
+      try{
+        const current = await prisma.role.update({
+          where: {
+            id: data?.id,
+          },
+          data: {
+            status: data.status
+          },
+          select: {
+            id: true
+          }
+        });
+        return current.id
+      }catch (err: any) {
+        throw new MidwayHttpError(
+          err.message ?? '当前数据不存在',
+          err.code ?? DATA_SET_NOT_EXIST
+        );
+      }
+
+  }
 }

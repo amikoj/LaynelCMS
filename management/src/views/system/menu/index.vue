@@ -85,6 +85,7 @@ import { message } from 'ant-design-vue';
         const res = await delMenu(record.id)
         if(res) {
           message.success('操作成功')
+          reload();
         }
       }
 

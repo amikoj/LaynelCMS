@@ -36,7 +36,7 @@ export default defineComponent({
     const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
       resetFields();
       setDrawerProps({ confirmLoading: false });
-      // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
+      // 需要在setFieldsValue之前先填充tree
       if (unref(treeData).length === 0) {
         treeData.value = (await getMenuList()) as any as TreeItem[];
       }
