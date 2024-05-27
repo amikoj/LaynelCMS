@@ -104,7 +104,7 @@ model Permissions {
 model SoftwarePlatform {
   id        Int        @id @default(autoincrement())
   name      String     @unique
-  desc      String @db.Text
+  desc      String     @db.Text
   softwares Software[]
 }
 
@@ -117,7 +117,7 @@ model Software {
   status    Int                @default(1) @db.UnsignedTinyInt // 1: 已上线  2:未上线
   link      String?
   author    User               @relation(fields: [authorId], references: [id])
-  authorId  Int                @unique
+  authorId  Int              
   sort      Int                @default(1) // 排序
   platforms SoftwarePlatform[]
   roles     Role[]
@@ -169,7 +169,7 @@ model User {
   Comment           Comment[]
   Topic             Topic[]
   SubscriptionTopic SubscriptionTopic[]
-  Software          Software?
+  Software          Software[]
 }
 
 model Tag {

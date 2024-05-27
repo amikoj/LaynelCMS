@@ -117,7 +117,6 @@ CREATE TABLE `Software` (
 
     UNIQUE INDEX `Software_name_key`(`name`),
     UNIQUE INDEX `Software_code_key`(`code`),
-    UNIQUE INDEX `Software_authorId_key`(`authorId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

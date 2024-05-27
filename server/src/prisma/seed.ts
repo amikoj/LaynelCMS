@@ -313,7 +313,6 @@ const platforms = [
 
 const softwares = [
   {
-    id: 1,
     name: '技术博客',
     code: 'blog',
     icon: '',
@@ -331,14 +330,13 @@ const softwares = [
     },
   },
   {
-    id: 2,
     name: '电子书',
     code: 'e-book',
     icon: '',
     desc: '满足白嫖电子书的需求.',
     status: 1,
     author: {
-      connect: { id: 1 },
+      connect: { id: 2 },
     },
     sort: 2,
     roles: {
@@ -349,14 +347,13 @@ const softwares = [
     },
   },
   {
-    id: 3,
     name: 'FFmpeg 在线工具',
     code: 'ffmpeg',
     icon: '',
     desc: 'FFmpeg 在线工具.',
     status: 1,
     author: {
-      connect: { id: 1 },
+      connect: { id: 3 },
     },
     sort: 2,
     roles: {
@@ -371,46 +368,40 @@ const softwares = [
 export async function main() {
   console.log('---------seed.js 被执行--------');
   await prisma.role.deleteMany({});
+  await prisma.software.deleteMany({});
+  await prisma.softwarePlatform.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.menuItem.deleteMany({});
   await prisma.permissions.deleteMany({});
   await prisma.menu.deleteMany({});
-  await prisma.software.deleteMany({});
-  await prisma.softwarePlatform.deleteMany({});
 
-  // 创建默认角色
-  // await prisma.role.createMany({ data: roles });
-  // await prisma.user.createMany({ data: users });
+  await prisma.role.createMany({
+    data: roles,
+  });
 
-  const createRoles = roles.map((role: any) =>
-    prisma.role.create({ data: role })
-  );
-
-  const createUsers = users.map((user: any) =>
-    prisma.user.create({ data: user })
-  );
+  users.forEach(async (user: any) => await prisma.user.create({ data: user }));
 
   const createMenus = menus.map((data: any) => prisma.menu.create({ data }));
   const createPermission = permissions.map((data: any) =>
     prisma.permissions.create({ data })
   );
 
-  const createPlatform = platforms.map((data: any) =>
+  const createPlatforms = platforms.map((data: any) =>
     prisma.softwarePlatform.create({ data })
   );
 
-  const createSoftware = softwares.map((data: any) =>
+  const createSoftwares = softwares.map((data: any) =>
     prisma.software.create({ data })
   );
 
   // createMany创建多条数据不能创建关联关系
   await prisma.$transaction([
-    ...createRoles,
-    ...createUsers,
+    // ...createRoles,
+    // ...createUsers,
     ...createMenus,
     ...createPermission,
-    ...createPlatform,
-    ...createSoftware,
+    ...createPlatforms,
+    ...createSoftwares,
   ]);
 }
 
