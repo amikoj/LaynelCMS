@@ -101,19 +101,28 @@ model Permissions {
   updatedAt DateTime @updatedAt
 }
 
+model SoftwarePlatform {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  desc      String @db.Text
+  softwares Software[]
+}
+
 model Software {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  code      String   @unique @db.Char(50)
+  id        Int                @id @default(autoincrement())
+  name      String             @unique
+  code      String             @unique @db.Char(50)
   icon      String?
-  desc      String   @db.Text
-  status    Int      @default(1) @db.UnsignedTinyInt // 1: 已上线  2:未上线
+  desc      String             @db.Text
+  status    Int                @default(1) @db.UnsignedTinyInt // 1: 已上线  2:未上线
   link      String?
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int      @unique
+  author    User               @relation(fields: [authorId], references: [id])
+  authorId  Int                @unique
+  sort      Int                @default(1) // 排序
+  platforms SoftwarePlatform[]
   roles     Role[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
 model Role {

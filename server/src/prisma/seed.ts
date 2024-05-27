@@ -30,6 +30,14 @@ const roles = [
     sort: 1,
     status: 1,
   },
+  {
+    id: 4,
+    name: '潦草屋',
+    desc: '潦草屋前端web',
+    code: 'liaocaowu',
+    sort: 1,
+    status: 1,
+  },
 ];
 
 // 初始化数据
@@ -239,7 +247,8 @@ const permissions = [
     roles: {
       connect: [{ id: 1 }],
     },
-  }, {
+  },
+  {
     id: 12,
     name: 'TopicSubscription',
     path: '/topic/subscription',
@@ -250,7 +259,8 @@ const permissions = [
     roles: {
       connect: [{ id: 1 }],
     },
-  }, {
+  },
+  {
     id: 13,
     name: 'Softwate',
     path: '/software',
@@ -262,7 +272,8 @@ const permissions = [
     roles: {
       connect: [{ id: 1 }],
     },
-  }, {
+  },
+  {
     id: 14,
     name: 'SoftwateList',
     path: '/software/list',
@@ -277,6 +288,86 @@ const permissions = [
   },
 ];
 
+const platforms = [
+  {
+    id: 1,
+    name: 'PC',
+    desc: '桌面Web端，适用于大页面展示',
+  },
+  {
+    id: 2,
+    name: 'H5',
+    desc: 'H5端页面',
+  },
+  {
+    id: 3,
+    name: '小程序',
+    desc: '小程序端页面',
+  },
+  {
+    id: 4,
+    name: 'App',
+    desc: 'App端页面',
+  },
+];
+
+const softwares = [
+  {
+    id: 1,
+    name: '技术博客',
+    code: 'blog',
+    icon: '',
+    desc: '记录技术时刻，一款技术人员的老头乐。',
+    status: 1,
+    author: {
+      connect: { id: 1 },
+    },
+    sort: 1,
+    roles: {
+      connect: [{ id: 4 }],
+    },
+    platforms: {
+      connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    },
+  },
+  {
+    id: 2,
+    name: '电子书',
+    code: 'e-book',
+    icon: '',
+    desc: '满足白嫖电子书的需求.',
+    status: 1,
+    author: {
+      connect: { id: 1 },
+    },
+    sort: 2,
+    roles: {
+      connect: [{ id: 4 }],
+    },
+    platforms: {
+      connect: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    },
+  },
+  {
+    id: 3,
+    name: 'FFmpeg 在线工具',
+    code: 'ffmpeg',
+    icon: '',
+    desc: 'FFmpeg 在线工具.',
+    status: 1,
+    author: {
+      connect: { id: 1 },
+    },
+    sort: 2,
+    roles: {
+      connect: [{ id: 4 }],
+    },
+    platforms: {
+      connect: [{ id: 1 }],
+    },
+  },
+];
+
 export async function main() {
   console.log('---------seed.js 被执行--------');
   await prisma.role.deleteMany({});
@@ -284,6 +375,8 @@ export async function main() {
   await prisma.menuItem.deleteMany({});
   await prisma.permissions.deleteMany({});
   await prisma.menu.deleteMany({});
+  await prisma.software.deleteMany({});
+  await prisma.softwarePlatform.deleteMany({});
 
   // 创建默认角色
   // await prisma.role.createMany({ data: roles });
@@ -301,12 +394,23 @@ export async function main() {
   const createPermission = permissions.map((data: any) =>
     prisma.permissions.create({ data })
   );
+
+  const createPlatform = platforms.map((data: any) =>
+    prisma.softwarePlatform.create({ data })
+  );
+
+  const createSoftware = softwares.map((data: any) =>
+    prisma.software.create({ data })
+  );
+
   // createMany创建多条数据不能创建关联关系
   await prisma.$transaction([
     ...createRoles,
     ...createUsers,
     ...createMenus,
     ...createPermission,
+    ...createPlatform,
+    ...createSoftware,
   ]);
 }
 
