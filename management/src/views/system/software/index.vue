@@ -37,7 +37,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { delAccount, getAccountList } from '/@/api/demo/system';
+  import { getSoftwarePage, delSoftware } from '/@/api/system/extra';
 
   import { useModal } from '/@/components/Modal';
   import SoftwareModal from './SoftwareModal.vue';
@@ -55,7 +55,7 @@
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '软件列表',
-        api: getAccountList,
+        api: getSoftwarePage,
         rowKey: 'id',
         columns,
         formConfig: {
@@ -93,7 +93,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        const res = await delAccount(record.id);
+        const res = await delSoftware(record.id);
         if (res) {
           // 删除成功
           message.success('删除成功！');

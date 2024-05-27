@@ -5,19 +5,19 @@ import dayjs from 'dayjs';
 
 export const columns: BasicColumn[] = [
   {
-    title: '用户名',
+    title: '程序名',
     dataIndex: 'name',
     width: 120,
   },
   {
-    title: '昵称',
-    dataIndex: 'nick',
+    title: '程序编码',
+    dataIndex: 'code',
     width: 120,
   },
   {
-    title: '邮箱',
-    dataIndex: 'email',
-    width: 120,
+    title: '排序',
+    dataIndex: 'sort',
+    width: 80,
   },
   {
     title: '创建时间',
@@ -36,21 +36,36 @@ export const columns: BasicColumn[] = [
     },
   },
   {
+    title: '归属平台',
+    dataIndex: 'platforms',
+    format(_text, record) {
+      return record.platforms?.map((platform: any) => platform.name).join(',');
+    },
+    width: 200,
+  },{
+
+    title: '状态',
+    dataIndex: 'status',
+    width: 120,
+    format:(text) => {
+      return String(text) === '1'?'启用':'禁用'
+    }
+  },{
     title: '备注',
-    dataIndex: 'remark',
+    dataIndex: 'desc',
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'name',
-    label: '用户名',
+    label: '程序名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'nick',
-    label: '昵称',
+    field: 'code',
+    label: '程序编码',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -99,7 +114,7 @@ export const accountFormSchema: FormSchema[] = [
 
   {
     label: '备注',
-    field: 'remark',
+    field: 'desc',
     component: 'InputTextArea',
   },
 ];

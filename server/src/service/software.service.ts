@@ -18,14 +18,26 @@ export class SoftwareService {
    * @returns Promise
    */
   async page(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15 } = query;
+    const { page = 1, pageSize = 15, name, code } = query;
 
-    const result = await prisma.role.findMany({
+    const result = await prisma.software.findMany({
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: {
         sort: 'asc',
       },
+      include: {
+        roles: true,
+        platforms: true,
+      },
+      where: {
+        name: {
+          contains: name,
+        },
+        code: {
+          contains: code,
+        }
+      }
     });
     return result;
   }
