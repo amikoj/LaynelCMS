@@ -4,7 +4,6 @@ import { QueryInfoDTO } from '../dto/query';
 import { SoftwareDTO } from '../dto/menu';
 import {
   DATA_SET_NOT_EXIST,
-  OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';

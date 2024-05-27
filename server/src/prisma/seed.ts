@@ -384,13 +384,15 @@ const softwares = [
 
 export async function main() {
   console.log('---------seed.js 被执行--------');
-  await prisma.role.deleteMany({});
-  await prisma.user.deleteMany({});
+
   await prisma.software.deleteMany({});
   await prisma.softwarePlatform.deleteMany({});
+
   await prisma.menuItem.deleteMany({});
   await prisma.permissions.deleteMany({});
   await prisma.menu.deleteMany({});
+  await prisma.user.deleteMany({});
+  await prisma.role.deleteMany({});
 
   await prisma.role.createMany({
     data: roles,
