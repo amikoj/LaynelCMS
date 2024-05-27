@@ -1,4 +1,13 @@
-import { Body, Config, Controller, Del, Get, Inject, Post, Put } from '@midwayjs/core';
+import {
+  Body,
+  Config,
+  Controller,
+  Del,
+  Get,
+  Inject,
+  Post,
+  Put,
+} from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { CaptchaService } from '@midwayjs/captcha';
 import { ApiBearerAuth, ApiTags } from '@midwayjs/swagger';
@@ -30,7 +39,6 @@ export class MenuController {
     return await this.menuService.menu(query);
   }
 
-
   @Put('/')
   async add(@Body() menu: MenuDTO) {
     return await this.menuService.addMenu(menu);
@@ -38,9 +46,8 @@ export class MenuController {
 
   @Post('/')
   async update(@Body() menu: MenuDTO) {
-    return await this.menuService.updateMenu(menu)
+    return await this.menuService.updateMenu(menu);
   }
-
 
   @Del('/')
   async del(@Valid(RuleType.number().required()) @Body('id') id: number) {

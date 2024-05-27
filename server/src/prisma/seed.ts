@@ -363,14 +363,31 @@ const softwares = [
       connect: [{ id: 1 }],
     },
   },
+  {
+    name: '在线题库',
+    code: 'question',
+    icon: '',
+    desc: '在线题库',
+    status: 1,
+    author: {
+      connect: { id: 3 },
+    },
+    sort: 2,
+    roles: {
+      connect: [{ id: 4 }],
+    },
+    platforms: {
+      connect: [{ id: 1 }],
+    },
+  },
 ];
 
 export async function main() {
   console.log('---------seed.js 被执行--------');
   await prisma.role.deleteMany({});
+  await prisma.user.deleteMany({});
   await prisma.software.deleteMany({});
   await prisma.softwarePlatform.deleteMany({});
-  await prisma.user.deleteMany({});
   await prisma.menuItem.deleteMany({});
   await prisma.permissions.deleteMany({});
   await prisma.menu.deleteMany({});

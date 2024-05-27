@@ -37,3 +37,24 @@ export class MenuDTO {
 
   [key: string]: any;
 }
+
+export class SoftwareDTO {
+  id?: number;
+
+  @Rule(RuleType.string().required())
+  name: string;
+  @Rule(RuleType.string().required())
+  code: string;
+
+  desc: string;
+
+  status = 2; // 1: 已上线  2:未上线
+
+  authorId: number;
+
+  sort: number;
+  link: string;
+  @Rule(RuleType.string().required())
+  icon: string;
+  [key: string]: any;
+}
