@@ -398,7 +398,9 @@ export async function main() {
     data: roles,
   });
 
-  users.forEach(async (user: any) => await prisma.user.create({ data: user }));
+  const createUsers = users.map((user: any) =>
+    prisma.user.create({ data: user })
+  );
 
   const createMenus = menus.map((data: any) => prisma.menu.create({ data }));
   const createPermission = permissions.map((data: any) =>
@@ -416,7 +418,7 @@ export async function main() {
   // createMany创建多条数据不能创建关联关系
   await prisma.$transaction([
     // ...createRoles,
-    // ...createUsers,
+    ...createUsers,
     ...createMenus,
     ...createPermission,
     ...createPlatforms,
