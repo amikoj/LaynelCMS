@@ -5,3 +5,13 @@ export class TopicDTO {
   status: number;
   [key: string]: any;
 }
+
+export class SubscriptionTopicDTO {
+  id?: number;
+  user?: any | any[];
+  type = 1;
+  money: number;
+  topic?: any | any[];
+  comment: string;
+  topicId: number;
+}

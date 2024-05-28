@@ -1,7 +1,6 @@
 import { Inject, MidwayHttpError, Provide } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { QueryInfoDTO } from '../dto/query';
-import { SoftwareDTO } from '../dto/menu';
 import {
   DATA_SET_NOT_EXIST,
   VAILDATE_PARAMS_NOT_MATCHED,

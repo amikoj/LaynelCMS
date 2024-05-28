@@ -7,7 +7,9 @@ import {
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';
-import { TopicDTO } from '../dto/Topic';
+import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
+import { connect } from 'http2';
+import { omit } from 'lodash';
 @Provide()
 export class TopicService {
   @Inject()
@@ -36,6 +38,38 @@ export class TopicService {
     return result;
   }
 
+  /**
+   * 查询主题订阅列表
+   * @param query
+   */
+  async subscribePage(query: QueryInfoDTO) {
+    const { page = 1, pageSize = 15, name } = query;
+
+    const result = await prisma.subscriptionTopic.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      orderBy: {
+        createdAt: 'asc',
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      where: {
+        user: {
+          name: {
+            contains: name,
+          },
+        },
+      },
+    });
+    return result;
+  }
+
   async getTopic(id: number) {
     if (id) {
       const current = await prisma.topic.findUnique({
@@ -43,7 +77,12 @@ export class TopicService {
           id,
         },
         include: {
-          creator: true,
+          creator: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
         },
       });
       return current;
@@ -61,6 +100,31 @@ export class TopicService {
     return await prisma.software.create({
       data: {
         ...(topic as any),
+      },
+    });
+  }
+
+  /**
+   * 订阅专题
+   * @param subscription 订阅信息
+   * @returns Promise
+   */
+  async subscription(subscription: SubscriptionTopicDTO) {
+    subscription.user = {
+      connect: {
+        id: this.ctx.state?.user?.id,
+      },
+    };
+
+    subscription.topic = {
+      connect: {
+        id: subscription.topicId,
+      },
+    };
+
+    return await prisma.subscriptionTopic.create({
+      data: {
+        ...(subscription as any),
       },
     });
   }
@@ -116,6 +180,48 @@ export class TopicService {
         });
         return id;
       }
+    } catch (err: any) {
+      throw new MidwayHttpError(
+        err.message ?? '当前数据不存在',
+        err.code ?? DATA_SET_NOT_EXIST
+      );
+    }
+  }
+
+  async cancelSubscription(id: number) {
+    try {
+      const result = await prisma.subscriptionTopic.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!result)
+        throw new MidwayHttpError('当前数据不存在', DATA_SET_NOT_EXIST);
+
+      const subscription = omit(result, [
+        'id',
+        '',
+      ]) as unknown as SubscriptionTopicDTO;
+
+      subscription.user = {
+        connect: {
+          id: this.ctx.state?.user?.id,
+        },
+      };
+
+      subscription.topic = {
+        connect: {
+          id: subscription.topicId,
+        },
+      };
+
+      return await prisma.subscriptionTopic.create({
+        data: {
+          ...(subscription as any),
+          status: 2,
+        },
+      });
     } catch (err: any) {
       throw new MidwayHttpError(
         err.message ?? '当前数据不存在',

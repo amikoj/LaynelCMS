@@ -10,11 +10,11 @@ import {
 } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { ApiTags } from '@midwayjs/swagger';
-import { SoftwareService } from '../service/software.service';
 import { SoftwareDTO } from '../dto/menu';
 import { QueryInfoDTO } from '../dto/query';
 import { RuleType, Valid } from '@midwayjs/validate';
 import { TopicService } from '../service/topic.service';
+import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
 
 @ApiTags(['topic'])
 @Controller('/topic')
@@ -31,17 +31,32 @@ export class TopicController {
   }
 
   @Put('/')
-  async add(@Body() software: SoftwareDTO) {
-    return await this.topicService.addTopic(software);
+  async add(@Body() topic: TopicDTO) {
+    return await this.topicService.addTopic(topic);
   }
 
-  async update(@Body() software: SoftwareDTO) {
-    return await this.topicService.updateTopic(software);
+  async update(@Body() topic: SoftwareDTO) {
+    return await this.topicService.updateTopic(topic);
   }
 
   @Post('/page')
   async page(@Body() query: QueryInfoDTO) {
     return await this.topicService.page(query);
+  }
+
+  @Post('/subscription/page')
+  async subscribePage(@Body() query: QueryInfoDTO) {
+    return await this.topicService.page(query);
+  }
+
+  @Post('/subscription/apply')
+  async subscription(@Body() subscription: SubscriptionTopicDTO) {
+    return await this.topicService.subscription(subscription);
+  }
+
+  @Post('/subscription/cancel')
+  async cancleSubscription(@Body() id: number) {
+    return await this.topicService.cancelSubscription(id);
   }
 
   @Del('/')

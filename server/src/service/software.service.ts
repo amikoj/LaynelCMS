@@ -36,8 +36,8 @@ export class SoftwareService {
         },
         code: {
           contains: code,
-        }
-      }
+        },
+      },
     });
     return result;
   }
