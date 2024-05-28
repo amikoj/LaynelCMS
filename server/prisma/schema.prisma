@@ -48,7 +48,7 @@ model Post {
   updatedAt  DateTime   @updatedAt
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
-  sort Int  @default(1)
+  sort       Int        @default(1)
   categories Category[]
   comments   Comment[]
   topics     Topic[]
@@ -61,7 +61,7 @@ model Topic {
   name              String
   desc              String?             @db.Text
   creator           User                @relation(fields: [creatorId], references: [id])
-  sort              Int              @default(1)
+  sort              Int                 @default(1)
   creatorId         Int
   posts             Post[]
   status            Int                 @default(0) @db.TinyInt // 0： 提交  1： 通过 2： 失败

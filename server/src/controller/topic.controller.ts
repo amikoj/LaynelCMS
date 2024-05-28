@@ -46,7 +46,7 @@ export class TopicController {
 
   @Post('/subscription/page')
   async subscribePage(@Body() query: QueryInfoDTO) {
-    return await this.topicService.page(query);
+    return await this.topicService.subscribePage(query);
   }
 
   @Post('/subscription/apply')

@@ -47,7 +47,7 @@
   import { message } from 'ant-design-vue';
 
   export default defineComponent({
-    name: 'AccountManagement',
+    name: 'SoftwareManagement',
     components: { BasicTable, SoftwareModal, TableAction },
     setup() {
       const go = useGo();

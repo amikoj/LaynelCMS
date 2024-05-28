@@ -382,17 +382,57 @@ const softwares = [
   },
 ];
 
+
+const topics = [
+  {
+    name: 'Bpmn-js 流程编辑器解析',
+    desc: '基于BPMN 2.0标准实现的前端流程编辑器实现。',
+    status:1,
+    sort: 2,
+    creator: {
+      connect: { id: 1 },
+    }
+  },  {
+    name: '前端面试汇总',
+    desc: '前端面试知识点汇总。',
+    status:1,
+    sort: 1,
+    creator: {
+      connect: { id: 1 },
+    }
+  },{
+    name: '算法与数据结构',
+    desc: '面向基础的算法与数据结构的介绍。',
+    status:1,
+    sort: 2,
+    creator: {
+      connect: { id: 1 },
+    }
+  },{
+    name: 'Vue3 项目快速开发',
+    desc: 'Vue3 项目快速开发。',
+    status:1,
+    sort: 4,
+    creator: {
+      connect: { id: 1 },
+    }
+  },
+
+]
+
 export async function main() {
   console.log('---------seed.js 被执行--------');
 
   await prisma.software.deleteMany({});
   await prisma.softwarePlatform.deleteMany({});
+  await prisma.topic.deleteMany({});
 
   await prisma.menuItem.deleteMany({});
   await prisma.permissions.deleteMany({});
   await prisma.menu.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.role.deleteMany({});
+ 
 
   await prisma.role.createMany({
     data: roles,
@@ -415,6 +455,8 @@ export async function main() {
     prisma.software.create({ data })
   );
 
+ const  createTopics  = topics.map((data: any) => prisma.topic.create({data}))
+
   // createMany创建多条数据不能创建关联关系
   await prisma.$transaction([
     // ...createRoles,
@@ -423,6 +465,7 @@ export async function main() {
     ...createPermission,
     ...createPlatforms,
     ...createSoftwares,
+    ...createTopics,
   ]);
 }
 

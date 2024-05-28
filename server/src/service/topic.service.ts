@@ -8,7 +8,6 @@ import {
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';
 import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
-import { connect } from 'http2';
 import { omit } from 'lodash';
 @Provide()
 export class TopicService {
@@ -67,7 +66,7 @@ export class TopicService {
         },
       },
     });
-    return result;
+    return result || [];
   }
 
   async getTopic(id: number) {
