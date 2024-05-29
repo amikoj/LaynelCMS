@@ -60,7 +60,7 @@ const transform: AxiosTransform = {
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let timeoutMsg = '';
-    switch (code) {
+    switch (Number(code)) {
       case ResultEnum.TIMEOUT:
         timeoutMsg = t('sys.api.timeoutMessage');
         const userStore = useUserStoreWithOut();
@@ -153,7 +153,6 @@ const transform: AxiosTransform = {
    * @description: 响应拦截器处理
    */
   responseInterceptors: (res: AxiosResponse<any>) => {
-    // console.log('get response:', res)
     return res;
   },
 
@@ -187,10 +186,11 @@ const transform: AxiosTransform = {
         return Promise.reject(error);
       }
     } catch (error) {
+      console.log('get net error:', error);
       throw new Error(error as unknown as string);
     }
 
-    checkStatus(error?.response?.status, msg, errorMessageMode);
+    checkStatus(error?.response?.code, msg, errorMessageMode);
     return Promise.reject(error);
   },
 };
