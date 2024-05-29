@@ -28,7 +28,7 @@ export class PostController {
   async getSoftware(@Query('id') id: number) {
     return await this.postService.getPost(id);
   }
-
+ 
   @Put('/')
   async add(@Body() post: PostDTO) {
     return await this.postService.addPost(post);
