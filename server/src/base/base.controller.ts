@@ -1,15 +1,15 @@
-import { Context, Inject, Post, Provide } from '@midwayjs/core';
+import { Body, Context, Inject, Post, Provide } from '@midwayjs/core';
 import { IResult, Result } from '../utils/result';
 import { QueryInfoDTO } from '../dto/query';
 import { BaseService } from './base.service';
 
 @Provide()
-export abstract class BaseController {
+export abstract class BaseController<T extends BaseService> {
   @Inject()
   ctx: Context;
 
   @Inject()
-  baseService: BaseService;
+  service: T;
 
   success<T>(data?: T, option: IResult<T> = {}): IResult<T> {
     return Result.success<T>({ data, ...option });
@@ -19,8 +19,8 @@ export abstract class BaseController {
   }
 
   @Post('/page')
-  async page(query: QueryInfoDTO) {
-    const data = await this.baseService.page(query);
+  async page(@Body() query: QueryInfoDTO) {
+    const data = await this.service.page(query);
     return await this.success(data);
   }
 }

@@ -15,10 +15,11 @@ import { QueryInfoDTO } from '../dto/query';
 import { RuleType, Valid } from '@midwayjs/validate';
 import { TopicService } from '../service/topic.service';
 import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
+import { BaseController } from '../base/base.controller';
 
 @ApiTags(['topic'])
 @Controller('/topic')
-export class TopicController {
+export class TopicController  extends BaseController<TopicService>{
   @Inject()
   ctx: Context;
 
@@ -39,9 +40,14 @@ export class TopicController {
     return await this.topicService.updateTopic(topic);
   }
 
+  // @Post('/page')
+  // async page(@Body() query: QueryInfoDTO) {
+  //   return await this.topicService.page(query);
+  // }
+
   @Post('/page')
-  async page(@Body() query: QueryInfoDTO) {
-    return await this.topicService.page(query);
+  async page(query: QueryInfoDTO){
+    return {}
   }
 
   @Post('/subscription/page')

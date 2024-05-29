@@ -9,8 +9,13 @@ import {
 import { Context } from '@midwayjs/koa';
 import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
 import { omit } from 'lodash';
+import { BaseService } from '../base/base.service';
+import { db } from '../decorator/prisma.decorator';
+
+
 @Provide()
-export class TopicService {
+@db('topic')
+export class TopicService extends BaseService{
   @Inject()
   ctx: Context;
 

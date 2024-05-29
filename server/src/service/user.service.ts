@@ -16,7 +16,7 @@ export class UserService {
   ctx: Context;
   // 获取用户信息
   async getUser(user: UserDTO) {
-    console.log('get user:', this.ctx.state);
+    console.log('get user:', this.ctx);
     if (!user.id) user.name = this.ctx.state.user.name;
     const current = await prisma.user.findFirst({
       where: {
