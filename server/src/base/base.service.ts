@@ -1,41 +1,42 @@
-import { Inject, Provide } from '@midwayjs/core';
 import { QueryInfoDTO } from '../dto/query';
 import { Context } from '@midwayjs/koa';
 import { prisma } from '../prisma';
+import { Inject } from '@midwayjs/core';
 
-@Provide()
 export abstract class BaseService {
-
-
   @Inject()
   ctx: Context;
-
-
   table: string;
 
-  constructor() {
-    console.log('get baseservice:', this)
-  }
-
-
-  async page(query: QueryInfoDTO) {
-
-    if(!this.table) return null
+  async getPaginatedWithCount(query: QueryInfoDTO) {
     const { page = 1, pageSize = 15 } = query;
 
-    // prisma.$queryRaw
-
-    const result = await prisma[this.table]?.findMany({
+    const queryInfo: any = {
       skip: (page - 1) * pageSize,
       take: pageSize,
       orderBy: {
-        sort: 'asc',
+        createdAt: 'desc',
       },
-      include: {
-        roles: true,
-        platforms: true,
-      },
+    };
+
+    if (query.includes) queryInfo.includes = query.includes;
+    if (query.orderBy) queryInfo.orderBy = query.orderBy;
+    const list = await prisma[this.table]?.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      ...queryInfo,
     });
-    return result;
+
+    const total = await prisma[this.table]?.count(queryInfo);
+    return {
+      list,
+      total,
+    };
+  }
+
+  async page(query: QueryInfoDTO) {
+    // console.log('get baseservice page:', this.table, this.ctx);
+    if (!this.table) return null;
+    return await this.getPaginatedWithCount(query);
   }
 }

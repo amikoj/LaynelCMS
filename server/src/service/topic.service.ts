@@ -1,4 +1,4 @@
-import { Inject, MidwayHttpError, Provide } from '@midwayjs/core';
+import { MidwayHttpError, Provide } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { QueryInfoDTO } from '../dto/query';
 import {
@@ -6,41 +6,39 @@ import {
   OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
-import { Context } from '@midwayjs/koa';
 import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
 import { omit } from 'lodash';
 import { BaseService } from '../base/base.service';
 import { db } from '../decorator/prisma.decorator';
 
-
-@Provide()
 @db('topic')
-export class TopicService extends BaseService{
-  @Inject()
-  ctx: Context;
+@Provide()
+export class TopicService extends BaseService {
+  // @Inject()
+  // ctx: Context;
 
   /**
    * topic列表查询
    * @param query  查询条件
    * @returns Promise
    */
-  async page(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15, name } = query;
+  // async page(query: QueryInfoDTO) {
+  //   const { page = 1, pageSize = 15, name } = query;
 
-    const result = await prisma.topic.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: {
-        sort: 'asc',
-      },
-      where: {
-        name: {
-          contains: name,
-        },
-      },
-    });
-    return result;
-  }
+  //   const result = await prisma.topic.findMany({
+  //     skip: (page - 1) * pageSize,
+  //     take: pageSize,
+  //     orderBy: {
+  //       sort: 'asc',
+  //     },
+  //     where: {
+  //       name: {
+  //         contains: name,
+  //       },
+  //     },
+  //   });
+  //   return result;
+  // }
 
   /**
    * 查询主题订阅列表

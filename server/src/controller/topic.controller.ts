@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Del,
-  Get,
-  Inject,
-  Post,
-  Put,
-  Query,
-} from '@midwayjs/core';
-import { Context } from '@midwayjs/koa';
+import { Body, Del, Get, Inject, Post, Put, Query } from '@midwayjs/core';
 import { ApiTags } from '@midwayjs/swagger';
 import { SoftwareDTO } from '../dto/menu';
 import { QueryInfoDTO } from '../dto/query';
@@ -16,15 +6,19 @@ import { RuleType, Valid } from '@midwayjs/validate';
 import { TopicService } from '../service/topic.service';
 import { SubscriptionTopicDTO, TopicDTO } from '../dto/Topic';
 import { BaseController } from '../base/base.controller';
+import { LaynelController } from '../decorator/laynel.decorator';
 
 @ApiTags(['topic'])
-@Controller('/topic')
-export class TopicController  extends BaseController<TopicService>{
-  @Inject()
-  ctx: Context;
-
+@LaynelController({
+  prefix: '/topic',
+  methods: [],
+})
+export class TopicController extends BaseController<TopicService> {
   @Inject()
   topicService: TopicService;
+
+  @Inject()
+  service: TopicService;
 
   @Get('/')
   async getTopic(@Query('id') id: number) {
@@ -40,14 +34,9 @@ export class TopicController  extends BaseController<TopicService>{
     return await this.topicService.updateTopic(topic);
   }
 
-  // @Post('/page')
-  // async page(@Body() query: QueryInfoDTO) {
-  //   return await this.topicService.page(query);
-  // }
-
   @Post('/page')
-  async page(query: QueryInfoDTO){
-    return {}
+  async page(@Body() query: QueryInfoDTO): Promise<any> {
+    return await super.page(query);
   }
 
   @Post('/subscription/page')

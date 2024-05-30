@@ -10,7 +10,8 @@ export class NotFoundFilter {
     ctx.logger.error(err);
     return {
       code: 404,
-      message: 'the reuqest path is not found',
+      message: `无法找到${ctx.request.path}请求地址`,
+      data: null,
     };
   }
 }

@@ -15,7 +15,6 @@ import * as staticFile from '@midwayjs/static-file';
 import * as passport from '@midwayjs/passport';
 import { join } from 'path';
 import { ReportMiddleware } from './middleware/report.middleware';
-import { JSONMiddleware } from './middleware/json.middleware';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { DefaultErrorFilter } from './filter/default.filter';
@@ -52,17 +51,9 @@ export class MainConfiguration {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware, JSONMiddleware]);
+    this.app.useMiddleware([ReportMiddleware]);
     this.app.getMiddleware().insertLast(JwtPassportMiddleware);
     // add filter
     this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
-
-    // const list = this.webRouterService.getFlattenRouterTable();
-    // console.log('get router list:', await list);
-    this.env.addFilter('toString', (obj: any) => {
-      const json = JSON.stringify(obj);
-      console.log('get json:', json);
-      return json;
-    });
   }
 }
