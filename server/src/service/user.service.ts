@@ -9,14 +9,16 @@ import {
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';
+import { BaseService } from '../base/base.service';
+import { db } from '../decorator/prisma.decorator';
 
 @Provide()
-export class UserService {
+@db('user')
+export class UserService extends BaseService {
   @Inject()
   ctx: Context;
   // 获取用户信息
   async getUser(user: UserDTO) {
-    console.log('get user:', this.ctx);
     if (!user.id) user.name = this.ctx.state.user.name;
     const current = await prisma.user.findFirst({
       where: {
@@ -27,12 +29,14 @@ export class UserService {
         roles: true,
       },
     });
-    return {
+
+    const result = this.success( {
       ...omit(current, ['password', 'createdAt', 'updatedAt', 'isDeleted']),
       roles: current.roles?.map((role: any) =>
         omit(role, ['createdAt', 'updatedAt'])
       ),
-    };
+    })
+    return result;
   }
 
   // 新增用户信息

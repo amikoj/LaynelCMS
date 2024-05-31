@@ -8,6 +8,11 @@ export interface IResult<T = any> {
   message?: string;
 }
 
+export interface Page<T = any> {
+  list: T[];
+  total: number;
+}
+
 export const Result = {
   success<T>(option: IResult<T> = {}): IResult<T> {
     const {

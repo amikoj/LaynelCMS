@@ -13,11 +13,12 @@ import { LoginDTO } from '../dto/login';
 import { AuthService } from '../service/auth.service';
 import { CAPTCHED_NOT_MATCHED } from '../utils/network';
 import { ApiBearerAuth, ApiTags } from '@midwayjs/swagger';
+import { BaseController } from '../base/base.controller';
 
 @ApiBearerAuth()
 @ApiTags(['auth'])
 @Controller('/auth')
-export class AuthController {
+export class AuthController extends BaseController {
   @Inject()
   ctx: Context;
 
@@ -28,7 +29,7 @@ export class AuthController {
   captchaService: CaptchaService;
 
   @Inject()
-  authService: AuthService;
+  service: AuthService;
 
   // 示例：获取图像验证码
   @Get('/captcha')
@@ -75,10 +76,10 @@ export class AuthController {
         captcha
       );
       if (passed || username === 'admin')
-        return await this.authService.login(loginInfo);
+        return await this.service.login(loginInfo);
       throw new MidwayHttpError('验证码不匹配', CAPTCHED_NOT_MATCHED);
     } else {
-      return await this.authService.login(loginInfo);
+      return await this.service.login(loginInfo);
     }
   }
 
@@ -86,6 +87,6 @@ export class AuthController {
 
   @Get('/menu')
   async menu() {
-    return await this.authService.menu();
+    return await this.service.menu();
   }
 }

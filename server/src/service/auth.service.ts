@@ -5,10 +5,11 @@ import { prisma } from '../prisma';
 import { USER_WHIT_PASSWORD_NOT_MATCHED } from '../utils/network';
 import { omit } from 'lodash';
 import { Context } from '@midwayjs/koa';
+import { BaseService } from '../base/base.service';
 
 // 权限服务
 @Provide()
-export class AuthService {
+export class AuthService extends BaseService {
   @Inject()
   jwt: JwtService;
 
@@ -35,13 +36,14 @@ export class AuthService {
         roles: current.roles.map((role: any) => role.id),
       });
 
-      return {
+      const result = this.success({
         ...omit(current, ['password', 'createdAt', 'updatedAt', 'isDeleted']),
         token,
         roles: current.roles.map((item: any) =>
           omit(item, ['createdAt', 'updatedAt'])
         ),
-      };
+      });
+      return result;
     } else {
       // 用户不存在或密码错误
       throw new MidwayHttpError(
@@ -96,7 +98,7 @@ export class AuthService {
         status: true,
       },
       orderBy: {
-        sort: 'asc'
+        sort: 'asc',
       },
       select: {
         name: true,
@@ -113,6 +115,6 @@ export class AuthService {
 
     // console.log('get permissions:', this.transferMenu(permissions));
 
-    return this.transferMenu(permissions);
+    return this.success(this.transferMenu(permissions));
   }
 }

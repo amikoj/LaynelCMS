@@ -13,7 +13,7 @@ import { LaynelController } from '../decorator/laynel.decorator';
   prefix: '/topic',
   methods: [],
 })
-export class TopicController extends BaseController<TopicService> {
+export class TopicController extends BaseController {
   @Inject()
   topicService: TopicService;
 
