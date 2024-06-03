@@ -16,12 +16,12 @@ export abstract class BaseService {
     return Result.error({ message, ...option });
   }
 
-  async getPaginatedWithCount(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15 } = query;
+  formatPage<T>(list: T[]): any[] {
+    return list;
+  }
 
+  getQueryPage(query: QueryInfoDTO): any {
     const queryInfo: any = {
-      skip: (page - 1) * pageSize,
-      take: pageSize,
       orderBy: {
         createdAt: 'desc',
       },
@@ -29,6 +29,15 @@ export abstract class BaseService {
 
     if (query.includes) queryInfo.includes = query.includes;
     if (query.orderBy) queryInfo.orderBy = query.orderBy;
+
+    return queryInfo;
+  }
+
+  async getPaginatedWithCount(query: QueryInfoDTO) {
+    const { page = 1, pageSize = 15 } = query;
+
+    const queryInfo: any = this.getQueryPage(query);
+
     const list = await prisma[this.table]?.findMany({
       skip: (page - 1) * pageSize,
       take: pageSize,
@@ -37,14 +46,29 @@ export abstract class BaseService {
 
     const total = await prisma[this.table]?.count(queryInfo);
     return {
-      list,
+      list: this.formatPage(list),
       total,
     };
   }
 
   async page(query: QueryInfoDTO) {
-    // console.log('get baseservice page:', this.table, this.ctx);
-    if (!this.table) return null;
+    if (!this.table) return this.error(`${this.table}名不能为空！`);
     return this.success<Page>(await this.getPaginatedWithCount(query));
+  }
+
+  getlistQuery(query: QueryInfoDTO): any {
+    return {
+      ...query,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    };
+  }
+
+  async list(query: QueryInfoDTO) {
+    const list = await prisma[this.table]?.findMany({
+      ...this.getlistQuery(query),
+    });
+    return this.success(list);
   }
 }

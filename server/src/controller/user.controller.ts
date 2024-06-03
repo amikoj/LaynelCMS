@@ -58,6 +58,6 @@ export class UserController {
 
   @Post('/page')
   async page(@Body() query: QueryInfoDTO) {
-    return await this.userService.list(query);
+    return await this.userService.page(query);
   }
 }

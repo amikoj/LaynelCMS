@@ -10,10 +10,11 @@ import {
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 import { omit } from 'lodash';
+import { BaseService } from '../base/base.service';
 
 // 权限服务
 @Provide()
-export class MenuService {
+export class MenuService extends BaseService {
   @Inject()
   jwt: JwtService;
 
@@ -69,7 +70,7 @@ export class MenuService {
       },
     });
 
-    return this.transferMenu(permissions);
+    return this.success(this.transferMenu(permissions));
   }
 
   async getMenu(menu: MenuDTO) {
@@ -79,7 +80,7 @@ export class MenuService {
           id: menu.id,
         },
       });
-      return current;
+      return this.success(current);
     }
     throw new MidwayHttpError('菜单id不能为空！', VAILDATE_PARAMS_NOT_MATCHED);
   }
@@ -104,7 +105,7 @@ export class MenuService {
         data: { ...(menu as any) },
       });
 
-      return current;
+      return this.success(current);
     } catch (err: any) {
       throw new MidwayHttpError(
         err.message ?? '当前数据不存在',
@@ -136,7 +137,7 @@ export class MenuService {
         await prisma.permissions.delete({
           where: { id },
         });
-        return id;
+        return this.success(id);
       }
     } catch (err: any) {
       throw new MidwayHttpError(

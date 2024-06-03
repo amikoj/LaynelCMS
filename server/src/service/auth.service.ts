@@ -1,20 +1,17 @@
-import { Inject, MidwayHttpError, Provide } from '@midwayjs/core';
+import { Inject, MidwayHttpError } from '@midwayjs/core';
 import { LoginDTO } from '../dto/login';
 import { JwtService } from '@midwayjs/jwt';
 import { prisma } from '../prisma';
 import { USER_WHIT_PASSWORD_NOT_MATCHED } from '../utils/network';
 import { omit } from 'lodash';
-import { Context } from '@midwayjs/koa';
 import { BaseService } from '../base/base.service';
+import { db } from '../decorator/prisma.decorator';
 
 // 权限服务
-@Provide()
+@db('permissions')
 export class AuthService extends BaseService {
   @Inject()
   jwt: JwtService;
-
-  @Inject()
-  ctx: Context;
 
   async login(loginInfo: LoginDTO) {
     const { username, password } = loginInfo;

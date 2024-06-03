@@ -1,4 +1,4 @@
-import { MidwayHttpError, Provide, Inject } from '@midwayjs/core';
+import { MidwayHttpError } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { UserDTO } from '../dto/user';
 import { QueryInfoDTO } from '../dto/query';
@@ -8,15 +8,11 @@ import {
   OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
-import { Context } from '@midwayjs/koa';
 import { BaseService } from '../base/base.service';
 import { db } from '../decorator/prisma.decorator';
 
-@Provide()
 @db('user')
 export class UserService extends BaseService {
-  @Inject()
-  ctx: Context;
   // 获取用户信息
   async getUser(user: UserDTO) {
     if (!user.id) user.name = this.ctx.state.user.name;
@@ -30,13 +26,13 @@ export class UserService extends BaseService {
       },
     });
 
-    const result = this.success( {
+    const result = this.success({
       ...omit(current, ['password', 'createdAt', 'updatedAt', 'isDeleted']),
       roles: current.roles?.map((role: any) =>
         omit(role, ['createdAt', 'updatedAt'])
       ),
-    })
-    return result;
+    });
+    return this.success(result);
   }
 
   // 新增用户信息
@@ -56,12 +52,14 @@ export class UserService extends BaseService {
       };
     }
     try {
-      return await prisma.user.create({
-        data,
-        include: {
-          roles: !!data.roles,
-        },
-      });
+      return this.success(
+        await prisma.user.create({
+          data,
+          include: {
+            roles: !!data.roles,
+          },
+        })
+      );
     } catch (err: any) {
       throw new MidwayHttpError(
         err.message ?? '当前数据不存在',
@@ -72,19 +70,18 @@ export class UserService extends BaseService {
 
   // 新增多条用户信息
   async addUsers(users: UserDTO[]) {
-    return await prisma.user.createMany({
-      data: [...users],
-      skipDuplicates: true,
-    });
+    return this.success(
+      await prisma.user.createMany({
+        data: [...users],
+        skipDuplicates: true,
+      })
+    );
   }
 
-  // 列表查询
-  async list(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15, name = '', nick = '' } = query;
+  getQueryPage(query: QueryInfoDTO) {
+    const { name = '', nick = '' } = query;
 
-    const result = await prisma.user.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+    return {
       where: {
         isDeleted: false,
         name: {
@@ -115,8 +112,7 @@ export class UserService extends BaseService {
         },
         remark: true,
       },
-    });
-    return result;
+    };
   }
 
   // 更新
@@ -173,7 +169,7 @@ export class UserService extends BaseService {
           '该用户有关联文章存在，无法删除，请先迁移文章关联或直接删除文章后重写操作！',
           OPERATOR_WITH_RELATION
         );
-      return await prisma.user.update({
+      const result = await prisma.user.update({
         where: {
           id,
           isDeleted: false,
@@ -185,6 +181,8 @@ export class UserService extends BaseService {
           },
         },
       });
+
+      return this.success(result);
     } catch (err: any) {
       throw new MidwayHttpError(
         err.message ?? '当前数据不存在',

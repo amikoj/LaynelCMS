@@ -36,7 +36,7 @@
   import RoleDrawer from './RoleDrawer.vue';
 
   import { columns, searchFormSchema } from './role.data';
-import { message } from 'ant-design-vue';
+  import { message } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'RoleManagement',

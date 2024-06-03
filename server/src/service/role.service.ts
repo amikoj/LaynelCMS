@@ -1,17 +1,19 @@
-import { MidwayHttpError, Provide } from '@midwayjs/core';
+import { MidwayHttpError } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { isNullOrUndefined } from '@midwayjs/core/dist/util/types';
 import { RoleDTO, RoleStatusEnum } from '../dto/role';
-import { QueryInfoDTO } from '../dto/query';
 import { omit } from 'lodash';
 import {
   DATA_SET_NOT_EXIST,
   OPERATOR_WITH_RELATION,
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
+import { BaseService } from '../base/base.service';
+import { db } from '../decorator/prisma.decorator';
+import { QueryInfoDTO } from '../dto/query';
 
-@Provide()
-export class RoleService {
+@db('role')
+export class RoleService extends BaseService {
   // 获取角色信息
   async getRole(role: RoleDTO) {
     if (isNullOrUndefined(role) && Object.keys(role).length) return null;
@@ -24,64 +26,65 @@ export class RoleService {
         permissions: {
           select: {
             id: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     const target: any = {
       ...omit(current, ['createdAt', 'updatedAt']),
-    }
+    };
 
-    target.permissions = target.permissions.map((item: any) => item.id)
+    target.permissions = target.permissions.map((item: any) => item.id);
 
-    return target;
+    return this.success(target);
   }
 
   // 新增用户信息
   async addRole(role: RoleDTO) {
-
     const data: any = {
       ...(omit(role, ['id']) as RoleDTO),
-    }
+    };
 
     if (data.permissions && data.permissions.length) {
       data.permissions = {
         connect: data.permissions.map((id: any) => {
-          return { id }
-        })
-      }
+          return { id };
+        }),
+      };
     }
-    return await prisma.role.create({
+    const result = await prisma.role.create({
       data,
-
     });
+    return this.success(result);
   }
 
   // 新增多条用户信息
   async addRoles(roles: RoleDTO[]) {
-    return await prisma.user.createMany({
-      data: [...roles],
-      skipDuplicates: true,
-    });
+    return this.success(
+      await prisma.user.createMany({
+        data: [...roles],
+        skipDuplicates: true,
+      })
+    );
   }
 
   // 列表查询
-  async page(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15 } = query;
-    const result = await prisma.role.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: {
-        sort: 'asc',
-      },
-    });
+  // async page(query: QueryInfoDTO) {
+  //   const { page = 1, pageSize = 15 } = query;
+  //   const result = await prisma.role.findMany({
+  //     skip: (page - 1) * pageSize,
+  //     take: pageSize,
+  //     orderBy: {
+  //       sort: 'asc',
+  //     },
+  //   });
 
-    return result;
-  }
+  //   return this.success(result);
+  // }
 
-  async list() {
-    const result = await prisma.role.findMany({
+  getlistQuery(query: QueryInfoDTO) {
+    return {
       where: {
         status: RoleStatusEnum.ACTIVE,
       },
@@ -92,8 +95,7 @@ export class RoleService {
       orderBy: {
         updatedAt: 'desc',
       },
-    });
-    return result;
+    };
   }
 
   // 更新
@@ -102,13 +104,13 @@ export class RoleService {
       throw new MidwayHttpError('角色ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
 
     try {
-      const data = role
-      if(role.permissions && role.permissions.length) {
+      const data = role;
+      if (role.permissions && role.permissions.length) {
         data.permissions = {
           set: role.permissions.map((id: any) => {
-            return {id}
-          })
-        }
+            return { id };
+          }),
+        };
       }
       const current = await prisma.role.update({
         where: {
@@ -160,30 +162,28 @@ export class RoleService {
     }
   }
 
-
   async enable(data: any) {
     if (!data.id)
       throw new MidwayHttpError('角色ID不能为空', VAILDATE_PARAMS_NOT_MATCHED);
 
-      try{
-        const current = await prisma.role.update({
-          where: {
-            id: data?.id,
-          },
-          data: {
-            status: data.status
-          },
-          select: {
-            id: true
-          }
-        });
-        return current.id
-      }catch (err: any) {
-        throw new MidwayHttpError(
-          err.message ?? '当前数据不存在',
-          err.code ?? DATA_SET_NOT_EXIST
-        );
-      }
-
+    try {
+      const current = await prisma.role.update({
+        where: {
+          id: data?.id,
+        },
+        data: {
+          status: data.status,
+        },
+        select: {
+          id: true,
+        },
+      });
+      return current.id;
+    } catch (err: any) {
+      throw new MidwayHttpError(
+        err.message ?? '当前数据不存在',
+        err.code ?? DATA_SET_NOT_EXIST
+      );
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { MidwayHttpError, Provide } from '@midwayjs/core';
+import { MidwayHttpError } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { QueryInfoDTO } from '../dto/query';
 import {
@@ -12,7 +12,6 @@ import { BaseService } from '../base/base.service';
 import { db } from '../decorator/prisma.decorator';
 
 @db('topic')
-@Provide()
 export class TopicService extends BaseService {
   // @Inject()
   // ctx: Context;
