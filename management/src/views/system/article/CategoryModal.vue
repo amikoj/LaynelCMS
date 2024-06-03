@@ -7,11 +7,11 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { accountFormSchema } from './article.data';
-  import { addAccount, updateAccount } from '/@/api/demo/system';
+  import { accountFormSchema } from './cate.data';
+  import { addCate, updateCate } from '/@/api/system/extra';
 
   export default defineComponent({
-    name: 'AccountModal',
+    name: 'CategoryModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -35,7 +35,7 @@
         if (unref(isUpdate)) {
           rowId.value = data.record.id;
 
-          console.log('get data:', data);
+          // console.log('get data:', data);
 
           setFieldsValue({
             ...data.record,
@@ -49,7 +49,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增账号' : '编辑账号'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增分类' : '编辑分类'));
 
       async function handleSubmit() {
         try {
@@ -64,8 +64,8 @@
             id: rowId.value,
             roles: values.roles.map((item) => item.value),
           };
-          if (!unref(isUpdate)) res = await addAccount(data);
-          else res = await updateAccount(data);
+          if (!unref(isUpdate)) res = await addCate(data);
+          else res = await updateCate(data);
           if (res) {
             closeModal();
             emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });

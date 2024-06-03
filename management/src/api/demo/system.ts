@@ -22,7 +22,8 @@ enum Api {
   GetAllRoleList = '/role/list',
   addAccount = '/user',
   menu = '/menu',
-  role = '/role'
+  role = '/role',
+  cateList = '/article/category/list',
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -60,10 +61,12 @@ export const updateMenu = (model: any) => defHttp.post({ url: Api.menu, data: mo
 export const delMenu = (id: any) => defHttp.delete({ url: Api.menu, data: { id } });
 
 // 角色模块
-export const getRole = (id: any) => defHttp.get({ url: Api.role, params: { id } })
+export const getRole = (id: any) => defHttp.get({ url: Api.role, params: { id } });
 
-export const addRole = (data: any) => defHttp.put({ url: Api.role, data })
+export const addRole = (data: any) => defHttp.put({ url: Api.role, data });
 
-export const updateRole = (data: any) => defHttp.post({ url: Api.role, data })
+export const updateRole = (data: any) => defHttp.post({ url: Api.role, data });
 
-export const delRole = (id: any) => defHttp.delete({ url: Api.role, data: { id } })
+export const delRole = (id: any) => defHttp.delete({ url: Api.role, data: { id } });
+
+export const getAllCateList = () => defHttp.get<RoleListGetResultModel>({ url: Api.cateList });

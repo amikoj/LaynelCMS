@@ -21,23 +21,23 @@ export class MenuService extends BaseService {
   @Inject()
   ctx: Context;
 
-  transferMenu(menus: any[]) {
-    const map = menus.reduce((target: any, current: any) => {
-      target[current.id] = {
-        ...current,
-      };
-      return target;
-    }, {});
-    const target: any[] = [];
+  // transferMenu(menus: any[]) {
+  //   const map = menus.reduce((target: any, current: any) => {
+  //     target[current.id] = {
+  //       ...current,
+  //     };
+  //     return target;
+  //   }, {});
+  //   const target: any[] = [];
 
-    menus.forEach((menu: any) => {
-      if (menu.pid === null) target.push(map[menu.id]);
-      else {
-        (map[menu.pid].children ??= []).push(map[menu.id]);
-      }
-    });
-    return target;
-  }
+  //   menus.forEach((menu: any) => {
+  //     if (menu.pid === null) target.push(map[menu.id]);
+  //     else {
+  //       (map[menu.pid].children ??= []).push(map[menu.id]);
+  //     }
+  //   });
+  //   return target;
+  // }
 
   async menu(query: QueryInfoDTO) {
     const { name = '', status } = query;
@@ -70,7 +70,7 @@ export class MenuService extends BaseService {
       },
     });
 
-    return this.success(this.transferMenu(permissions));
+    return this.success(this.listToTree(permissions, 'id', 'pid'));
   }
 
   async getMenu(menu: MenuDTO) {

@@ -34,11 +34,21 @@ export class PostController extends BaseController {
 
   @Post('/category/page')
   async catePage(@Body() query: QueryInfoDTO) {
-    return super.catePage(query);
+    return this.service.catePage(query);
   }
 
   @Del('/')
   async del(@Valid(RuleType.number().required()) @Body('id') id: number) {
     return await this.service.delPost(id);
+  }
+
+  @Get('/category/list')
+  async cateList() {
+    return await this.service.catelist();
+  }
+
+  @Put('/category')
+  async  addCate(@Body() cate: any) {
+    return this.service.addPost(cate)
   }
 }

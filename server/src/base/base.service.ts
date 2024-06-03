@@ -53,7 +53,9 @@ export abstract class BaseService {
       ...queryInfo,
     });
 
-    const total = await prisma[table]?.count(omit(queryInfo, ['include']));
+    const total = await prisma[table]?.count(
+      omit(queryInfo, ['include', 'select'])
+    );
     return {
       list: format(list),
       total,
@@ -81,5 +83,32 @@ export abstract class BaseService {
       ...this.getlistQuery(query),
     });
     return this.success(list);
+  }
+
+  /**
+   * 列表转树状结构
+   * @param data 列表数据
+   * @param key 拆分的唯一key
+   * @param parentKey 父级数据对应key字段名
+   * @returns Promise
+   */
+  listToTree(data: any[], key: string, parentKey: string) {
+    const map = data.reduce((target: any, current: any) => {
+      target[current[key]] = {
+        ...current,
+      };
+      return target;
+    }, {});
+
+    const target: any[] = [];
+
+    data.forEach((item: any) => {
+      if (item[parentKey] === null) target.push(map[item[key]]);
+      else {
+        (map[item[parentKey]].children ??= []).push(map[item[key]]);
+      }
+    });
+
+    return target;
   }
 }

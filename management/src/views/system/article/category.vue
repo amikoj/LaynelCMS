@@ -25,6 +25,8 @@
         />
       </template>
     </BasicTable>
+
+    <CategoryModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -32,16 +34,17 @@
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { delSoftware, getCateList } from '/@/api/system/extra';
+  import CategoryModal from './CategoryModal.vue';
 
   import { useModal } from '/@/components/Modal';
 
-  import { columns, searchFormSchema } from './article.data';
+  import { columns, searchFormSchema } from './cate.data';
   import { useGo } from '/@/hooks/web/usePage';
   import { message } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'SoftwareManagement',
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, CategoryModal },
     setup() {
       const go = useGo();
       const [registerModal, { openModal }] = useModal();

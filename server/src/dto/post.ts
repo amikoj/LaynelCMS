@@ -8,3 +8,11 @@ export class PostDTO {
   author?: any;
   [key: string]: any;
 }
+
+export class CategoryDTO {
+  id?: number;
+  name: string;
+  pid: number;
+  desc?: string;
+  [key: string]: any;
+}

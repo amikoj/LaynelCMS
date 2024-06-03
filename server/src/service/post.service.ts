@@ -6,7 +6,7 @@ import {
   VAILDATE_PARAMS_NOT_MATCHED,
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';
-import { PostDTO } from '../dto/post';
+import { CategoryDTO, PostDTO } from '../dto/post';
 import { BaseService } from '../base/base.service';
 import { db } from '../decorator/prisma.decorator';
 
@@ -35,7 +35,7 @@ export class PostService extends BaseService {
 
   async catePage(query: QueryInfoDTO) {
     const { page = 1, pageSize = 15 } = query;
-    return await this.getPaginatedWithCount(
+    const result = await this.getPaginatedWithCount(
       {
         page,
         pageSize,
@@ -45,6 +45,13 @@ export class PostService extends BaseService {
       },
       'category'
     );
+
+    return this.success(result);
+  }
+
+  async catelist() {
+    const list = await prisma.category.findMany({});
+    return this.success(this.listToTree(list, 'id', 'pid'));
   }
 
   async getPost(id: number) {
@@ -93,6 +100,72 @@ export class PostService extends BaseService {
         ...(article as any),
       },
     });
+  }
+
+  async addCate(cate: CategoryDTO) {
+    const result = await prisma.category.create({
+      data: {
+        name: cate.name,
+        desc: cate.desc,
+        pid: cate.pid,
+      },
+    });
+
+    return this.success(result);
+  }
+
+  async updateCate(cate: CategoryDTO) {
+    try {
+      const result = await prisma.category.update({
+        where: {
+          id: cate.id,
+        },
+        data: {
+          ...cate,
+        },
+      });
+
+      return this.success(result);
+    } catch {
+      return this.error('当前分类不存在');
+    }
+  }
+
+  async delCate(cate: CategoryDTO) {
+    try {
+
+      const a = await prisma.category.findUnique({
+        where: {
+          id: cate.id,
+        },
+        include: {
+          cate
+        }
+      })
+
+
+
+
+      await prisma.post.update({
+        where: {
+          // categories: {
+          //   some: {
+          //     id: cate.id,
+          //   },
+          // },
+        },
+        data: {
+          categories: {
+            set: [],
+          },
+        },
+      });
+    } catch (err: any) {
+      throw new MidwayHttpError(
+        err.message ?? '当前数据不存在',
+        err.code ?? DATA_SET_NOT_EXIST
+      );
+    }
   }
 
   async updatePost(article: PostDTO) {
