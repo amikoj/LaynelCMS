@@ -2,25 +2,20 @@
   <div>
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">新增文章</a-button>
+        <a-button type="primary" @click="handleCreate">新增分类</a-button>
       </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看软件详情',
-              onClick: handleView.bind(null, record),
-            },
-            {
               icon: 'clarity:note-edit-line',
-              tooltip: '编辑软件资料',
+              tooltip: '编辑分类',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此软件',
+              tooltip: '删除此分类',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -36,7 +31,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getArticleList, delSoftware } from '/@/api/system/extra';
+  import { delSoftware, getCateList } from '/@/api/system/extra';
 
   import { useModal } from '/@/components/Modal';
 
@@ -52,8 +47,8 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
-        title: '文章列表',
-        api: getArticleList,
+        title: '分类列表',
+        api: getCateList,
         rowKey: 'id',
         columns,
         formConfig: {

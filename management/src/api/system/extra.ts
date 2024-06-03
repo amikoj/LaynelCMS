@@ -8,6 +8,8 @@ enum Api {
   subscriptonPage = '/topic/subscription/page',
   articlePage = '/article/page',
   article = '/article',
+  cate = '/article/category',
+  catePage = '/article/category/page',
 }
 // 软件管理
 export const getSoftwarePage = (params: any) =>
@@ -33,3 +35,11 @@ export const getSubscriptionPage = (params: any) =>
 
 // 文章管理
 export const getArticleList = (params: any) => defHttp.post<any>({ url: Api.articlePage, params });
+
+export const getCateList = (params: any) => defHttp.post<any>({ url: Api.catePage, params });
+
+export const addCate = (model: any) => defHttp.put({ url: Api.cate, data: model });
+
+export const updateCate = (model: any) => defHttp.post({ url: Api.cate, data: model });
+
+export const delCate = (id: any) => defHttp.delete({ url: Api.cate, data: { id } });

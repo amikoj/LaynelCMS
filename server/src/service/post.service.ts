@@ -1,4 +1,4 @@
-import { Inject, MidwayHttpError, Provide } from '@midwayjs/core';
+import { Inject, MidwayHttpError } from '@midwayjs/core';
 import { prisma } from '../prisma';
 import { QueryInfoDTO } from '../dto/query';
 import {
@@ -7,22 +7,17 @@ import {
 } from '../utils/network';
 import { Context } from '@midwayjs/koa';
 import { PostDTO } from '../dto/post';
-@Provide()
-export class PostService {
+import { BaseService } from '../base/base.service';
+import { db } from '../decorator/prisma.decorator';
+
+@db('post')
+export class PostService extends BaseService {
   @Inject()
   ctx: Context;
 
-  /**
-   * 文章列表查询
-   * @param query  查询条件
-   * @returns Promise
-   */
-  async page(query: QueryInfoDTO) {
-    const { page = 1, pageSize = 15, title } = query;
-
-    const result = await prisma.post.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+  getQueryPage(query: QueryInfoDTO) {
+    const { title } = query;
+    return {
       orderBy: {
         sort: 'asc',
       },
@@ -35,8 +30,21 @@ export class PostService {
           contains: title,
         },
       },
-    });
-    return result;
+    };
+  }
+
+  async catePage(query: QueryInfoDTO) {
+    const { page = 1, pageSize = 15 } = query;
+    return await this.getPaginatedWithCount(
+      {
+        page,
+        pageSize,
+        orderBy: {
+          updatedAt: 'asc',
+        },
+      },
+      'category'
+    );
   }
 
   async getPost(id: number) {

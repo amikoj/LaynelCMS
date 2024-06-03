@@ -69,20 +69,6 @@ export class RoleService extends BaseService {
     );
   }
 
-  // 列表查询
-  // async page(query: QueryInfoDTO) {
-  //   const { page = 1, pageSize = 15 } = query;
-  //   const result = await prisma.role.findMany({
-  //     skip: (page - 1) * pageSize,
-  //     take: pageSize,
-  //     orderBy: {
-  //       sort: 'asc',
-  //     },
-  //   });
-
-  //   return this.success(result);
-  // }
-
   getlistQuery(query: QueryInfoDTO) {
     return {
       where: {
