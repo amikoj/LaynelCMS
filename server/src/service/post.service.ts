@@ -133,33 +133,44 @@ export class PostService extends BaseService {
 
   async delCate(cate: CategoryDTO) {
     try {
-
-      const a = await prisma.category.findUnique({
+      const category = await prisma.category.findUnique({
         where: {
           id: cate.id,
         },
         include: {
-          cate
-        }
-      })
-
-
-
-
-      await prisma.post.update({
-        where: {
-          // categories: {
-          //   some: {
-          //     id: cate.id,
-          //   },
-          // },
-        },
-        data: {
-          categories: {
-            set: [],
+          posts: {
+            select: {
+              id: true,
+            },
           },
         },
       });
+
+      if (category && category.posts && category.posts.length) {
+        // 当前分类的文章，去除分类
+        const updates = category.posts.map((post: any) => {
+          return prisma.post.update({
+            where: {
+              id: post.id,
+            },
+            data: {
+              categories: {
+                set: [],
+              },
+            },
+          });
+        });
+
+        await prisma.$transaction(updates);
+      } else if (category) {
+        await prisma.category.delete({
+          where: {
+            id: category.id,
+          },
+        });
+
+        return this.success(category.id);
+      }
     } catch (err: any) {
       throw new MidwayHttpError(
         err.message ?? '当前数据不存在',
