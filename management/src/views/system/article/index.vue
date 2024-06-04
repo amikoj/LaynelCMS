@@ -8,19 +8,14 @@
         <TableAction
           :actions="[
             {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看软件详情',
-              onClick: handleView.bind(null, record),
-            },
-            {
               icon: 'clarity:note-edit-line',
-              tooltip: '编辑软件资料',
+              tooltip: '编辑文章',
               onClick: handleEdit.bind(null, record),
             },
             {
               icon: 'ant-design:delete-outlined',
               color: 'error',
-              tooltip: '删除此软件',
+              tooltip: '删除文章',
               popConfirm: {
                 title: '是否确认删除',
                 confirm: handleDelete.bind(null, record),
@@ -30,26 +25,29 @@
         />
       </template>
     </BasicTable>
+
+    <ArticleDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getArticleList, delSoftware } from '/@/api/system/extra';
-
-  import { useModal } from '/@/components/Modal';
+  import { delArticle, getArticleList } from '/@/api/system/extra';
 
   import { columns, searchFormSchema } from './article.data';
   import { useGo } from '/@/hooks/web/usePage';
   import { message } from 'ant-design-vue';
+  import ArticleDrawer from './ArticleDrawer.vue';
+  import { useDrawer } from '/@/components/Drawer';
 
   export default defineComponent({
     name: 'SoftwareManagement',
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, ArticleDrawer },
     setup() {
       const go = useGo();
-      const [registerModal, { openModal }] = useModal();
+      const [registerDrawer, { openDrawer }] = useDrawer();
+
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '文章列表',
@@ -77,21 +75,20 @@
       });
 
       function handleCreate() {
-        openModal(true, {
+        openDrawer(true, {
           isUpdate: false,
         });
       }
 
       function handleEdit(record: Recordable) {
-        console.log(record);
-        openModal(true, {
+        openDrawer(true, {
           record,
           isUpdate: true,
         });
       }
 
       async function handleDelete(record: Recordable) {
-        const res = await delSoftware(record.id);
+        const res = await delArticle(record.id);
         if (res) {
           // 删除成功
           message.success('删除成功！');
@@ -121,7 +118,7 @@
 
       return {
         registerTable,
-        registerModal,
+        registerDrawer,
         handleCreate,
         handleEdit,
         handleDelete,

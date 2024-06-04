@@ -16,7 +16,7 @@ export class PostService extends BaseService {
   ctx: Context;
 
   getQueryPage(query: QueryInfoDTO) {
-    const { name } = query;
+    const { title } = query;
     return {
       orderBy: {
         sort: 'asc',
@@ -26,8 +26,8 @@ export class PostService extends BaseService {
         categories: true,
       },
       where: {
-        name: {
-          contains: name,
+        title: {
+          contains: title,
         },
       },
     };

@@ -1,4 +1,4 @@
-import { getAllRoleList } from '/@/api/demo/system';
+import { getAllAccountList } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import dayjs from 'dayjs';
@@ -36,63 +36,45 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'name',
-    label: '程序名',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    field: 'code',
-    label: '程序编码',
+    field: 'title',
+    label: '文件名',
     component: 'Input',
     colProps: { span: 8 },
   },
 ];
 
-export const accountFormSchema: FormSchema[] = [
+export const formSchema: FormSchema[] = [
   {
-    field: 'name',
-    label: '用户名',
+    field: 'title',
+    label: '',
     component: 'Input',
     required: true,
-  },
-  {
-    field: 'password',
-    label: '密码',
-    component: 'InputPassword',
-    required: true,
-    ifShow: false,
-  },
-  {
-    label: '角色',
-    field: 'roles',
-    component: 'ApiSelect',
+    colProps: { lg: 16, md: 16 },
     componentProps: {
-      api: getAllRoleList,
-      labelField: 'name',
+      placeholder: '填写标题',
+    },
+    labelWidth: '30px',
+  },
+  {
+    field: 'user',
+    label: ' ',
+    component: 'ApiSelect',
+    required: true,
+    colProps: { lg: 8, md: 8 },
+    componentProps: {
+      placeholder: '请选择作者',
+      api: getAllAccountList,
+      labelField: 'nick',
       valueField: 'id',
-      mode: 'multiple',
       labelInValue: true,
     },
-    required: true,
   },
   {
-    field: 'nick',
-    label: '昵称',
+    field: 'content',
+    label: ' ',
+    slot: 'content ',
+    required: true,
+    colProps: { lg: 16, md: 16 },
     component: 'Input',
-    required: true,
-  },
-
-  {
-    label: '邮箱',
-    field: 'email',
-    component: 'Input',
-    required: true,
-  },
-
-  {
-    label: '备注',
-    field: 'desc',
-    component: 'InputTextArea',
   },
 ];

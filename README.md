@@ -13,6 +13,7 @@
 ## 数据库更新
 
 ```
-$ npx prisma migrate dev --name init
+$ npx prisma migrate dev --name init #初始化迁移历史
+$ npx prisma migrate deploy  # 将迁移脚本应用到数据库
 
 ```

@@ -36,7 +36,7 @@
   import MenuDrawer from './MenuDrawer.vue';
 
   import { columns, searchFormSchema } from './menu.data';
-import { message } from 'ant-design-vue';
+  import { message } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'MenuManagement',
@@ -82,9 +82,9 @@ import { message } from 'ant-design-vue';
       }
 
       async function handleDelete(record: Recordable) {
-        const res = await delMenu(record.id)
-        if(res) {
-          message.success('操作成功')
+        const res = await delMenu(record.id);
+        if (res) {
+          message.success('操作成功');
           reload();
         }
       }

@@ -60,4 +60,8 @@ export class UserController {
   async page(@Body() query: QueryInfoDTO) {
     return await this.userService.page(query);
   }
+  @Get('/list')
+  async list() {
+    return await this.userService.getAllUsers();
+  }
 }

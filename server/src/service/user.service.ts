@@ -115,6 +115,25 @@ export class UserService extends BaseService {
     };
   }
 
+  async getAllUsers() {
+    const result = await prisma.user.findMany({
+      where: {
+        isDeleted: false,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      select: {
+        id: true,
+        name: true,
+        nick: true,
+        avatar: true,
+        email: true,
+      },
+    });
+    return this.success(result);
+  }
+
   // 更新
   async updateUser(user: UserDTO) {
     if (!user.id)
