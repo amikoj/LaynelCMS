@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './cate.data';
   import { addCate, updateCate } from '/@/api/system/extra';
+  import { getAllCateList } from '/@/api/demo/system';
 
   export default defineComponent({
     name: 'CategoryModal',
@@ -18,7 +19,7 @@
       const isUpdate = ref(true);
       const rowId = ref('');
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, validate, updateSchema }] = useForm({
         labelWidth: 100,
         schemas: accountFormSchema,
         showActionButtonGroup: false,
@@ -37,14 +38,15 @@
 
           // console.log('get data:', data);
 
+          const treeData: any = await getAllCateList();
+          console.log('get res:', treeData);
+          updateSchema({
+            field: 'pid',
+            componentProps: { treeData: treeData || [] },
+          });
+
           setFieldsValue({
             ...data.record,
-            roles: data.record.roles.map((role: any) => {
-              return {
-                label: role.name,
-                value: role.id,
-              };
-            }),
           });
         }
       });
@@ -62,7 +64,6 @@
           const data = {
             ...values,
             id: rowId.value,
-            roles: values.roles.map((item) => item.value),
           };
           if (!unref(isUpdate)) res = await addCate(data);
           else res = await updateCate(data);

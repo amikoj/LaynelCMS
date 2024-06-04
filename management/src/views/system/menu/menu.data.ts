@@ -51,7 +51,7 @@ export const columns: BasicColumn[] = [
     title: '创建时间',
     dataIndex: 'createdAt',
     format(text) {
-      return dayjs(text).format('YYYY-MM-DD HH:mm:ss')
+      return dayjs(text).format('YYYY-MM-DD HH:mm:ss');
     },
     width: 190,
   },
@@ -118,7 +118,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'redirect',
-    label:'重定向',
+    label: '重定向',
     component: 'Input',
     ifShow: ({ values }) => isDir(values.type),
   },

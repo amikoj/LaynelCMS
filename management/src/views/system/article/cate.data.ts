@@ -1,4 +1,3 @@
-import { getAllCateList } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import dayjs from 'dayjs';
@@ -13,6 +12,10 @@ export const columns: BasicColumn[] = [
     title: '父级分类',
     dataIndex: 'pid',
     width: 120,
+    format(text, row) {
+      if (!text) return '无';
+      else return row?.parent?.name;
+    },
   },
   {
     title: '描述',
@@ -48,13 +51,14 @@ export const accountFormSchema: FormSchema[] = [
   {
     label: '父类',
     field: 'pid',
-    component: 'ApiSelect',
+    component: 'TreeSelect',
     componentProps: {
-      api: getAllCateList,
-      labelField: 'name',
-      valueField: 'id',
-      mode: 'multiple',
-      labelInValue: true,
+      replaceFields: {
+        title: 'name',
+        key: 'id',
+        value: 'id',
+      },
+      getPopupContainer: () => document.body,
     },
     required: false,
   },

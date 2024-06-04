@@ -48,7 +48,12 @@ export class PostController extends BaseController {
   }
 
   @Put('/category')
-  async  addCate(@Body() cate: any) {
-    return this.service.addPost(cate)
+  async addCate(@Body() cate: any) {
+    return this.service.addCate(cate);
+  }
+
+  @Post('/category')
+  async updateCate(@Body() cate: any) {
+    return this.service.updateCate(cate);
   }
 }

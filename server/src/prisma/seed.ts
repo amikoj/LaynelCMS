@@ -421,6 +421,33 @@ const topics = [
   },
 ];
 
+const categories = [
+  {
+    id: 1,
+    name: '前端',
+    desc: '前端知识点',
+    pid: null,
+  },
+  {
+    id: 2,
+    name: '笔记',
+    desc: '笔记记录知识点',
+    pid: null,
+  },
+  {
+    id: 3,
+    name: '编程语言',
+    desc: '编程语言知识总结',
+    pid: null,
+  },
+  {
+    id: 4,
+    name: 'Vue',
+    desc: 'Vue开发技巧',
+    pid: 1,
+  },
+];
+
 export async function main() {
   console.log('---------seed.js 被执行--------');
 
@@ -433,6 +460,7 @@ export async function main() {
   await prisma.menu.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.role.deleteMany({});
+  await prisma.category.deleteMany({});
 
   await prisma.role.createMany({
     data: roles,
@@ -457,6 +485,10 @@ export async function main() {
 
   const createTopics = topics.map((data: any) => prisma.topic.create({ data }));
 
+  const category = categories.map((data: any) =>
+    prisma.category.create({ data })
+  );
+
   // createMany创建多条数据不能创建关联关系
   await prisma.$transaction([
     // ...createRoles,
@@ -466,6 +498,7 @@ export async function main() {
     ...createPlatforms,
     ...createSoftwares,
     ...createTopics,
+    ...category,
   ]);
 }
 

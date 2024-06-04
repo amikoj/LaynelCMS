@@ -17,7 +17,10 @@ model Category {
   id        Int      @id @default(autoincrement())
   name      String
   desc      String?  @db.Text
+  sort      Int? @default(1)
+  parent    Category? @relation("ChildToParent", fields: [pid], references: [id])
   pid       Int? // 父类
+  children  Category[] @relation("ChildToParent")
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

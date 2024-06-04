@@ -36,7 +36,7 @@ export const getSubscriptionPage = (params: any) =>
 // 文章管理
 export const getArticleList = (params: any) => defHttp.post<any>({ url: Api.articlePage, params });
 
-export const getCateList = (params: any) => defHttp.post<any>({ url: Api.catePage, params });
+export const getCateList = (params?: any) => defHttp.post<any>({ url: Api.catePage, params });
 
 export const addCate = (model: any) => defHttp.put({ url: Api.cate, data: model });
 

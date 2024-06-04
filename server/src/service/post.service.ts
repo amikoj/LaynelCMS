@@ -16,7 +16,7 @@ export class PostService extends BaseService {
   ctx: Context;
 
   getQueryPage(query: QueryInfoDTO) {
-    const { title } = query;
+    const { name } = query;
     return {
       orderBy: {
         sort: 'asc',
@@ -26,8 +26,8 @@ export class PostService extends BaseService {
         categories: true,
       },
       where: {
-        title: {
-          contains: title,
+        name: {
+          contains: name,
         },
       },
     };
@@ -42,6 +42,14 @@ export class PostService extends BaseService {
         orderBy: {
           updatedAt: 'asc',
         },
+        include: {
+          parent: {
+            select: {
+              name: true,
+              id: true,
+            },
+          },
+        },
       },
       'category'
     );
@@ -50,7 +58,14 @@ export class PostService extends BaseService {
   }
 
   async catelist() {
-    const list = await prisma.category.findMany({});
+    const list = await prisma.category.findMany({
+      orderBy: {
+        updatedAt: 'asc',
+      },
+      // include: {
+      //   children: true,
+      // },
+    });
     return this.success(this.listToTree(list, 'id', 'pid'));
   }
 
