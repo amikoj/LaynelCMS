@@ -44,8 +44,6 @@
         <a-button type="primary" @click="onClose">Submit</a-button>
       </a-space>
     </template>
-
-
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
