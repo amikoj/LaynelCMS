@@ -9,5 +9,28 @@ services:
       - redis
     depends_on:
       - redis
+      - mysql
   redis:
     image: redis
+  mysql:
+    image: mysql:8
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+      --group_concat_max_len=102400
+    restart: unless-stopped
+    volumes:
+      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/logs:/var/log/mysql
+      - /data/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /data/mysql/slowSql:/data/mysql
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      MYSQL_ROOT_PASSWORD: "laynel_2023" # 配置root用户密码
+      MYSQL_DATABASE: "laynelcms" # 业务库名
+      MYSQL_USER: "laynelcms" # 业务库用户名
+      MYSQL_PASSWORD: "laynelcms123" # 业务库密码
+    ports:
+      - 3306:3307
+    
+

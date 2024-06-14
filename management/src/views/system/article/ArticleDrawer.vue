@@ -38,6 +38,14 @@
         </a-col>
       </a-row>
     </a-form>
+    <template #extra>
+      <a-space>
+        <a-button @click="onClose">Cancel</a-button>
+        <a-button type="primary" @click="onClose">Submit</a-button>
+      </a-space>
+    </template>
+
+
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
