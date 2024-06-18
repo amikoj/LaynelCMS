@@ -21,7 +21,7 @@ RUN apk add --no-cache tzdata
 
 ENV TZ="Asia/Shanghai"
 
-# RUN npm install --production
+RUN npm install --production
 RUN npm config set registry https://registry.npmmirror.com
 
 
@@ -30,4 +30,4 @@ ENV DATABASE_URL=mysql://laynelcms:laynelcms123@mysql:3306/laynelcms
 # 如果端口更换，这边可以更新一下
 EXPOSE 7001
 
-CMD ["npm",  "install", '&&',"npm", "start"]
+CMD ["npm", "start"]

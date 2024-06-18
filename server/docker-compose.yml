@@ -31,6 +31,6 @@ services:
       MYSQL_USER: "laynelcms" # 业务库用户名
       MYSQL_PASSWORD: "laynelcms123" # 业务库密码
     ports:
-      - 3306:3306
+      - 3307:3306
     
 
