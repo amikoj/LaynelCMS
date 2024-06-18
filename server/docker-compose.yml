@@ -12,14 +12,14 @@ services:
       - mysql
   redis:
     image: redis
+    hostname: laynel_redis
     ports:
       - 6379:6379
   mysql:
     image: mysql:8
-    command:
-      --default-authentication-plugin=mysql_native_password
-      --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
-      --group_concat_max_len=102400
+    hostname: laynel_mysql
+    command: ['mysqld','--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-time-zone=+08:00']
+    entrypoint: sh -c "chown -R mysql:mysql /var/log/mysql && exec /entrypoint.sh mysqld"
     restart: unless-stopped
     volumes:
       - /data/laynel-mysql/data:/var/lib/mysql
@@ -32,6 +32,7 @@ services:
       MYSQL_DATABASE: "laynelcms" # 业务库名
       MYSQL_USER: "laynelcms" # 业务库用户名
       MYSQL_PASSWORD: "laynelcms123" # 业务库密码
+    privileged: true
     ports:
       - 3306:3306
     
