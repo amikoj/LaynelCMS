@@ -20,10 +20,10 @@ services:
       --group_concat_max_len=102400
     restart: unless-stopped
     volumes:
-      - /data/mysql/data:/var/lib/mysql
-      - /data/mysql/logs:/var/log/mysql
-      - /data/mysql/conf/my.cnf:/etc/mysql/my.cnf
-      - /data/mysql/slowSql:/data/mysql
+      - /data/laynel-mysql/data:/var/lib/mysql
+      - /data/laynel-mysql/logs:/var/log/mysql
+      - /data/laynel-mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /data/laynel-mysql/slowSql:/data/mysql
     environment:
       TZ: Asia/Shanghai # 指定时区
       MYSQL_ROOT_PASSWORD: "laynel_2023" # 配置root用户密码
