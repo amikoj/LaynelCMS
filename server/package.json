@@ -49,14 +49,14 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "prisma generate && NODE_ENV=production node ./bootstrap.js",
+    "start": "NODE_ENV=production node ./bootstrap.js",
     "dev": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
     "test": "cross-env NODE_ENV=unittest jest",
     "cov": "jest --coverage",
     "lint": "mwts check",
     "lint:fix": "mwts fix",
     "ci": "npm run cov",
-    "build": "prisma generate &&  mwtsc --cleanOutDir",
+    "build": "mwtsc --cleanOutDir",
     "generate": "prisma db push --force-reset --accept-data-loss"
   },
   "prisma": {

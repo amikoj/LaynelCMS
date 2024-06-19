@@ -22,8 +22,12 @@ RUN apk add --no-cache tzdata
 
 ENV TZ="Asia/Shanghai"
 
-RUN npm install --production
 RUN npm config set registry https://registry.npmmirror.com
+RUN npm install --production
+RUN npm install -g prisma
+RUN npx prisma generate
+RUN npx prisma migrate save --experimental
+RUN npx prisma migrate up --experimental
 
 
 ENV DATABASE_URL=mysql://laynelcms:laynelcms123@mysql:3306/laynelcms
