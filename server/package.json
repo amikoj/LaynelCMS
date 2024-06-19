@@ -56,7 +56,7 @@
     "lint": "mwts check",
     "lint:fix": "mwts fix",
     "ci": "npm run cov",
-    "build": "mwtsc --cleanOutDir",
+    "build": "prisma generate &&  mwtsc --cleanOutDir",
     "generate": "prisma db push --force-reset --accept-data-loss"
   },
   "prisma": {

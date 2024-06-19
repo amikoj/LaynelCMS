@@ -17,6 +17,7 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/src ./src
 COPY --from=build /app/bootstrap.js ./
 COPY --from=build /app/package.json ./
+COPY --from=build /app/prisma ./
 RUN apk add --no-cache tzdata
 
 ENV TZ="Asia/Shanghai"
