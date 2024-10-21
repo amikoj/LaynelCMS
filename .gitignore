@@ -1,29 +1,48 @@
-node_modules
-.DS_Store
-dist
-.npmrc
-.cache
-
-tests/server/static
-tests/server/static/upload
-
-.local
-# local env files
-.env.local
-.env.*.local
-.eslintcache
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor directories and files
-.idea
-# .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# This file tells git which files or directories to ignore.
+# This file is used to prevent certain files or directories from being tracked by git.
+# For example, if you have a file or directory that you don't want to track, you can add it to this file.   
+# Ignore all files in the "cache" directory
+cache/*
+# Ignore all files in the "logs" directory
+logs/*
+# Ignore all files in the "tmp" directory
+tmp/*
+# Ignore all files in the "vendor" directory
+vendor/*
+# Ignore all files in the "node_modules" directory
+node_modules/*
+# Ignore python cache files
+__pycache__/*
+# Ignore python environment files
+.env
+.venv
+venv/*
+pnpm-lock.json
+pnpm-lock.yaml
+# Ignore all files in the "public" directory
+public/*
+# Ignore all files in the "uploads" directory
+uploads/*
+# Ignore all files in the "storage" directory
+storage/*
+# Ignore all files in the "resources" directory
+resources/*
+# Ignore all files in the "config" directory
+config/*
+# Ignore all files in the "database" directory
+database/*
+# Ignore all files in the "tests" directory
+tests/*
+# Ignore all files in the "resources" directory
+resources/*
+# Ignore all files in the "resources/views" directory
+resources/views/*
+# Ignore all files in the "resources/lang" directory
+resources/lang/*
+# Ignore all files in the "resources/js" directory
+resources/js/*
+# Ignore all files in the "resources/sass" directory
+resources/sass/*
+# Ignore all files in the "resources/css" directory
+resources/css/*
+# Ignore all files in the "resources/img" directory

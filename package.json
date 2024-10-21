@@ -1,0 +1,17 @@
+{
+  "name": "laynelcms",
+  "version": "1.0.0",
+  "description": "LaynelCMS is a simple and lightweight content management system built with Python, FastAPI, SQLAlchemy and MySQL. It is designed to be easy to use and customize, and is ideal for small to medium-sized websites.",
+  "main": "frontend/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
