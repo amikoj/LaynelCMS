@@ -11,6 +11,7 @@ tmp/*
 vendor/*
 # Ignore all files in the "node_modules" directory
 node_modules/*
+*/node_modules/*
 # Ignore python cache files
 __pycache__/*
 # Ignore python environment files
@@ -29,8 +30,6 @@ storage/*
 resources/*
 # Ignore all files in the "config" directory
 config/*
-# Ignore all files in the "database" directory
-database/*
 # Ignore all files in the "tests" directory
 tests/*
 # Ignore all files in the "resources" directory

@@ -1,0 +1,58 @@
+# This file is used to configure the docker containers for LaynelCMS
+version: '3'
+services:
+  laynelcms:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      -./:/var/www/html/
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=laynelcms
+      - DB_USER=root
+      - DB_PASSWORD=root
+    depends_on:
+      - mysql
+  
+  nextjs:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www/html/
+    environment:
+      - DB_HOST=mysql
+      - DB_NAME=laynelcms
+      - DB_USER=root
+      - DB_PASSWORD=root
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=laynelcms
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      -./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      -./:/var/www/html/
+      -./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - laynelcms
+  
+  # The above code will create a docker container for LaynelCMS with MySQL and Nginx.
