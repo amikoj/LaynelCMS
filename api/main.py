@@ -17,4 +17,4 @@ if __name__ == '__main__':
     启动服务, 监听8000端口
     '''
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) # 启动服务
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info", reload=True) # 启动服务
