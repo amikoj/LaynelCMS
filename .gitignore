@@ -45,3 +45,9 @@ resources/sass/*
 # Ignore all files in the "resources/css" directory
 resources/css/*
 # Ignore all files in the "resources/img" directory
+
+
+.next/*
+.nuxt/*
+.output/*
+.serverless/*`
