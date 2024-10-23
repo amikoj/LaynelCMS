@@ -15,10 +15,10 @@ const nextConfig = {
       },
       {
         source: '/docs',
-        destination: isDev ? 'http://127.0.0.1:8000/docs' : 'api/docs',
+        destination: isDev ? 'http://127.0.0.1:8000/docs' : '/api/docs',
       }, {
         source: '/openapi.json',
-        destination: isDev ? 'http://127.0.0.1:8000/openapi.json' : 'api/openapi.json',
+        destination: isDev ? 'http://127.0.0.1:8000/openapi.json' : '/api/openapi.json',
       }
     ];
   },

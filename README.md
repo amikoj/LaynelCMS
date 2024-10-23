@@ -8,6 +8,11 @@ LaynelCMS is a simple and lightweight content management system built with Pytho
 - FastAPI: A fast, easy to use, web framework for building APIs with Python.
 - SQLAlchemy: A Python SQL toolkit and Object Relational Mapper.
 - MySQL: A fast, reliable, and scalable database management system.
+- NextJS: A React-based framework for building user interfaces.
+- React: A JavaScript library for building user interfaces.
+- Bootstrap: A CSS framework for building responsive web pages.
+- Docker: A containerization platform for building and running applications.
+- Nginx: A web server that can act as a reverse proxy, load balancer, and HTTP cache.
 
 ## Features
 
@@ -27,7 +32,68 @@ LaynelCMS is a simple and lightweight content management system built with Pytho
 ## Requirements
 - Python 3.8 or higher
 - MySQL 5.7 or higher
-- PHP 7.2 or higher
+- FastAPI 0.115.2 or higher
+- SQLAlchemy 1.4 or higher
+- Docker (optional)
+- Nginx (optional)
+- React 18 or higher
+- NextJS 14 or higher
+
+## Work directory structure
+
+```
+LaynelCMS
+├── app
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── blog.py
+│   │   ├── home.py
+│   │   ├── login.py
+│   │   ├── register.py
+│   │   └── user.py
+│   ├── core
+│   │   ├── __init__.py
+│   │   ├── db.py
+│   │   ├── exceptions.py
+│   │   ├── security.py
+│   │   └── settings.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   ├── blog.py
+│   │   ├── user.py
+│   │   └── __init__.py
+│   ├── templates
+│   │   ├── blog
+│   │   │   ├── create.html
+│   │   │   ├── delete.html
+│   │   │   ├── edit.html
+│   │   │   ├── index.html
+│   │   │   └── show.html
+│   │   ├── home
+│   │   │   ├── index.html
+│   │   │   └── login.html
+│   │   ├── layout
+│   │   │   ├── base.html
+│   │   │   └── nav.html
+│   │   ├── register.html
+│   │   └── user
+│   │       ├── create.html
+│   │       ├── delete.html
+│   │       ├── edit.html
+│   │       ├── index.html
+│   │       └── show.html
+│   ├── __init__.py
+│   ├── main.py
+│   └── routes.py
+├── config.py
+├── docker-compose.yml
+├── Dockerfile
+├── manage.py
+├── nginx.conf
+├── README.md
+├── requirements.txt
+└── uwsgi.ini
+```
 
 ## Installation
 
