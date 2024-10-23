@@ -20,31 +20,6 @@ __pycache__/*
 venv/*
 pnpm-lock.json
 pnpm-lock.yaml
-# Ignore all files in the "public" directory
-public/*
-# Ignore all files in the "uploads" directory
-uploads/*
-# Ignore all files in the "storage" directory
-storage/*
-# Ignore all files in the "resources" directory
-resources/*
-# Ignore all files in the "config" directory
-config/*
-# Ignore all files in the "tests" directory
-tests/*
-# Ignore all files in the "resources" directory
-resources/*
-# Ignore all files in the "resources/views" directory
-resources/views/*
-# Ignore all files in the "resources/lang" directory
-resources/lang/*
-# Ignore all files in the "resources/js" directory
-resources/js/*
-# Ignore all files in the "resources/sass" directory
-resources/sass/*
-# Ignore all files in the "resources/css" directory
-resources/css/*
-# Ignore all files in the "resources/img" directory
 
 
 .next/*
