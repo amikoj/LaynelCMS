@@ -1,8 +1,15 @@
+
+import nextTranslate from 'next-translate-plugin';
+
 const NODE_ENV = process.env.NODE_ENV;
 const isProd = NODE_ENV === 'production';
 const isDev = NODE_ENV === 'development';
 
-/** @type {import('next').NextConfig} */
+
+/**
+ * Next.js configuration options
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   /* config options here */
 
@@ -22,16 +29,6 @@ const nextConfig = {
       }
     ];
   },
-  i18n: {
-    locales: ['zh', 'en-US','zh-CN','ja'],
-    defaultLocale: 'zh',
-    domains: [
-      {
-        domain: 'www.liaocaowu.cn',
-        defaultLocale: 'zh-CN'
-      }
-    ]
-  }
 };
 
-export default nextConfig;
+export default nextTranslate(nextConfig);

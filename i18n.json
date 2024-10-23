@@ -1,0 +1,18 @@
+{
+    "locales": [
+        "en",
+        "zh"
+    ],
+    "defaultLocale": "zh",
+    "pages": {
+        "*": [
+            "common"
+        ],
+        "/admin/dashboard": [
+            "dashboard"
+        ],
+        "/": [
+            "home"
+        ]
+    }
+}

@@ -24,12 +24,12 @@
       }
     },
     "include": [
+      "new-types.d.ts",
       "next-env.d.ts",
-      "app/***/*.ts",
-      "app/**/*.tsx",
+      "**/*.ts",
+      "**/*.tsx",
       ".next/types/**/*.ts",
-      "app/lib/placeholder-data.ts",
       "scripts/seed.js","app/page_"
-    ],
+, "next.config.mjs"    ],
     "exclude": ["node_modules"]
   }

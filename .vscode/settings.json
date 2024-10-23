@@ -1,4 +1,8 @@
 {
     "prettier.endOfLine": "auto",
     "eggHelper.serverPort": 35684,
+    "i18n-ally.localesPaths": [
+        "lang"
+    ],
+    "i18n-ally.keystyle": "flat",
 }
