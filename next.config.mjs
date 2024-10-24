@@ -29,6 +29,13 @@ const nextConfig = {
       }
     ];
   },
+  webpack: (config, { isServer, webpack }) => {
+    return config;
+  },
+  i18n: {
+    locales: ['en', 'zh'],
+    defaultLocale: 'zh',    
+  }
 };
 
 export default nextTranslate(nextConfig);
