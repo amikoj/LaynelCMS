@@ -32,10 +32,34 @@ const nextConfig = {
   webpack: (config, { isServer, webpack }) => {
     return config;
   },
-  i18n: {
-    locales: ['en', 'zh'],
-    defaultLocale: 'zh',    
-  }
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/admin',
+  //       destination: '/admin/dashboard',
+  //       permanent: true,
+  //     }
+  //   ]
+  // },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.slingacademy.com',
+        port: ''
+      }
+    ]
+  },
+  transpilePackages: ['geist']
+  // i18n: {
+  //   locales: ['en', 'zh'],
+  //   defaultLocale: 'zh',    
+  // }
 };
 
 export default nextTranslate(nextConfig);

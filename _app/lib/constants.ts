@@ -1,0 +1,1 @@
+export const TOKEN_KEY = 'token' // token key in local storage
