@@ -1,0 +1,19 @@
+{
+    "name": "theme001",
+    "version": "1.0.0",
+    "description": "A simple theme for LaynelCMS",  
+    "author": "LaynelCMS",
+    "license": "MIT",
+    "homepage": "https://github.com/LaynelCMS/theme001",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LaynelCMS/theme001.git"
+    },
+    "keywords": [
+        "LaynelCMS",
+        "theme"
+    ],
+    "status": "default",
+    "type": "theme",
+    "dir": "templates"
+}

@@ -1,0 +1,22 @@
+{
+    "name": "Demo Plugin",
+    "version": "1.0.0",
+    "description": "This is a demo plugin for LaynelCMS",
+    "author": "Laynel",
+    "license": "MIT",
+    "homepage": "https://github.com/Laynel/LaynelCMS",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Laynel/LaynelCMS.git"
+    },
+    "keywords": [
+        "LaynelCMS",
+        "plugin",
+        "demo"
+    ],
+    "main": "main.py",
+    "status": "default",
+    "type": "plugin",
+    "dependencies": {
+    }
+}
