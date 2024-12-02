@@ -102,7 +102,7 @@ To install LaynelCMS, follow these steps:
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/caihaifei/LaynelCMS.git
+git clone https://github.com/amikoj/LaynelCMS.git
 ```
 
 2. Install the required packages using pip:
@@ -141,7 +141,7 @@ You can now access the CMS at `http://localhost:5000`.
 
 ## Credits
 
-- [<NAME>](https://github.com/caihaifei)
+- [<amikoj>](https://github.com/amikoj)
 - [All Contributors](../../contributors)
 
 ## License
