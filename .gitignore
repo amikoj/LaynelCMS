@@ -29,3 +29,10 @@ pnpm-lock.yaml
 
 /node_modules/*
 /dist/*
+
+/__pycache__/*
+/.env
+/.venv
+/venv/*
+/pnpm-lock.json
+/pnpm-lock.yaml
