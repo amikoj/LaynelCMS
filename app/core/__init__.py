@@ -2,15 +2,13 @@
 Core module of LaynelCMS
 """
 __version__ = "0.0.1"
-__name__ = "laynelcms-core"
-
 
 # 初始变量
 __current_theme__ = "default" # 当前主题
 __plugins__ = {} # 插件列表
 
 import fastapi as FastAPI
-import plugin
+from . import plugin
 
 
 # Initialize the core module

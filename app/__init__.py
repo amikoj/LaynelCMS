@@ -2,15 +2,14 @@
 This is the main file of the project.
 It initializes the FastAPI app and registers the routers.
 '''
-__name__ = "laynelcms"
 __version__ = "0.0.1"
 __author__ = "Laynel"
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import core
-import routes
+from . import core
+from . import routes
 
 templates = Jinja2Templates(directory="templates")
 

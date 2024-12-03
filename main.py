@@ -1,4 +1,3 @@
-from fastapi import FastAPI
 from app import init_app
 
 config = {}
