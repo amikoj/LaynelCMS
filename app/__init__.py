@@ -26,6 +26,16 @@ def init_app(config: dict = None):
     routes.init_app(app)
     
     
+    _routes_ = app.routes
+    
+    for route in _routes_:  
+        print('Route:', route.path)
+    
+    print("Laynel CMS is running...")
+    print("Visit http://localhost:8000/docs to see the API documentation.") 
+    
+    
+    
     return app 
 
 

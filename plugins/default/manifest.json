@@ -20,7 +20,7 @@
             "name": "index",
             "title": "Home",
             "path": "index.html",
-            "url":"/test",
+            "url":"/",
             "description": "The home page of the website",
             "icon": "home"
         }
