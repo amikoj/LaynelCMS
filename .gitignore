@@ -36,3 +36,10 @@ pnpm-lock.yaml
 /venv/*
 /pnpm-lock.json
 /pnpm-lock.yaml
+*/__pycache__/*
+*/.env
+*/.venv
+*/venv/*
+*/pnpm-lock.json
+*/pnpm-lock.yaml
+app/**/__pycache__/*
