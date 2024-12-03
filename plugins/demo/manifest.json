@@ -17,6 +17,8 @@
     "main": "main.py",
     "status": "default",
     "type": "plugin",
-    "dependencies": {
-    }
+    "dependencies": {},
+    "pages": [
+        {}
+    ]
 }

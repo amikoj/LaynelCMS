@@ -11,6 +11,7 @@ class PluginStatus(Enum):
     
 # plugin type    
 class PluginType(Enum):
+    UNKNOWN = 'unknown'
     PLUGIN = 'plugin'
     THEME = 'theme'
     

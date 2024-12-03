@@ -13,7 +13,16 @@
         "LaynelCMS",
         "theme"
     ],
-    "status": "default",
+    "status": "activated",
     "type": "theme",
-    "dir": "templates"
+    "pages": [
+        {
+            "name": "index",
+            "title": "Home",
+            "path": "index.html",
+            "url":"/test",
+            "description": "The home page of the website",
+            "icon": "home"
+        }
+    ]
 }
