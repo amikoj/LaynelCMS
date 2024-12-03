@@ -29,3 +29,13 @@ def init_app(app: FastAPI):
     
     
     pass
+
+
+
+__all__ = [
+    "__version__", 
+    "__name__", 
+    "__current_theme__", 
+    "__plugins__", 
+    "init_app"
+]

@@ -26,3 +26,6 @@ pnpm-lock.yaml
 .nuxt/*
 .output/*
 .serverless/*`
+
+/node_modules/*
+/dist/*
