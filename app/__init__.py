@@ -7,14 +7,18 @@ __author__ = "Laynel"
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from . import core
 from . import routes
 
-
-
-
 def init_app(config: dict = None):
+    """_summary_ This function initializes the FastAPI app and registers the routers.
+
+    Args:
+        config (dict, optional): _description_. Defaults to None.
+
+    Returns:
+        _type_: _description_
+    """
     app = FastAPI(title="Laynel CMS", version=__version__)
     
     

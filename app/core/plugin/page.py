@@ -34,7 +34,17 @@ class Page:
     def plugin_name(self):
         return self.plugin_dir.name
     
-    def __init__(self,app: FastAPI, plugin_dir: DirEntry[str],name: str, title: str, path: str, url: str,   description: str = None, icon: str = None,):
+    def __init__(
+        self,
+        app: FastAPI, # FastAPI app实例
+        plugin_dir: DirEntry, # 插件目录
+        name: str,  # 页面名称
+        title: str, # 页面标题
+        path: str, # 页面文件地址
+        url: str,   # 页面访问地址
+        description: str = None, # 页面描述，可空
+        icon: str = None,):
+        
         self.name = name
         self.plugin_dir = plugin_dir
         self.url = url

@@ -9,10 +9,10 @@ class PluginInfo:
     PLUGIN_DIR = 'plugins'  # prefix of the plugin directory name
     
     
-    def __init__(self,app: FastAPI,  dirpath: DirEntry[str]):
-        self.dirpath = dirpath  # directory path of the plugin
-        self.app = app  # FastAPI app instance
-        self.valid = False  # whether the plugin is valid or not
+    def __init__(self,app: FastAPI,  dirpath: DirEntry):
+        self.dirpath: DirEntry[str] = dirpath  # directory path of the plugin
+        self.app: FastAPI = app  # FastAPI app instance
+        self.valid: bool = False  # whether the plugin is valid or not
         self.name: str = None  # name of the plugin
         self.description: str = None  # description of the plugin
         self.version: str = None  # version of the plugin
@@ -59,20 +59,20 @@ class PluginInfo:
 
 
         
-    def load(self,dirpath: DirEntry[str]):
+    def load(self,dirpath: DirEntry):
         """
         Load the plugin information from the plugin directory.
         """
-        dirpath = dirpath.path
+        pluginPath = dirpath.path
         
-        mainfestJsonPath = dirpath + '/manifest.json'
-        if path.exists(mainfestJsonPath):
-            with open(mainfestJsonPath, 'r') as f:
+        manifestJsonPath = pluginPath + '/manifest.json'
+        if path.exists(manifestJsonPath):
+            with open(manifestJsonPath, 'r') as f:
                 manifest = json.load(f)
                 self.manifest = manifest
                 self.dumpInfo(manifest)
         else:
-            print(f"Manifest file not found in {dirpath}")
+            print(f"Manifest file not found in {pluginPath}")
             return
     
     def  enable(self):
