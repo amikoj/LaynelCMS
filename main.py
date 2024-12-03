@@ -1,4 +1,5 @@
 from app import init_app
+import uvicorn
 
 config = {}
 
@@ -6,5 +7,7 @@ config = {}
 app = init_app(config)
 
 if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host='127.0.0.1', port=8000)
+    '''
+    Run the app using uvicorn server.
+    '''
+    uvicorn.run(app= 'main:app', host='127.0.0.1', port=8000, reload=True, workers=4)

@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from . import core
 from . import routes
 
-templates = Jinja2Templates(directory="templates")
+
 
 
 def init_app(config: dict = None):

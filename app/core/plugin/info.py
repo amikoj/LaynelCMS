@@ -81,6 +81,7 @@ class PluginInfo:
         """
         type = self.type
         pages = self.pages
+        
         if type == PluginType.THEME:
             '''
             Enable the theme. append the theme directory to the template search path.
@@ -93,9 +94,6 @@ class PluginInfo:
                 self.pages = _pages__
             else:
                 print(f"No pages found in {self.pageDir}")
-                
-                    
-                    
             self.valid = True  # set the plugin as valid
             
             pass

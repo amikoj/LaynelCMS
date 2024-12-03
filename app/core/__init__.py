@@ -14,19 +14,6 @@ def init_app(app: FastAPI):
     """
     # Initialize the plugins
     plugin.init_app(app)   # 初始化插件
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    pass
-
 
 
 __all__ = [
