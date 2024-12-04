@@ -6,19 +6,15 @@
 
 
 {% block content %}
-{{  title}} {{icon}}
-
-
-{{title}}
 <noscript>You need to enable JavaScript to run this app.</noscript>
 
-{{request}}
 <div id="app"></div>
 {% endblock %} 
 
 
 
 {% block scripts %}
-测试
-{{ scripts }}
+
+{{ scripts | safe }}
+
 {% endblock %}

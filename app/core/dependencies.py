@@ -26,7 +26,7 @@ def get_routes():
             "url": "/admin/settings",
             "icon": "fa fa-cogs",
             "component": "Settings"
-         }
+        }
     ]
     
     

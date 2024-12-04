@@ -48,11 +48,10 @@ class RouterInfo:
             return RedirectResponse(url)
         return redirect
     
-    def render(self, request, context = Depends(plugin_dependencies),operation_id=None):
+    def render(self, request: Request, context = Depends(plugin_dependencies)):
         '''
         渲染页面
         '''
-        print('render:', self.name, operation_id)
         scripts = ''
         if self.component:
             scripts = f'<script src="/static/js/{self.component}.js"></script>'
@@ -63,12 +62,11 @@ class RouterInfo:
             'icon': self.icon,
             'scripts': scripts
         }
-        print('get ctx:', ctx)
         return self.templates.TemplateResponse('index.html', context=ctx)
         
     def __repr__(self) -> str:
         return f'<RouterInfo {self.name}>'
-   
+    
     def register(self):
         '''
         注册路由信息
@@ -80,9 +78,9 @@ class RouterInfo:
                 child_route = RouterInfo(app=self.app, **child)    # 递归注册子路由
                 routes.append(child_route)
             self.children = routes
-            # if self.redirect:
-            #     # 重定向到子路由
-            #     router.get(self.path, response_class=HTMLResponse, operation_id=self.name, name=self.title)(self.redirect_to(self.children[0].path))
+            if self.redirect:
+                # 重定向到子路由
+                router.get(self.path, response_class=HTMLResponse, operation_id=self.name, name=self.title)(self.redirect_to(self.children[0].path))
         else:
             # 非子路由
             router.get(self.path, response_class=HTMLResponse, operation_id=self.name, name=self.title)(self.render)
