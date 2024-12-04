@@ -1,5 +1,6 @@
 import json
 from os import DirEntry,path
+import os
 from fastapi import FastAPI
 from .enums import PluginStatus, PluginType
 from .page import Page
@@ -65,7 +66,7 @@ class PluginInfo:
         """
         pluginPath = dirpath.path
         
-        manifestJsonPath = pluginPath + '/manifest.json'
+        manifestJsonPath =  path.join(pluginPath, 'manifest.json')
         if path.exists(manifestJsonPath):
             with open(manifestJsonPath, 'r') as f:
                 manifest = json.load(f)

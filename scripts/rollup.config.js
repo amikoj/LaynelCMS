@@ -14,7 +14,7 @@ module.exports = {
         onwarn(warning);
     },
     output: {
-        dir: 'dist',    // 输出目录
+        dir: 'public/js',    // 输出目录
         format: 'esm',  // 输出格式 
         entryFileNames: '[name].[hash].js', // 输出文件名
         chunkFileNames: 'libs/[name].js', // 输出分块文件名

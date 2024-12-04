@@ -1,6 +1,17 @@
 {% extends 'layout/base.html' %}
 
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
 {% block content %}
-<h1>Welcome to Laynel CMS</h1>
-<p>This is a simple CMS built using Flask and Bootstrap.</p>
-{% endblock %}  
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="app"></div>
+{% endblock %} 
+
+
+
+{% block scripts %}
+{{ scripts }}
+{% endblock %}

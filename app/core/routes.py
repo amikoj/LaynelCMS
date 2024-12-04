@@ -1,0 +1,103 @@
+
+import os
+import json
+
+from fastapi import APIRouter, Depends, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+from .dependencies import plugin_dependencies
+
+__routes__ = []  # 路由列表
+router = APIRouter(prefix="/admin", tags=["后端管理系统"])
+templates = Jinja2Templates(directory="templates")
+# 注册静态文件目录
+router.mount("/static", StaticFiles(directory="public"), name="static")
+
+
+
+@router.get("/")
+async def index(request: Request, context: dict = Depends(plugin_dependencies)): 
+    '''需要判断是否登录，控制进入login页面还是后台管理系统首页
+    '''
+    return templates.TemplateResponse("index.html", {"request": request, "context": context})
+
+
+@router.get("/login")
+async def admin_login(request: Request):
+    # 登录页面
+    return RedirectResponse('/dashboard')
+
+
+class RouterInfo:
+    def __init__(self, name:str,path:str, title:str, icon:str, redirect:str = None, component:str = None, children:list = None):
+        self.name = name
+        self.title = title
+        self.icon = icon
+        self.path = path
+        self.component = component
+        self.redirect = redirect
+        self.children = children
+        
+        self.register()
+        
+    def redirect_to(self, url):
+        '''
+        重定向到指定url
+        '''
+        return RedirectResponse(url)
+    
+    def render(self, request, context = Depends(plugin_dependencies)):
+        '''
+        渲染页面
+        '''
+        scripts = ''
+        if self.component:
+            scripts = f'<script src="/static/js/{self.component}.js"></script>'
+        return self.templates.TemplateResponse('index.html', {"request": request, "context": context, "scripts": scripts})
+        
+    def register(self):
+        '''
+        注册路由信息
+        '''
+        
+        if self.children and self.children.length > 0:
+            # 子路由
+            routes = []
+            for child in self.children:
+                child_route = RouterInfo(**child)    # 递归注册子路由
+                routes.append(child_route)
+            self.children = routes
+            if self.redirect:
+                # 重定向到子路由
+                router.get(self.url, name=self.name)(self.redirect_to(self.children[0]['url']))
+        else:
+            # 非子路由
+            router.get(self.path, response_class=HTMLResponse)(self.render)
+        
+
+def register_router(router):
+    '''
+    注册路由
+    '''
+    pass
+
+
+def load_routes():
+    '''
+    加载后台管理系统路由
+    '''
+    routes_file = os.path.join('app', 'routes.json')
+    if os.path.exists(routes_file):
+        with open(routes_file, 'r') as f:
+            routes = json.load(f)
+            print('get routes from routes.json', routes)
+            for r in routes:
+                route = RouterInfo(**r)
+                __routes__.append(route)
+                
+    
+                
+                
+__all__ = ['load_routes', '__routes__', 'router', 'templates', 'RouterInfo']
