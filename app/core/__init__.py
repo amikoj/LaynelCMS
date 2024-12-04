@@ -16,7 +16,8 @@ def init_app(app: FastAPI):
     """
     # Initialize the plugins
     plugin.init_app(app)   # 初始化插件
-    app.include_router(router)   # 加载路由
+    load_routes(app)
+    
 
 
 __all__ = [
