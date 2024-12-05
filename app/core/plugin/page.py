@@ -1,6 +1,6 @@
 from os import DirEntry
 import os
-from fastapi import FastAPI, Request
+from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -36,7 +36,7 @@ class Page:
     
     def __init__(
         self,
-        app: FastAPI, # FastAPI app实例
+        app: APIRouter | FastAPI, # FastAPI router实例
         plugin_dir: DirEntry, # 插件目录
         name: str,  # 页面名称
         title: str, # 页面标题
@@ -79,7 +79,7 @@ class Page:
         '''
         static_dir = os.path.join(self.plugin_dir.path, Page.STATIC_DIR)
         self.app.mount(f"/{self.plugin_name}/{Page.STATIC_DIR}", StaticFiles(directory=static_dir), name=f"{self.plugin_name}_{Page.STATIC_DIR}")
-        self.app.get(self.url, response_class=HTMLResponse)(self.render)
+        self.app.get(self.url, response_class=HTMLResponse, name=self.name, tags=[self.plugin_name])(self.render)
         
     def to_dict(self):
         return {

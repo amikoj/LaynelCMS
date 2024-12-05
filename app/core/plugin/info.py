@@ -1,7 +1,7 @@
 import json
 from os import DirEntry,path
 import os
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from .enums import PluginStatus, PluginType
 from .page import Page
 
@@ -29,6 +29,7 @@ class PluginInfo:
         self.main: str = None  # main module of the plugin
         self.pageDir: str = None  # directory of the plugin's pages
         self.manifest = {}  # manifest of the plugin
+        self.router: APIRouter = None # router of the plugin
         
         # load the plugin information
         self.load(dirpath)
@@ -102,6 +103,7 @@ class PluginInfo:
             '''
             Enable the plugin.
             '''
+            self.router = APIRouter(tags=[f"Plugin {self.name}"], prefix=f"/admin ")
             self.valid = True  # set the plugin as valid
         else:
             '''
@@ -110,7 +112,6 @@ class PluginInfo:
             self.valid = False  # set the plugin as valid
             
         
-    
     def disable(self):
         """
         Disable the plugin.
