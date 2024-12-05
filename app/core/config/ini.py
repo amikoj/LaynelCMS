@@ -15,18 +15,6 @@ class BaseConfig:
     _summary_ 基础配置类
     用于生成和读取运行时的程序配置信息
     """
-    
-    filename: str = None # 配置文件地址
-    config: CaseSensitiveConfigParser = None
-    # 数据库配置
-    database:dict = None
-    # 国际化配置
-    lang:dict = None
-    # 管理员配置
-    admin:dict = None
-    # 网站配置
-    web:dict = None
-    
     def __init__(self, filename: str ):
         assert filename is not None, "配置文件地址不能为空"
         self.config = CaseSensitiveConfigParser()
@@ -36,7 +24,6 @@ class BaseConfig:
     def with_write(self):
         with open(self.filename,'w+') as f:
             self.config.write(f)
-    
     
     # 写入 section
     def add_section(self, section):
