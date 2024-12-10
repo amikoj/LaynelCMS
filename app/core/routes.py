@@ -93,12 +93,6 @@ def init_app(app: FastAPI):
     初始化后台管理系统路由服务
     """
     
-    
-
-
-
-
-
 
 def load_routes(app: FastAPI):
     '''
@@ -110,7 +104,7 @@ def load_routes(app: FastAPI):
     if os.path.exists(routes_file):
         with open(routes_file, 'r') as f:
             routes = json.load(f)
-            # print('get routes from routes.json', routes)
+            print('get routes from routes.json', routes)
             for r in routes:
                 route = RouterInfo(app=app,**r)
                 __routes__.append(route)

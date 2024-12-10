@@ -4,6 +4,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from typing import Union
 
 
 class Page:
@@ -36,7 +37,7 @@ class Page:
     
     def __init__(
         self,
-        app: APIRouter | FastAPI, # FastAPI router实例
+        app: Union[FastAPI, APIRouter], # FastAPI router实例 # type: ignore
         plugin_dir: DirEntry, # 插件目录
         name: str,  # 页面名称
         title: str, # 页面标题

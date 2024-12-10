@@ -7,6 +7,7 @@ import fastapi as FastAPI
 from . import plugin
 from .dependencies import plugin_dependencies, theme_dependencies
 from .routes import load_routes, __routes__, RouterInfo,router, templates
+from  . import config
 
 
 # Initialize the core module
@@ -14,9 +15,10 @@ def init_app(app: FastAPI):
     """
     Initializes the core module of the application
     """
+    config.init_app(app)  # 初始化配置
     # Initialize the plugins
-    plugin.init_app(app)   # 初始化插件
-    load_routes(app)
+    # plugin.init_app(app)   # 初始化插件
+
     
 
 

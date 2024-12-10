@@ -7,8 +7,8 @@ class CaseSensitiveConfigParser(ConfigParser):
     Args:
         ConfigParser (_type_): _description_ 继承自 ConfigParser 类
     """
-    def optionxform(self, optionstr):
-        return optionstr
+    def optionxform(self, options_tr):
+        return options_tr
 
 class BaseConfig:
     """

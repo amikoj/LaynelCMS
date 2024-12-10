@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from typing import List, Dict, Any,Optional
 
 
 @dataclass
@@ -65,7 +66,7 @@ class AppInfo:
         keywords: 关键字列表
         dependencies: 依赖列表
         plugins: 插件列表
-        theme: 主题信息
+        enable: 是否启用, 默认为False[未启用]
     """
     name: str
     version: str = '0.0.1'
@@ -74,19 +75,18 @@ class AppInfo:
     homepage: str = ''
     license: str = ''
     type: AppType = AppType.MAIN
-    pages: list[RouteInfo] = None
-    repository: dict = None
-    keywords: list[str] = None
-    dependencies: list[str] = None
+    pages: List[RouteInfo] = None
+    repository: Optional[Dict] = None
+    keywords: List[str] = None
+    dependencies: List[str] = None
+    enable: bool = False 
 
     
     def __post_init__(self):
         if self.pages and self.pages.__len__() > 0:
-            self.pages: list[RouteInfo] =  [RouteInfo(**route) for route in self.pages]
+            self.pages: List[RouteInfo] =  [RouteInfo(**route) for route in self.pages]
         else:
-            self.pages: list[RouteInfo] = []
+            self.pages: List[RouteInfo] = []
             
-            
-        
         
 __all__ = ['RouteInfo', 'AppType', 'AppInfo']

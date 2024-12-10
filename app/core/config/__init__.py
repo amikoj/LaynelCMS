@@ -1,10 +1,10 @@
 __version__ = '0.0.1'
 
 
-from .manifest import Manifest
+from .manifest import ManifestConfig, getManifestConfig
 from .ini import BaseConfig
 from .model import AppInfo, AppType,RouteInfo
-from .vars import __configration_file_path__,  __config_folder_path__
+from .vars import __configuration_file_path__,  __plugins_dir__
 
 # Initialize the core module
 from fastapi import FastAPI
@@ -14,17 +14,17 @@ def init_app(app: FastAPI):
     '''
     Initializes the core configuration module.
     '''
-    pass
-
-
+    config = getManifestConfig()
+    app.state.config = config
 
 
 __all__ = [
     'init_app', 
-    'Manifest', 
+    'ManifestConfig', 
+    'getManifestConfig',
     'BaseConfig', 
-    '__configration_file_path__', 
-    '__config_folder_path__',
+    '__configuration_file_path__', 
+    '__plugins_dir__',
     'AppInfo',
     'AppType',
     'RouteInfo'
