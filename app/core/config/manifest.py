@@ -4,11 +4,11 @@ from os import path, scandir
 from functools import lru_cache
 from .vars import __manifest_file_path__,__plugins_dir__,__configuration_file_path__
 from .model import AppInfo, AppType, RouteInfo
-from fastapi import APIRouter,FastAPI
 from .ini import BaseConfig
-from typing import Union
 
 class ManifestConfig:
+    
+
     """
     ManifestConfig class is used to read the manifest.json file and get the configuration details.
     """
@@ -27,7 +27,7 @@ class ManifestConfig:
         if not path.exists(__configuration_file_path__):
             self.create_default_config_file()
         else:
-            self.config = BaseConfig(__configuration_file_path__).get_options()
+            self.runtimeConfig = BaseConfig(__configuration_file_path__).get_options()
         
         # load the manifest.json file and get the configuration details.
         self.load_config() # 主应用信息
@@ -40,9 +40,11 @@ class ManifestConfig:
         config = BaseConfig(__configuration_file_path__)
         config.add_section('app')
         config.set_options('app', 'name', 'LaynelCMS')
-        config.set_options('app', 'theme', "default")
+        config.set_options('app', 'theme', "default") 
+        self.runtimeConfig = config
         
         self.config = config.get_options()
+        print("Config file created at config.ini：", self.runtimeConfig.get_all_options())
 
     def create_default_manifest_file(self) -> None:
         """

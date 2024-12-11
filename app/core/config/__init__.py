@@ -5,6 +5,7 @@ from .manifest import ManifestConfig, getManifestConfig
 from .ini import BaseConfig
 from .model import AppInfo, AppType,RouteInfo
 from .vars import __configuration_file_path__,  __plugins_dir__
+from .settings import Settings, AppSettings,get_settings, refresh_settings
 
 # Initialize the core module
 from fastapi import FastAPI
@@ -16,6 +17,7 @@ def init_app(app: FastAPI):
     '''
     config = getManifestConfig()
     app.state.config = config
+    settings = Settings()
 
 
 __all__ = [
