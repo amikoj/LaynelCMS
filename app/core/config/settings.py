@@ -9,7 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List
 from pydantic import BaseModel
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, JsonConfigSettingsSource
 from .vars import __configuration_file_path__
 
 
@@ -23,31 +23,29 @@ class IniConfigSettingsSource:
     def __call__(self) -> Dict[str, Any]:
         config = ConfigParser()
         config.read(self.file_path)
-        
         sectionKeys: List[str]=  config.sections()
-        
-        target: Dict[str, Any] = dict()
-        for key in sectionKeys:
-            dict[key] = {k: v for k, v in config.items(key)}
-            
-        print('load ini file:', target)
+        target: Dict[str, Any] =  {k: {k: v for k, v in config.items(k)} for k in sectionKeys}
         return target
 
 
 class AppSettings(BaseModel):
     app_name: str = 'LaynelCMS'
     app_version: str = '1.0.0'
-    theme = 'default'
+    theme: str = 'default'
 
+
+class ExtSettings(BaseModel):
+    pass
 
 # 定义配置类, 当前运行时配置信息
 class Settings(BaseSettings):
     debug: bool = False
-    app: AppSettings = AppSettings()
+    app: AppSettings
+    ext: ExtSettings
     
     
     class Config:
-        settings_source  = IniConfigSettingsSource(__configuration_file_path__)  # 配置文件配置源
+        cli_settings_source  = IniConfigSettingsSource(__configuration_file_path__)  # 配置文件配置源
         case_sensitive = True
         
 # 获取配置实例

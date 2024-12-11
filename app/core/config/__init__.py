@@ -15,9 +15,11 @@ def init_app(app: FastAPI):
     '''
     Initializes the core configuration module.
     '''
-    config = getManifestConfig()
-    app.state.config = config
-    settings = Settings()
+    # config = getManifestConfig()
+    # app.state.config = config
+    settings = get_settings()
+    print(' initializing core settings moudle: ', settings.model_dump())
+    app.state.settings = settings
 
 
 __all__ = [
