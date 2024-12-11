@@ -6,11 +6,25 @@
 
 from configparser import ConfigParser
 from functools import lru_cache
-from pathlib import Path
+from os import path
 from typing import Any, Dict, List
 from pydantic import BaseModel
-from pydantic_settings import BaseSettings, JsonConfigSettingsSource
+from pydantic_settings import BaseSettings
 from .vars import __configuration_file_path__
+
+def  create_default_settings_file(settings_file_path: str = __configuration_file_path__):
+    '''
+    创建默认配置文件
+    '''
+    config = ConfigParser()
+    config['app'] = {
+        'app_name': 'LaynelCMS',
+        'app_version': '1.0.0',
+        'theme': 'default'
+    }
+    config['ext'] = {}
+    with open(settings_file_path, 'w', encoding='utf-8') as f:
+        config.write(f) 
 
 
 class IniConfigSettingsSource:
@@ -32,6 +46,7 @@ class AppSettings(BaseModel):
     app_name: str = 'LaynelCMS'
     app_version: str = '1.0.0'
     theme: str = 'default'
+    plugins: List[str] = []
 
 
 class ExtSettings(BaseModel):
@@ -51,6 +66,8 @@ class Settings(BaseSettings):
 # 获取配置实例
 @lru_cache(maxsize=128, typed=False)
 def get_settings() -> Settings:
+    if not path.exists(__configuration_file_path__):
+        create_default_settings_file(__configuration_file_path__)
     return Settings()
 
 # 刷新配置缓存
@@ -58,4 +75,10 @@ def  refresh_settings():
     get_settings.cache_clear()
         
         
-__all__ = ['Settings', 'AppSettings', 'get_settings','refresh_settings']
+__all__ = [
+    'Settings', 
+    'AppSettings', 
+    'get_settings',
+    'refresh_settings', 
+    'create_default_settings_file'
+    ]

@@ -1,10 +1,10 @@
-from dataclasses import dataclass
 from enum import Enum
 from typing import List, Dict, Any,Optional
 
+from pydantic_settings import BaseSettings
 
-@dataclass
-class RouteInfo:
+
+class RouteInfo(BaseSettings):
     """
     路由信息类
     Attributes:
@@ -28,14 +28,8 @@ class RouteInfo:
     url: str = None 
     hidden: bool = False
     redirect: str = None
-    children: list = None
-    
-    
-    def __post_init__(self):
-        if self.children and self.children.__len__() > 0:
-            self.children: list[RouteInfo] =  [RouteInfo(**route) for route in self.children]
-    
-    
+    children: List['RouteInfo'] = None
+
 
 class AppType(Enum):
     """
@@ -49,8 +43,7 @@ class AppType(Enum):
     PLUGIN = 'plugin'
     THEME = 'theme'
     
-@dataclass
-class AppInfo:
+class ModuleInfo(BaseSettings):
     """
     应用信息类
     Attributes:
@@ -76,17 +69,10 @@ class AppInfo:
     license: str = ''
     type: AppType = AppType.MAIN
     pages: List[RouteInfo] = None
-    repository: Optional[Dict] = None
+    repository: Optional[Dict[str, Any]] = None
     keywords: List[str] = None
     dependencies: List[str] = None
-    enable: bool = False 
-
-    
-    def __post_init__(self):
-        if self.pages and self.pages.__len__() > 0:
-            self.pages: List[RouteInfo] =  [RouteInfo(**route) for route in self.pages]
-        else:
-            self.pages: List[RouteInfo] = []
-            
+    enable: bool = False # 是否启用, 默认为False[未启用]
         
-__all__ = ['RouteInfo', 'AppType', 'AppInfo']
+        
+__all__ = ['RouteInfo', 'AppType', 'ModuleInfo']
