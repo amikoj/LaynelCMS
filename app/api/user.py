@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Boolean, Text
 from sqlalchemy.ext.declarative import declarative_base
+from fastapi import APIRouter, FastAPI
+from typing import Union
 
+router = APIRouter(prefix="/user", tags=["用户管理"])
 Base = declarative_base()
 
 class User(Base):
@@ -17,3 +20,13 @@ class User(Base):
     last_login = Column(String(50))
     avatar = Column(String(255))
     introduction = Column(Text)
+    
+    
+
+def register_routes(app: Union[FastAPI, APIRouter]):
+    #注册路由
+    app.include_router(router)
+
+
+
+__all__ = ["register_routes"]
