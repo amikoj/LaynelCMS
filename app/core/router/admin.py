@@ -28,6 +28,8 @@ def  load_routes(app: FastAPI):
     '''
     app.mount("/admin", admin)
     
+    print("后台管理系统路由加载成功", admin.routes)
+    
     
 
 
