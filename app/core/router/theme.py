@@ -1,18 +1,17 @@
 
 import os
-from typing import Dict
-from fastapi import APIRouter, FastAPI, Request
+from typing import Callable, Dict
+from fastapi import  FastAPI, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
 from ..config import BaseConfig, ModuleInfo, RouteInfo
 
-themeRouter = APIRouter(prefix="/", tags=["主题"])
+themeApp: FastAPI = None
 templates: Jinja2Templates = None
 
 
-def renderFunc(route: RouteInfo) -> function:
+def renderFunc(route: RouteInfo) -> Callable:
     scripts = ''
     if route.component:
         scripts = f'<script type="module" src="/static/js/{route.component}.js"></script>'
@@ -41,11 +40,13 @@ def load_per_route(route: RouteInfo):
         for child in route.children:
             load_per_route(child)
         if route.redirect:
-            themeRouter.get(route.url, name=route.name, response_class=HTMLResponse)(redirect_to(route.redirect))     
+            themeApp.get(route.url, name=route.name, response_class=HTMLResponse)(redirect_to(route.redirect))     
     else:
-        themeRouter.get(route.url, name=route.name, response_class=HTMLResponse)(renderFunc(route))
+        themeApp.get(route.url, name=route.name, response_class=HTMLResponse)(renderFunc(route))
 
 def  load_routes(app: FastAPI):
+    global themeApp
+    themeApp = app
     config = app.state.config  # type: BaseConfig
     theme = config.theme # type: ModuleInfo
     
@@ -58,7 +59,5 @@ def  load_routes(app: FastAPI):
     # 加载主题路由
     for route in theme.pages:
         load_per_route(route)
-    app.include_router(themeRouter) # 注册主题路由
-    
 
 __all__ = ["themeRouter", "load_routes"]
