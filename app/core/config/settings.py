@@ -7,6 +7,7 @@
 from configparser import ConfigParser
 from functools import lru_cache
 from os import path
+import re
 from typing import Any, Dict, List
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
@@ -39,6 +40,11 @@ class IniConfigSettingsSource:
         config.read(self.file_path)
         sectionKeys: List[str]=  config.sections()
         target: Dict[str, Any] =  {k: {k: v for k, v in config.items(k)} for k in sectionKeys}
+        
+        if target.get('app') and target['app'].get('plugins'):
+            text =  re.sub(r'\s+', ' ', target['app']['plugins'])
+            target['app']['plugins'] = text.split()
+            
         return target
 
 
@@ -46,7 +52,7 @@ class AppSettings(BaseModel):
     app_name: str = 'LaynelCMS'
     app_version: str = '1.0.0'
     theme: str = 'default'
-    plugins: List[str] = []
+    plugins: List[str]
 
 
 class ExtSettings(BaseModel):
@@ -65,7 +71,9 @@ class Settings(BaseSettings):
         
 # 获取配置实例
 @lru_cache(maxsize=128, typed=False)
-def get_settings() -> Settings:
+def get_settings(refresh: bool = False) -> Settings:
+    if refresh:
+        get_settings.cache_clear()
     if not path.exists(__configuration_file_path__):
         create_default_settings_file(__configuration_file_path__)
     return Settings()

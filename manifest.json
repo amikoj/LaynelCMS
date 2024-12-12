@@ -14,7 +14,6 @@
         "core"
     ],
     "pages": [
-        [
             {
                 "name": "dashboard",
                 "title": "Dashboard",
@@ -51,6 +50,5 @@
                 "path":"/plugins",
                 "icon":"fa:plug"
             }
-        ]
     ]
 }

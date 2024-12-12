@@ -14,8 +14,6 @@
         "plugin",
         "demo"
     ],
-    "main": "main.py",
-    "status": "default",
     "type": "plugin",
     "dependencies": [],
     "pages": [

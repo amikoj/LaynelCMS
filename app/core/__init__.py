@@ -15,9 +15,8 @@ def init_app(app: FastAPI):
     """
     Initializes the core module of the application
     """
-    config.init_app(app)  # 初始化配置
-    # Initialize the plugins
-    # plugin.init_app(app)   # 初始化插件
+    # 初始化读取生成配置
+    config.init_app(app)  
 
     
 
@@ -34,5 +33,6 @@ __all__ = [
     "__routes__",
     "RouterInfo",
     "router",
-    "templates"
+    "templates",
+    "config"
 ]

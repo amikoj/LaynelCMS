@@ -4,7 +4,7 @@ from os import path
 from functools import lru_cache
 
 from .vars import __manifest_file_path__,__plugins_dir__,__configuration_file_path__
-from .model import ModuleInfo
+from .model import ModuleInfo, ModuleType
 
 
 def  create_default_manifest_file(manifest_file_path: str = __manifest_file_path__) -> None:
@@ -30,22 +30,23 @@ def  create_default_manifest_file(manifest_file_path: str = __manifest_file_path
     with open(manifest_file_path, 'w') as f:
         json.dump(data, f, indent=4)
         print(f"Manifest file created at {manifest_file_path}") 
-
-
-class ManifestConfig(ModuleInfo):
-    enable = True  # 主应用默认启用
-    
-    class Config:
-        env_file = __manifest_file_path__  # 指定环境文件路径
             
 @lru_cache
-def get_manifest_config() -> ManifestConfig:
+def get_manifest_config(refresh: bool = False) -> ModuleInfo:
     """
     This function is used to get the manifest configuration.
     """
+    if refresh:
+        get_manifest_config.cache_clear()
+    
     if not path.exists(__manifest_file_path__):
         create_default_manifest_file(__manifest_file_path__)
-    return ManifestConfig()
+        
+    with open(__manifest_file_path__, 'r') as f:
+         module = ModuleInfo(**json.load(f))
+         module.enable = True  # 主应用默认启用
+         module.type = ModuleType.MAIN  # 主应用类型
+    return module
 
 
 def clear_manifest_config_cache() -> None:
@@ -56,7 +57,6 @@ def clear_manifest_config_cache() -> None:
 
         
 __all__ = [
-    "ManifestConfig", 
     'get_manifest_config', 
     'clear_manifest_config_cache'
-    ]
+]

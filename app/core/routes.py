@@ -7,7 +7,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from .dependencies import plugin_dependencies
-from .config import AppInfo
 
 __routes__ = []  # 路由列表
 router = APIRouter(prefix="/admin", tags=["后端管理系统"])
