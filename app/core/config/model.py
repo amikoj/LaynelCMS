@@ -61,6 +61,7 @@ class ModuleInfo(BaseSettings):
         plugins: 插件列表
         enable: 是否启用, 默认为False[未启用]
     """
+    path: Optional[str] = None
     name: str
     version: str = '0.0.1'
     description: str = ''

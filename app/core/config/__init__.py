@@ -29,7 +29,7 @@ __all__ = [
     'RouteInfo',
     'AppSettings',
     'get_settings',
-   'refresh_settings',
+    'refresh_settings',
     'get_config',
     'clear_config_cache',
     'Settings',

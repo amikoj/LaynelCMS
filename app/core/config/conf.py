@@ -43,6 +43,7 @@ class BaseConfig:
                     data = f.read()
                     plugin_data = json.loads(data)
                     plugin = ModuleInfo(**plugin_data)
+                    plugin.path = plugin_dir
                     
                     if plugin.name in self.settings.app.plugins:
                         # set the enabled status of the plugin according to the config.ini app.plugins control.[only control normal plugins]
