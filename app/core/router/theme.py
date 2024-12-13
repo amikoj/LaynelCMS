@@ -54,7 +54,7 @@ def  load_routes(app: FastAPI):
         return
     global templates
     templates = Jinja2Templates(directory=os.path.join(theme.path, "pages"))
-    app.mount(f"/{theme.name}/static", StaticFiles(directory="public"), name=f"f{theme.name}_static")
+    app.mount(f"/{theme.name}/static", StaticFiles(directory=f"{theme.name}/static"), name=f"f{theme.name}_static")
     
     # 加载主题路由
     for route in theme.pages:

@@ -9,7 +9,7 @@ from ..config import BaseConfig, get_config, RouteInfo, ModuleType
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates")
-admin.mount("/static", StaticFiles(directory="public"), name="main_static")
+admin.mount("/static", StaticFiles(directory="dist"), name="main_static")
 
 
 @admin.get("/", response_class=HTMLResponse)
@@ -79,7 +79,7 @@ def  load_routes(app: FastAPI):
     for plugin in config.plugins:
         if plugin.enable and plugin.type == ModuleType.PLUGIN:
             # 加载插件静态资源路由
-            app.mount(f"/static/{plugin.name}", StaticFiles(directory=f"plugins/{plugin.name}/public"), name=f"{plugin.name}_static")
+            app.mount(f"/static/{plugin.name}", StaticFiles(directory=f"plugins/{plugin.name}/static"), name=f"{plugin.name}_static")
     # 加载后端管理系统路由
     routes = get_all_routes()
     for route in routes:

@@ -1,19 +1,11 @@
 {% extends 'layout/base.html' %}
 
-{% block title %}
-{{ title }}
-{% endblock %}
-
-
 {% block body %}
 <noscript>You need to enable JavaScript to run this app.</noscript>
 
 <script src="{{ url_for(context.static, path='js/index.js') }}"></script>
-<div id="root">
-</div>
-{% endblock %} 
-
-
+{% include 'layout/container.html' %}
+{% endblock %}
 
 {% block scripts %}
 

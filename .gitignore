@@ -43,3 +43,7 @@ pnpm-lock.yaml
 */pnpm-lock.json
 */pnpm-lock.yaml
 app/**/__pycache__/*
+
+dist
+package-lock.json
+
