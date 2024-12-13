@@ -36,7 +36,6 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       // 覆盖默认的 .html 入口
-      external: ['vue'], 
       input:  {
         base: path.resolve(__dirname, 'projects/base/index.ts'),
         user: path.resolve(__dirname, 'projects/user/index.ts'),
@@ -44,9 +43,10 @@ export default defineConfig({
         plugin: path.resolve(__dirname, 'projects/plugin/index.ts')
       },
       output: {
-        globals: {
-          vue: 'Vue',
-          'element-plus': 'ELEMENT',
+        manualChunks: {
+          vue: ['vue', 'pinia'],
+          elementPlus: ['element-plus'],
+          common: ['dayjs', 'lodash', 'axios']
         }
       }
     }

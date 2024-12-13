@@ -1,4 +1,5 @@
 from functools import lru_cache
+import json
 from typing import Callable, Dict, List
 from fastapi import  Request
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -52,7 +53,8 @@ def renderFunc(route: RouteInfo) -> Callable:
         ctx['context'] = {
             "name": route.name,
             'static': route.name + '_static',
-            'route': route
+            'route': route,
+            'libs': get_main_libs_info()
         }
         return templates.TemplateResponse("index.html",  context=ctx)
     return render
@@ -94,6 +96,15 @@ def get_static_routes():
         }
     ]
     
+@lru_cache(typed=False)   
+def get_main_libs_info():
+    chunksManifest = 'dist/.vite/manifest.json'
+    with open(chunksManifest, 'r') as f:
+        chunks = json.load(f)
+    return chunks
+    
+def clear_main_libs_info_cache():
+    get_main_libs_info.cache_clear()
     
     
 def flat_routes(routes: List[RouteInfo], parent_name: str = None):
