@@ -8,7 +8,7 @@
 {% block body %}
 <noscript>You need to enable JavaScript to run this app.</noscript>
 
-<script src="{{ url_for('static', path='js/index.js') }}"></script>
+<script src="{{ url_for(context.static, path='js/index.js') }}"></script>
 <div id="root">
 </div>
 {% endblock %} 

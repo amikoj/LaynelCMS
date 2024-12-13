@@ -85,9 +85,6 @@ def  load_routes(app: FastAPI):
     for route in routes:
         load_route(route)
     
-    
-    print("后台管理系统路由加载成功", admin.routes)
-    
 
 # 内置后端管理系统路由配置
 def get_static_routes():
@@ -119,13 +116,11 @@ def  generate_admin_router(routes: List[RouteInfo]):
     route_map: Dict[str, RouteInfo] =  {  } # 路由层级关系映射
 
     for r in routes:
-        print('get route:', r.name)
         route_map[r.name] = r
     
    
     for route in routes:
         if route.parent_name:
-            print('parent_name:', route.parent_name)
             if not route_map[route.parent_name].children:
                 route_map[route.parent_name].children = []
             route_map[route.parent_name].children.append(route)
@@ -150,7 +145,6 @@ def get_all_routes():
             routes.extend(plugin.pages)
             
     target_routes = generate_admin_router(flat_routes(routes))
-    print("后台管理系统路由加载成功", target_routes)
     return target_routes
     
 
