@@ -17,6 +17,13 @@
     "type": "plugin",
     "dependencies": [],
     "pages": [
-        {}
+        {
+            "name": "Demo Page",
+            "path": "demo.php",
+            "icon": "fa-file-text-o",
+            "title": "Demo Page",
+            "url":"/demo",
+            "description": "This is a demo page for LaynelCMS"
+        }
     ]
 }

@@ -19,16 +19,18 @@ class RouteInfo(BaseSettings):
         redirect: 重定向地址
         children: 子路由列表
     """
-    name: Optional[str] = None
+    name: str = None  #  name 必填，用于标识路由 【唯一】，可根据name获取路由级别信息
+    parent_name: Optional[str] = None  # 父路由名称, 用于生成菜单【可选】，用于指定插件路由挂载的父路由，存在层级关系的，如children,可不指定
     title: Optional[str] = None
     path: Optional[str] = None
     icon: Optional[str] = None
     component: Optional[str] = None
     description: Optional[str] = None
-    url: Optional[str] = None 
-    hidden: Optional[bool] = False
-    redirect: Optional[str] = None
+    url: str   # 访问地址  [必填] [唯一]
+    hidden: Optional[bool] = False # 是否隐藏, 默认为False[不隐藏]
+    redirect: Optional[str] = None # 重定向地址
     children: Optional[List['RouteInfo']] = None
+    index: Optional[int] = None # 排序索引，用于生成菜单
 
 
 class ModuleType(Enum):

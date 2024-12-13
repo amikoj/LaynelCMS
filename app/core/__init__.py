@@ -5,7 +5,7 @@ __version__ = "0.0.1"
 
 import fastapi as FastAPI
 from . import plugin, router, config
-from .dependencies import plugin_dependencies, theme_dependencies
+from .dependencies import  theme_dependencies
 
 
 # Initialize the core module
@@ -27,7 +27,6 @@ __all__ = [
     "__current_theme__", 
     "__plugins__", 
     "init_app",
-    "plugin_dependencies",
     "theme_dependencies",
     "load_routes",
     "__routes__",

@@ -1,43 +1,17 @@
 
 
 from fastapi import Request
-
-
-def get_routes():
-    """
-    This function returns all the routes of the application 【Admin Panel】.
-    :return: A list of routes.
-    """
-    return [
-        {
-            "name": "Dashboard",
-            "url": "/admin",
-            "icon": "fa fa-tachometer-alt",
-            "component": "Dashboard"
-        },
-        {   
-            "name": "Users",
-            "url": "/admin/users",
-            "icon": "fa fa-users",
-            "component": "Users"
-        },
-        {
-            "name": "Settings",
-            "url": "/admin/settings",
-            "icon": "fa fa-cogs",
-            "component": "Settings"
-        }
-    ]
+from .config import BaseConfig, get_config
     
-    
-def plugin_dependencies(request: Request):
+def admin_dependencies(request: Request):
     """
     This function returns all the plugins that are required by the application.
     :return: A list of plugins.
     """
-    routes = get_routes()
+    config =  {}
+    
     return {
-        "routes": routes
+        "routes": [],
     }
     
     

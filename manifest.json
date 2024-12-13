@@ -17,26 +17,26 @@
             {
                 "name": "dashboard",
                 "title": "Dashboard",
-                "path": "/dashboard",
+                "url": "/dashboard",
                 "icon": "fa:dashboard",
                 "component": "dashboard"
             },
             {
                 "name": "settings",
                 "title": "Settings",
-                "path": "/settings",
+                "url": "/settings",
                 "icon": "fa:setting",
                 "redirect": "/users/list",
                 "children": [
                     {
                         "name": "users",
                         "title": "Users",
-                        "path": "/settings/users",
+                        "url": "/settings/users",
                         "icon": "fa:users",
                         "component":"user"
                     },{
                         "name": "roles",
-                        "title": "Roles",                
+                        "url": "Roles",                
                         "path": "/settings/roles",
                         "icon": "fa:role",
                         "component":"user"
@@ -47,7 +47,7 @@
             {
                 "name":"plugins",
                 "title":"Plugins",
-                "path":"/plugins",
+                "url":"/plugins",
                 "icon":"fa:plug"
             }
     ]
