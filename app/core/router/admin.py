@@ -53,7 +53,7 @@ def renderFunc(route: RouteInfo) -> Callable:
         ctx['context'] = {
             "name": route.name,
             'static': route.plugin_name if route.plugin_name else 'main' + '_static',
-            'route': route,
+            'route': route.model_dump_json(),
             'libs': get_main_libs_info()
         }
         return templates.TemplateResponse("index.html",  context=ctx)

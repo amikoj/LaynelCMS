@@ -1,10 +1,11 @@
 from enum import Enum
 from typing import List, Dict, Any,Optional
 
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
 
-class RouteInfo(BaseSettings):
+class RouteInfo(BaseModel):
     """
     路由信息类
     Attributes:
@@ -32,8 +33,7 @@ class RouteInfo(BaseSettings):
     redirect: Optional[str] = None # 重定向地址
     children: Optional[List['RouteInfo']] = None
     index: Optional[int] = None # 排序索引，用于生成菜单
-
-
+    
 class ModuleType(Enum):
     """
     应用类型枚举类
