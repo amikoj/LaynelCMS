@@ -19,6 +19,7 @@ class RouteInfo(BaseSettings):
         redirect: 重定向地址
         children: 子路由列表
     """
+    plugin_name: Optional[str] = None  # 关联插件名，用于插件路由挂载，代码生成
     name: str = None  #  name 必填，用于标识路由 【唯一】，可根据name获取路由级别信息
     parent_name: Optional[str] = None  # 父路由名称, 用于生成菜单【可选】，用于指定插件路由挂载的父路由，存在层级关系的，如children,可不指定
     title: Optional[str] = None

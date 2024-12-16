@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI
-from ..config import BaseConfig, get_config, RouteInfo, ModuleType
+from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates")
@@ -52,7 +52,7 @@ def renderFunc(route: RouteInfo) -> Callable:
         
         ctx['context'] = {
             "name": route.name,
-            'static': route.name + '_static',
+            'static': route.plugin_name if route.plugin_name else 'main' + '_static',
             'route': route,
             'libs': get_main_libs_info()
         }
@@ -70,6 +70,8 @@ def load_route(route: RouteInfo):
         admin.get(route.url, name=route.name, response_class=HTMLResponse)(renderFunc(route))
 
 
+
+
 def  load_routes(app: FastAPI):
     '''
     通过子应用挂载来加载后端服务路由，
@@ -81,11 +83,12 @@ def  load_routes(app: FastAPI):
     for plugin in config.plugins:
         if plugin.enable and plugin.type == ModuleType.PLUGIN:
             # 加载插件静态资源路由
-            app.mount(f"/static/{plugin.name}", StaticFiles(directory=f"plugins/{plugin.name}/static"), name=f"{plugin.name}_static")
+            admin.mount(f"/static/{plugin.name}", StaticFiles(directory=f"plugins/{plugin.name}/static"), name=f"{plugin.name}_static")
     # 加载后端管理系统路由
     routes = get_all_routes()
     for route in routes:
         load_route(route)
+    print('get routes：', admin.routes)
     
 
 # 内置后端管理系统路由配置
@@ -137,6 +140,11 @@ def  generate_admin_router(routes: List[RouteInfo]):
             route_map[route.parent_name].children.append(route)
             
     return [route for route in routes if not route.parent_name]
+ 
+ 
+def add_plugin_name(route: RouteInfo, plugin_name: str):
+    route.plugin_name = plugin_name
+    return route 
         
         
 @lru_cache(typed=False)
@@ -147,13 +155,13 @@ def get_all_routes():
     
     if mainRoutes and len(mainRoutes) > 0:
         # 加载主路由
-        routes.extend(mainRoutes)
+        routes.extend([ add_plugin_name(route, 'main') for route in mainRoutes])
         
     # 加载子应用路由
     for plugin in config.plugins:
         if plugin.enable and plugin.type == ModuleType.PLUGIN:
             # 加载插件路由
-            routes.extend(plugin.pages)
+            routes.extend([ add_plugin_name(route, plugin.name) for route in plugin.pages])
             
     target_routes = generate_admin_router(flat_routes(routes))
     return target_routes
