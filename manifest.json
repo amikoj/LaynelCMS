@@ -1,7 +1,7 @@
 {
     "name": "laynnelcms",
     "version": "0.0.1",
-    "description": "A simple theme for LaynelCMS",  
+    "description": "A simple theme for LaynelCMS",
     "author": "LaynelCMS",
     "license": "MIT",
     "homepage": "https://github.com/LaynelCMS/theme001",
@@ -13,42 +13,41 @@
         "LaynelCMS",
         "core"
     ],
-    "pages": [
-            {
-                "name": "dashboard",
-                "title": "Dashboard",
-                "url": "/dashboard",
-                "icon": "fa:dashboard",
-                "component": "dashboard"
-            },
-            {
-                "name": "settings",
-                "title": "Settings",
-                "url": "/settings",
-                "icon": "fa:setting",
-                "redirect": "/users/list",
-                "children": [
-                    {
-                        "name": "users",
-                        "title": "Users",
-                        "url": "/settings/users",
-                        "icon": "fa:users",
-                        "component":"user"
-                    },{
-                        "name": "roles",
-                        "url": "Roles",                
-                        "path": "/settings/roles",
-                        "icon": "fa:role",
-                        "component":"user"
-                    }
-        
-                ]
-            },
-            {
-                "name":"plugins",
-                "title":"Plugins",
-                "url":"/plugins",
-                "icon":"fa:plug"
-            }
+    "pages": [{
+            "name": "dashboard",
+            "title": "Dashboard",
+            "url": "/dashboard",
+            "icon": "fa:dashboard",
+            "component": "projects.base.index"
+        },
+        {
+            "name": "settings",
+            "title": "Settings",
+            "url": "/settings",
+            "icon": "fa:setting",
+            "redirect": "/users/list",
+            "children": [{
+                    "name": "users",
+                    "title": "Users",
+                    "url": "/settings/users",
+                    "icon": "fa:users",
+                    "component": "projects.user.index"
+                }, {
+                    "name": "roles",
+                    "url": "Roles",
+                    "path": "/settings/roles",
+                    "icon": "fa:role",
+                    "component": "projects.role.index"
+                }
+
+            ]
+        },
+        {
+            "name": "plugins",
+            "title": "Plugins",
+            "url": "/plugins",
+            "icon": "fa:plug",
+            "component": "projects.plugin.index"
+        }
     ]
 }

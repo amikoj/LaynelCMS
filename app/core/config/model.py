@@ -77,6 +77,26 @@ class ModuleInfo(BaseSettings):
     keywords: List[str] = None
     dependencies:Optional[List[str]]  = None
     enable: bool = False # 是否启用, 默认为False[未启用]
+    
+    
+class JsLibInfo(BaseModel):
+    """
+    js库信息类
+    Attributes:
+        name: 库名称
+        version: 版本
+        description: 描述
+        author: 作者
+        homepage: 主页
+        license: 许可证
+        url: 库地址
+    """
+    file: str
+    name: str
+    component: str # 组件名称,唯一标识
+    src: Optional[str] = None
+    isEntry: Optional[bool] = False
+    imports: Optional[List[str]] = None
         
         
-__all__ = ['RouteInfo', 'ModuleType', 'ModuleInfo']
+__all__ = ['RouteInfo', 'ModuleType', 'ModuleInfo', 'JsLibInfo']

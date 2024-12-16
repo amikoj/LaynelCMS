@@ -6,11 +6,19 @@ from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI
-from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo
+from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates")
 admin.mount("/static", StaticFiles(directory="dist"), name="main_static")
+
+
+
+# 主路由
+mainRoute = RouteInfo(name='main', title='主页', url='/', icon='home', component='index', plugin_name='main')
+
+# 登陆路由
+loginRoute = RouteInfo(name='login', title='登录', url='/login', icon='login', component='login', plugin_name='main')
 
 
 @admin.get("/", response_class=HTMLResponse)
@@ -19,7 +27,9 @@ async def index(request: Request):
     '''
     return templates.TemplateResponse("index.html", {"request": request, "context": {
         "name":'main',
-        'static': 'main_static'
+        'static': 'main_static',
+        'route': mainRoute.model_dump_json(),
+        'libs': get_main_libs_info()
     }})
 
 
@@ -27,7 +37,12 @@ async def index(request: Request):
 async def login(request: Request):
     # 登录页面
     
-    return RedirectResponse('/dashboard')
+    return templates.TemplateResponse("login.html", {"request": request, "context": {
+        "name":'main',
+        'static': 'main_static',
+        'route': loginRoute.model_dump_json(),
+        'libs': get_main_libs_info()
+    }})
 
 
 def redirect_to(url: str):
@@ -99,12 +114,27 @@ def get_static_routes():
         }
     ]
     
+    
+def parse_lib_info(info: Dict, key: str) -> JsLibInfo:
+    info = JsLibInfo(**info)
+    targetKey = key.replace('/', '.')[:-3]
+    info.component = targetKey
+    return info
+    
+    
+def load_js_libs(file_path: str):
+    with open(file_path, 'r') as f:
+        chunks = json.load(f)
+        
+    target: Dict = {}
+    for key in chunks:
+        info: JsLibInfo = parse_lib_info(chunks[key])
+        target[info.component] = info
+    return target
+    
 @lru_cache(typed=False)   
 def get_main_libs_info():
-    chunksManifest = 'dist/.vite/manifest.json'
-    with open(chunksManifest, 'r') as f:
-        chunks = json.load(f)
-    return chunks
+    return load_js_libs('dist/.vite/chunks.json')
     
 def clear_main_libs_info_cache():
     get_main_libs_info.cache_clear()
@@ -132,7 +162,6 @@ def  generate_admin_router(routes: List[RouteInfo]):
     for r in routes:
         route_map[r.name] = r
     
-   
     for route in routes:
         if route.parent_name:
             if not route_map[route.parent_name].children:
@@ -140,8 +169,7 @@ def  generate_admin_router(routes: List[RouteInfo]):
             route_map[route.parent_name].children.append(route)
             
     return [route for route in routes if not route.parent_name]
- 
- 
+
 def add_plugin_name(route: RouteInfo, plugin_name: str):
     route.plugin_name = plugin_name
     return route 

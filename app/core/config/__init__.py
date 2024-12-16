@@ -2,7 +2,7 @@ __version__ = '0.0.1'
 
 
 from .manifest import get_manifest_config, clear_manifest_config_cache
-from .model import ModuleInfo, ModuleType,RouteInfo
+from .model import ModuleInfo, ModuleType,RouteInfo,JsLibInfo
 from .vars import __configuration_file_path__,  __plugins_dir__
 from .settings import Settings, AppSettings,get_settings, refresh_settings
 from .conf import BaseConfig, get_config, clear_config_cache
@@ -34,5 +34,6 @@ __all__ = [
     'clear_config_cache',
     'Settings',
     'get_manifest_config',
-    'clear_manifest_config_cache'
+    'clear_manifest_config_cache',
+    'JsLibInfo'
 ]
