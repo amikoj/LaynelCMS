@@ -9,14 +9,8 @@
 	<title>{% block title %} {{ title }}{% endblock %}</title>
 	<script src="{{ url_for('main_static', path='js/tailwindcss-3.4.15.min.js') }}"></script>
 	<link rel="stylesheet" href="{{ url_for('main_static', path='css/style.css') }}">
-
-	<!-- <link rel="stylesheet" href="{{ url_for('main_static', path='css/element-plus-2.9.0.min.css') }}" />
-	<link rel="modulepreload" crossorigin src="{{ url_for('main_static', path='js/vue/vue.global.3.15.prod.min.js') }}" >
-	<link rel="modulepreload" crossorigin src="{{ url_for('main_static', path='js/ui/element-plus-2.9.0-min.js') }}" > -->
-
-
 	{% block extra_head %}
-         {{ extra_head_str | safe }}
+	{{ extra_head_str | safe }}
 	{% endblock %}
 	<script>
 		tailwind.config = {
@@ -36,7 +30,6 @@
 			.content-wrapper {
 				@apply max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8;
 			}
-
 		}
 	</style>
 	{% block head %}
@@ -45,7 +38,6 @@
 
 <body>
 	{% block body %}
-
 	{% include 'layout/header.html' %}
 	{% include 'layout/sidebar.html' %}
 	<main>
@@ -56,10 +48,8 @@
 
 	{% include 'layout/footer.html' %}
 	{% endblock %}
-
 	{% block scripts %}
-	   {{ script_str | safe }}
+	{{ script_str | safe }}
 	{% endblock %}
 </body>
-
 </html>

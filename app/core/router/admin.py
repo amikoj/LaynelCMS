@@ -1,4 +1,5 @@
 from functools import lru_cache
+import gzip
 from typing import Callable, Dict, List
 from fastapi import  Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -8,10 +9,14 @@ from fastapi import FastAPI
 
 from .utils import load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
+from fastapi.middleware.gzip import GZipMiddleware
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates")
+
 admin.mount("/static", StaticFiles(directory="dist"), name="main_static")
+
+admin.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
 
 config: BaseConfig  = get_config()
 
@@ -65,16 +70,19 @@ def get_extra(route: RouteInfo) -> str:
     entryJs: Dict = current_libs[component]
     baseEntryJs: Dict = main_libs['project.base.index']
     
+    baseEntryJsFilePath = baseEntryJs['file']
+    entryJsFilePath = entryJs['file']
+    
     ctx: Dict = {
         "scripts": [
-            f'<script type="module" src="{static_prefix}/{baseEntryJs['file']}"></script>', 
-            f'<script type="module" src="{static_prefix}/{entryJs['file']}"></script>'
+            f'<script type="module" src="{static_prefix}/{baseEntryJsFilePath}"></script>', 
+            f'<script type="module" src="{static_prefix}/{entryJsFilePath}"></script>'
         ],
         "extra_head": [
             *load_dependencies(baseEntryJs, main_libs, 'main'),
             *load_dependencies(entryJs, current_libs, plugin_name),
         ],
-        'entry': f'{static_prefix}/{entryJs['file']}',
+        'entry': f'{static_prefix}/{entryJsFilePath}',
     }
     return ctx
         
@@ -105,13 +113,10 @@ def get_context_from_route(route: RouteInfo) -> Dict:
     return ctx
 
 @admin.middleware("http")
-async def set_public_heade_str(request: Request, call_next) -> str:
+async def set_public_header_str(request: Request, call_next) -> str:
     '''设置获取公共头部信息
     '''
-    
-    response = await call_next(request)
-    print('listening request------------------:', response)
-    # response.headers["Content-Encoding"] = "gzip"
+    response: HTMLResponse = await call_next(request)
     return response
 
 
@@ -132,8 +137,6 @@ async def login(request: Request, response: Response):
         "request": request, 
         **get_context_from_route(mainRoute),
     })
-    
-    set_public_heade_str(response)
     return content  
 
 
@@ -149,7 +152,6 @@ def renderFunc(route: RouteInfo) -> Callable:
         ctx = get_context_from_route(route)
         ctx['request'] = request
         content =  templates.TemplateResponse("index.html",  context=ctx)
-        set_public_heade_str(response)
         return content
     return render
 

@@ -22,7 +22,8 @@ def  load_dependencies(entryJs: Dict, libs: Dict, plugin_name: str) -> str:
     static_prefix = '/static' if plugin_name == 'main' else f'/static/{plugin_name}/'
     def load_dep(dep: str) -> str:
         if dep in libs: 
-            return f'<link rel="modulepreload" crossorigin src="{static_prefix}/{libs[dep]['file']}" >'
+            filePath = libs[dep]['file']
+            return f'<link rel="modulepreload" crossorigin src="{static_prefix}/{filePath}" >'
         else:
             return ''
     deps: List[str] = []
