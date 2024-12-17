@@ -3,12 +3,6 @@
 {% block body %}
 <noscript>You need to enable JavaScript to run this app.</noscript>
 
-<script src="{{ url_for('main_static', path='js/index.js') }}"></script>
+<!-- <script src="{{ url_for('main_static', path='js/index.js') }}"></script> -->
 {% include 'layout/container.html' %}
-{% endblock %}
-
-{% block scripts %}
-
-{{ scripts | safe }}
-
 {% endblock %}

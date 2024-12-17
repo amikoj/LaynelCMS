@@ -93,7 +93,7 @@ class JsLibInfo(BaseModel):
     """
     file: str
     name: str
-    component: str # 组件名称,唯一标识
+    component: Optional[str] = None # 组件名称,唯一标识
     src: Optional[str] = None
     isEntry: Optional[bool] = False
     imports: Optional[List[str]] = None

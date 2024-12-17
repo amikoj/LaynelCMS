@@ -26,7 +26,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './projects'),
+      '@': path.resolve(__dirname, './project'),
     },
   },
   build: {
@@ -37,10 +37,10 @@ export default defineConfig({
     rollupOptions: {
       // 覆盖默认的 .html 入口
       input:  {
-        base: path.resolve(__dirname, 'projects/base/index.ts'),
-        user: path.resolve(__dirname, 'projects/user/index.ts'),
-        role: path.resolve(__dirname, 'projects/role/index.ts'),
-        plugin: path.resolve(__dirname, 'projects/plugin/index.ts')
+        base: path.resolve(__dirname, 'project/base/index.ts'),
+        user: path.resolve(__dirname, 'project/user/index.ts'),
+        role: path.resolve(__dirname, 'project/role/index.ts'),
+        plugin: path.resolve(__dirname, 'project/plugin/index.ts')
       },
       output: {
         manualChunks: {

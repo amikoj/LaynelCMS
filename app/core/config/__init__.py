@@ -5,7 +5,7 @@ from .manifest import get_manifest_config, clear_manifest_config_cache
 from .model import ModuleInfo, ModuleType,RouteInfo,JsLibInfo
 from .vars import __configuration_file_path__,  __plugins_dir__
 from .settings import Settings, AppSettings,get_settings, refresh_settings
-from .conf import BaseConfig, get_config, clear_config_cache
+from .conf import BaseConfig, get_config, clear_config_cache, get_plugin_info
 
 # Initialize the core module
 from fastapi import FastAPI
@@ -35,5 +35,6 @@ __all__ = [
     'Settings',
     'get_manifest_config',
     'clear_manifest_config_cache',
-    'JsLibInfo'
+    'JsLibInfo',
+    'get_plugin_info'
 ]

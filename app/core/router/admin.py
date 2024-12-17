@@ -1,48 +1,140 @@
 from functools import lru_cache
-import json
 from typing import Callable, Dict, List
-from fastapi import  Request
+from fastapi import  Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI
+
+from .utils import load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates")
 admin.mount("/static", StaticFiles(directory="dist"), name="main_static")
 
-
+config: BaseConfig  = get_config()
 
 # 主路由
-mainRoute = RouteInfo(name='main', title='主页', url='/', icon='home', component='index', plugin_name='main')
+mainRoute = RouteInfo(
+    name='main', 
+    title='主页', 
+    url='/', 
+    icon='home', 
+    component='project.base.index', 
+    plugin_name='main'
+    )
 
 # 登陆路由
-loginRoute = RouteInfo(name='login', title='登录', url='/login', icon='login', component='login', plugin_name='main')
+loginRoute = RouteInfo(
+    name='login', 
+    title='登录', 
+    url='/login', 
+    icon='login', 
+    component='project.login.index', 
+    plugin_name='main'
+    )
+
+@lru_cache(typed=False)   
+def get_main_libs_info():
+    return load_js_libs('dist/.vite/manifest.json')
+
+
+def get_current_plugin_libs_info(plugin: ModuleInfo): 
+    if not plugin or plugin.name =='main':
+        return get_main_libs_info()
+    else:
+        return load_js_libs(f'dist/{plugin.path}/.vite/manifest.json')
+    
+def clear_main_libs_info_cache():
+    get_main_libs_info.cache_clear()
+    
+    
+    
+def get_extra(route: RouteInfo) -> str:
+    """ 获取头部额外信息
+    """    
+    component = route.component
+    plugin_name = 'main' if not route.plugin_name  else route.plugin_name
+    main_libs = get_main_libs_info()
+    pluginInfo: ModuleInfo = config.get_plugin_by_name(route.plugin_name)
+    current_libs = get_current_plugin_libs_info(pluginInfo)
+    is_main = plugin_name =='main'
+    static_prefix = '/static' if is_main else f'/static/{plugin_name}/'
+    
+    entryJs: Dict = current_libs[component]
+    baseEntryJs: Dict = main_libs['project.base.index']
+    
+    ctx: Dict = {
+        "scripts": [
+            f'<script type="module" src="{static_prefix}/{baseEntryJs['file']}"></script>', 
+            f'<script type="module" src="{static_prefix}/{entryJs['file']}"></script>'
+        ],
+        "extra_head": [
+            *load_dependencies(baseEntryJs, main_libs, 'main'),
+            *load_dependencies(entryJs, current_libs, plugin_name),
+        ],
+        'entry': f'{static_prefix}/{entryJs['file']}',
+    }
+    return ctx
+        
+
+
+def get_context_from_route(route: RouteInfo) -> Dict:
+    """ 通过路由信息生成上下文信息
+    """
+    extra = get_extra(route)
+    ctx: Dict = {
+        "title": route.title,
+        "extra_head": extra['extra_head'],
+        "scripts": extra['scripts'],
+        'script_str':'',
+        'extra_head_str': '',
+        'context': {
+            "name": route.name,
+            'static': route.plugin_name if route.plugin_name else 'main' + '_static',
+            'route': route.model_dump_json(),
+            'libs': get_main_libs_info(),
+            'entry': extra['entry'],
+        }
+    } 
+    
+    ctx['script_str'] = '\n'.join(extra['scripts'])
+    ctx['extra_head_str'] ='\n'.join(extra['extra_head'])
+    
+    return ctx
+
+@admin.middleware("http")
+async def set_public_heade_str(request: Request, call_next) -> str:
+    '''设置获取公共头部信息
+    '''
+    
+    response = await call_next(request)
+    print('listening request------------------:', response)
+    # response.headers["Content-Encoding"] = "gzip"
+    return response
 
 
 @admin.get("/", response_class=HTMLResponse)
 async def index(request: Request): 
     '''需要判断是否登录，控制进入login页面还是后台管理系统首页
     '''
-    return templates.TemplateResponse("index.html", {"request": request, "context": {
-        "name":'main',
-        'static': 'main_static',
-        'route': mainRoute.model_dump_json(),
-        'libs': get_main_libs_info()
-    }})
+    return  templates.TemplateResponse("index.html", {
+        "request": request, 
+        **get_context_from_route(mainRoute)
+    })
 
 
 @admin.get("/login")
-async def login(request: Request):
+async def login(request: Request, response: Response):
     # 登录页面
+    content =  templates.TemplateResponse("login.html", {
+        "request": request, 
+        **get_context_from_route(mainRoute),
+    })
     
-    return templates.TemplateResponse("login.html", {"request": request, "context": {
-        "name":'main',
-        'static': 'main_static',
-        'route': loginRoute.model_dump_json(),
-        'libs': get_main_libs_info()
-    }})
+    set_public_heade_str(response)
+    return content  
 
 
 def redirect_to(url: str):
@@ -52,26 +144,13 @@ def redirect_to(url: str):
 
 
 def renderFunc(route: RouteInfo) -> Callable:
-    scripts = ''
-    if route.component:
-        scripts = f'<script type="module" src="/static/js/{route.component}.js"></script>'
-    ctx: Dict = {
-        "title": route.title,
-        "scripts": scripts,
-        "icon": route.icon,
-        'context': {}
-    }
     
-    def render(request: Request):
+    def render(request: Request,response: Response):
+        ctx = get_context_from_route(route)
         ctx['request'] = request
-        
-        ctx['context'] = {
-            "name": route.name,
-            'static': route.plugin_name if route.plugin_name else 'main' + '_static',
-            'route': route.model_dump_json(),
-            'libs': get_main_libs_info()
-        }
-        return templates.TemplateResponse("index.html",  context=ctx)
+        content =  templates.TemplateResponse("index.html",  context=ctx)
+        set_public_heade_str(response)
+        return content
     return render
 
 
@@ -92,7 +171,9 @@ def  load_routes(app: FastAPI):
     通过子应用挂载来加载后端服务路由，
     '''
     app.mount("/admin", admin)
-    config: BaseConfig = get_config()
+    
+    global config
+    config = get_config()
     # 加载静态资源路由
     # 加载子应用静态资源路由
     for plugin in config.plugins:
@@ -103,7 +184,6 @@ def  load_routes(app: FastAPI):
     routes = get_all_routes()
     for route in routes:
         load_route(route)
-    print('get routes：', admin.routes)
     
 
 # 内置后端管理系统路由配置
@@ -120,25 +200,7 @@ def parse_lib_info(info: Dict, key: str) -> JsLibInfo:
     targetKey = key.replace('/', '.')[:-3]
     info.component = targetKey
     return info
-    
-    
-def load_js_libs(file_path: str):
-    with open(file_path, 'r') as f:
-        chunks = json.load(f)
-        
-    target: Dict = {}
-    for key in chunks:
-        info: JsLibInfo = parse_lib_info(chunks[key])
-        target[info.component] = info
-    return target
-    
-@lru_cache(typed=False)   
-def get_main_libs_info():
-    return load_js_libs('dist/.vite/chunks.json')
-    
-def clear_main_libs_info_cache():
-    get_main_libs_info.cache_clear()
-    
+
     
 def flat_routes(routes: List[RouteInfo], parent_name: str = None):
     '''

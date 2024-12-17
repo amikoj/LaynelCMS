@@ -14,6 +14,32 @@ class BaseConfig:
     This class is used to define the base configuration of the app.
     """
     
+    @property
+    def active_plugins(self) -> List[ModuleInfo]:
+        """
+        This function is used to get the enabled plugins.
+        """
+        return [plugin for plugin in self.plugins if plugin.enabled]
+    
+    def get_plugin_by_name(self, name: str) -> ModuleInfo:
+        """
+        This function is used to get the plugin by name.
+        """
+        for plugin in self.plugins:
+            if plugin.name == name:
+                return plugin
+        return None
+    
+    @property
+    def plugins_all_dict(self) -> dict:
+        """
+        This function is used to get the plugins configuration as a dictionary.
+        """
+        plugins_dict = {}
+        for plugin in self.plugins:
+            plugins_dict[plugin.name] = plugin.model_dump()
+        return plugins_dict
+    
     def __init__(self):
         self.settings: Settings  = get_settings() # 运行时配置
         self.appInfo: ModuleInfo =  get_manifest_config() # app manifest config
@@ -83,6 +109,16 @@ def clear_config_cache() -> None:
     """
     get_config.cache_clear()
 
+def  get_plugin_info(name: str)-> ModuleInfo:
+    """
+    This function is used to get the plugin information by name.
+    """
+    config = get_config()
+    plugins = config.plugins_all_dict
+    if name in plugins:
+        return ModuleInfo(**plugins[name])
+    else:
+        return None
 
 
-__all__ = ["get_config", "BaseConfig", "clear_config_cache"]
+__all__ = ["get_config", "BaseConfig", "clear_config_cache", "get_plugin_info"]
