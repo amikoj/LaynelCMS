@@ -4,8 +4,9 @@ Core module of LaynelCMS
 __version__ = "0.0.1"
 
 import fastapi as FastAPI
-from . import plugin, router, config
+from . import plugin, router, config, watcher
 from .dependencies import  theme_dependencies
+
 
 
 # Initialize the core module
@@ -17,6 +18,8 @@ def init_app(app: FastAPI):
     config.init_app(app) 
     # 加载路由 
     router.init_app(app)
+    # 添加监听
+    watcher.init_app(app)
 
     
 

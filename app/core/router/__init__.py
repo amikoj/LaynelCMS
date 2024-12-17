@@ -11,3 +11,11 @@ def init_app(app: FastAPI):
     api.load_routes(app)
     theme.load_routes(app)
     
+    
+def reload_routes(app: FastAPI):
+    """
+    Reload all routes for the admin system.
+    """
+    admin.reload_routes(app)
+    # api.reload_routes(app)
+    # theme.reload_routes(app)

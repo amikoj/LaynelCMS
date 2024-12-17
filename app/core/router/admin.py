@@ -65,7 +65,7 @@ def get_extra(route: RouteInfo) -> str:
     pluginInfo: ModuleInfo = config.get_plugin_by_name(route.plugin_name)
     current_libs = get_current_plugin_libs_info(pluginInfo)
     is_main = plugin_name =='main'
-    static_prefix = '/static' if is_main else f'/static/{plugin_name}/'
+    static_prefix = 'static' if is_main else f'static/{plugin_name}/'
     
     entryJs: Dict = current_libs[component]
     baseEntryJs: Dict = main_libs['project.base.index']
@@ -75,14 +75,14 @@ def get_extra(route: RouteInfo) -> str:
     
     ctx: Dict = {
         "scripts": [
-            f'<script type="module" src="{static_prefix}/{baseEntryJsFilePath}"></script>', 
-            f'<script type="module" src="{static_prefix}/{entryJsFilePath}"></script>'
+            f'<script type="module" src="/admin/{static_prefix}/{baseEntryJsFilePath}"></script>', 
+            f'<script type="module" src="/admin/{static_prefix}/{entryJsFilePath}"></script>'
         ],
         "extra_head": [
             *load_dependencies(baseEntryJs, main_libs, 'main'),
             *load_dependencies(entryJs, current_libs, plugin_name),
         ],
-        'entry': f'{static_prefix}/{entryJsFilePath}',
+        'entry': f'/admin/{static_prefix}/{entryJsFilePath}',
     }
     return ctx
         
@@ -187,6 +187,12 @@ def  load_routes(app: FastAPI):
     for route in routes:
         load_route(route)
     
+def reload_routes(app: FastAPI):
+    '''
+    重新加载后端管理系统路由
+    '''
+    clear_routes_cache()
+    load_routes(app)
 
 # 内置后端管理系统路由配置
 def get_static_routes():
@@ -263,4 +269,4 @@ def get_all_routes():
 def clear_routes_cache():
     get_all_routes.cache_clear()
 
-__all__ = ["adminRouter", "load_routers"]
+__all__ = ["adminRouter", "load_routers", "clear_routes_cache", "reload_routes"]
