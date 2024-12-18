@@ -6,6 +6,29 @@ import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { glob }  from 'glob'
+import { watch } from 'node:fs'
+import { build } from 'vite'
+import chokidar from 'chokidar'
+
+
+
+chokidar.watch(path.resolve(__dirname, 'project'), {
+
+})
+
+
+// watch('project/**/index.ts', () => {
+//   console.log('index.ts changed, reloading vite config')
+//   Object.assign(require.cache[require.resolve('vite.config.ts')], {
+//     exports: null,
+//     parent: null,
+//     filename: require.resolve('vite.config.ts'),
+//     loaded: false,
+//   })
+//   delete require.cache[require.resolve('vite.config.ts')]
+//   require('vite.config.ts')
+// })
+
 
 
 const getAllModules = ( ) => {
