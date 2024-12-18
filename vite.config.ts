@@ -5,6 +5,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { glob }  from 'glob'
+
+
+const getAllModules = ( ) => {
+ return  glob.sync('project/**/index.ts').reduce((entries: any, file: any) => {
+  const module = file.split('/').pop().replace('.ts', '')
+  entries[module] = path.resolve(__dirname, file)
+  return entries
+ }, {}) 
+}
 
 
 // https://vite.dev/config/
@@ -36,12 +46,7 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       // 覆盖默认的 .html 入口
-      input:  {
-        base: path.resolve(__dirname, 'project/base/index.ts'),
-        user: path.resolve(__dirname, 'project/user/index.ts'),
-        role: path.resolve(__dirname, 'project/role/index.ts'),
-        plugin: path.resolve(__dirname, 'project/plugin/index.ts')
-      },
+      input: getAllModules(),
       output: {
         manualChunks: {
           vue: ['vue', 'pinia'],
