@@ -6,7 +6,7 @@ __version__ = "0.0.1"
 import fastapi as FastAPI
 from . import plugin, router, config, watcher
 from .dependencies import  theme_dependencies
-
+from .decorator import debounce
 
 
 # Initialize the core module

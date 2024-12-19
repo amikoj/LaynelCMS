@@ -43,8 +43,10 @@ const config = defineConfig({
   },
   build: {
     watch: {
-      buildDelay: 500, // 延迟编译，解决某些情况下热更新失效的问题
-      
+      buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
+      exclude: ['node_modules/**', 'dist/**'], // 不监听 dist 目录
+      include: ['project/**'], // 只监听 project 目录
+      clearScreen: false, // 编译过程中不清屏
     },
     // 在 outDir 中生成 .vite/manifest.json
     manifest: true,

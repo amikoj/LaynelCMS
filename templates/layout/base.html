@@ -8,9 +8,8 @@
 	<link rel="icon" href="{{ url_for('main_static', path='favicon.ico') }}">
 	<title>{% block title %} {{ title }}{% endblock %}</title>
 	<script src="{{ url_for('main_static', path='js/tailwindcss-3.4.15.min.js') }}"></script>
-	<link rel="stylesheet" href="{{ url_for('main_static', path='css/style.css') }}">
-	{% block extra_head %}
-	{{ extra_head_str | safe }}
+	{% block extra_head  %}
+	{{ extra_head_str | safe | replace('\n', '') | replace('\t', '') }}
 	{% endblock %}
 	<script>
 		tailwind.config = {
@@ -49,7 +48,7 @@
 	{% include 'layout/footer.html' %}
 	{% endblock %}
 	{% block scripts %}
-	{{ script_str | safe }}
+	{{ script_str | safe | replace('\n', '') | replace('\t', '') }}
 	{% endblock %}
 </body>
 </html>

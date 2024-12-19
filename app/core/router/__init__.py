@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from . import admin, api, theme
+from ..decorator import debounce
 
 
 def init_app(app: FastAPI):
@@ -11,7 +11,7 @@ def init_app(app: FastAPI):
     api.load_routes(app)
     theme.load_routes(app)
     
-    
+@debounce(3)   
 def reload_routes(app: FastAPI):
     """
     Reload all routes for the admin system.

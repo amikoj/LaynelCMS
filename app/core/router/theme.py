@@ -59,7 +59,7 @@ def  load_routes(app: FastAPI):
     # 加载主题路由
     for route in theme.pages:
         load_per_route(route)
-        
+       
 def reload_routes(app: FastAPI):
     '''
     重新加载主题路由

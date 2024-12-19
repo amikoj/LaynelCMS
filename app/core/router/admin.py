@@ -11,8 +11,9 @@ from .utils import load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 from fastapi.middleware.gzip import GZipMiddleware
 
+
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
-templates: Jinja2Templates = Jinja2Templates(directory="templates")
+templates: Jinja2Templates = Jinja2Templates(directory="templates", trim_blocks=True, lstrip_blocks=True)
 
 admin.mount("/static", StaticFiles(directory="dist"), name="main_static")
 
@@ -165,9 +166,6 @@ def load_route(route: RouteInfo):
     else:
         admin.get(route.url, name=route.name, response_class=HTMLResponse)(renderFunc(route))
 
-
-
-
 def  load_routes(app: FastAPI):
     '''
     通过子应用挂载来加载后端服务路由，
@@ -186,7 +184,7 @@ def  load_routes(app: FastAPI):
     routes = get_all_routes()
     for route in routes:
         load_route(route)
-    
+   
 def reload_routes(app: FastAPI):
     '''
     重新加载后端管理系统路由
