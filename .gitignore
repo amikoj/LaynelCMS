@@ -46,4 +46,4 @@ app/**/__pycache__/*
 
 dist
 package-lock.json
-
+*d.ts

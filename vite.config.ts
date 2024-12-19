@@ -5,43 +5,22 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { glob }  from 'glob'
-import { watch } from 'node:fs'
-import { build } from 'vite'
-import chokidar from 'chokidar'
+import { glob } from 'glob'
 
+import { fileURLToPath } from 'node:url';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-chokidar.watch(path.resolve(__dirname, 'project'), {
-
-})
-
-
-// watch('project/**/index.ts', () => {
-//   console.log('index.ts changed, reloading vite config')
-//   Object.assign(require.cache[require.resolve('vite.config.ts')], {
-//     exports: null,
-//     parent: null,
-//     filename: require.resolve('vite.config.ts'),
-//     loaded: false,
-//   })
-//   delete require.cache[require.resolve('vite.config.ts')]
-//   require('vite.config.ts')
-// })
-
-
-
-const getAllModules = ( ) => {
- return  glob.sync('project/**/index.ts').reduce((entries: any, file: any) => {
-  const module = file.split('/').pop().replace('.ts', '')
-  entries[module] = path.resolve(__dirname, file)
-  return entries
- }, {}) 
+const getAllModules = () => {
+  return glob.sync('project/**/index.ts').reduce((entries: any, file: any) => {
+    const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
+    entries[module] = path.resolve(__dirname, file)
+    return entries
+  }, {})
 }
 
 
-// https://vite.dev/config/
-export default defineConfig({
+const config = defineConfig({
   plugins: [
     vue(),
     vueJsx(),
@@ -63,6 +42,10 @@ export default defineConfig({
     },
   },
   build: {
+    watch: {
+      buildDelay: 500, // 延迟编译，解决某些情况下热更新失效的问题
+      
+    },
     // 在 outDir 中生成 .vite/manifest.json
     manifest: true,
     // 在 outDir 中生成 .vite/assets 目录
@@ -80,3 +63,5 @@ export default defineConfig({
     }
   },
 })
+
+export default config

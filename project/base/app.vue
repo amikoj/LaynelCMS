@@ -4,12 +4,15 @@ import 'element-plus/theme-chalk/base.css'
 import 'element-plus/theme-chalk/el-button.css'
 
 const handleClick = () => {
-      alert('Button clicked!')   // 点击按钮弹出提示框
-    }
+    // 按钮点击事  
+    
+  console.log('测试按钮点击事件') 
+}
+
 </script>
 
 <template>
     <div>
-        <el-button @click="handleClick">12点击我</el-button>
+        <el-button @click="handleClick">按钮</el-button>
     </div>
 </template>
