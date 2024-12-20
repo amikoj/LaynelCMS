@@ -7,22 +7,13 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" href="{{ url_for('main_static', path='favicon.ico') }}">
 	<link rel="stylesheet" href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.css') }}">
-	<link rel="modulepreload" crossorigin href="{{ url_for('main_static', path='libs/vue/vue@3.5.13.min.js') }}">
-    <link rel="modulepreload" crossorigin href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.js') }}">
+	<script  crossorigin="anonymous" src="{{ url_for('main_static', path='libs/vue/vue@3.5.13.min.js') }}"> </script>
+    <script crossorigin="anonymous" src="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.js') }}"> </script>
 	<title>{% block title %} {{ title }}{% endblock %}</title>
 	{% block extra_head  %}
 	{{ extra_head_str | safe | replace('\n', '') | replace('\t', '') }}
 	{% endblock %}
 	<script>
-		tailwind.config = {
-			theme: {
-				extend: {
-					colors: {
-						clifford: '#da373d',
-					}
-				}
-			}
-		}
 		window.context =  {{ context|tojson|safe }};
 	</script>
 	{% block head %}

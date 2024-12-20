@@ -48,6 +48,7 @@ def get_main_libs_info():
 
 def get_current_plugin_libs_info(plugin: ModuleInfo): 
     if not plugin or plugin.name =='main':
+        get_main_libs_info.cache_clear()
         return get_main_libs_info()
     else:
         return load_js_libs(f'dist/{plugin.path}/.vite/manifest.json')
@@ -81,10 +82,12 @@ def get_extra(route: RouteInfo) -> str:
         ],
         "extra_head": [
             *load_dependencies(baseEntryJs, main_libs, 'main'),
-            *load_dependencies(entryJs, current_libs, plugin_name),
         ],
         'entry': f'/admin/{static_prefix}/{entryJsFilePath}',
     }
+    
+    if baseEntryJs['file'] != entryJs['file']:
+        ctx['extra_head'].extend(load_dependencies(entryJs, current_libs, plugin_name))
     return ctx
         
 
@@ -105,6 +108,7 @@ def get_context_from_route(route: RouteInfo) -> Dict:
             'route': route.model_dump_json(),
             'libs': get_main_libs_info(),
             'entry': extra['entry'],
+            'extra_head': extra['extra_head'],
         }
     } 
     

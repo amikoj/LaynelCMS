@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { Plugin as importToCDN } from 'vite-plugin-cdn-import';
 import { glob } from 'glob'
 
 import { fileURLToPath } from 'node:url';
@@ -12,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 const getAllModules = () => {
-  return glob.sync('project/**/index.ts').reduce((entries: any, file: any) => {
+  return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
     const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
     entries[module] = path.resolve(__dirname, file)
     return entries
@@ -35,6 +36,23 @@ const config = defineConfig({
         }),
       ],
     }),
+
+    importToCDN({
+      modules: [
+        {
+          name: 'vue',
+          var: 'Vue',
+          path: '/static/libs/vue/vue@3.5.13.min.js',
+        },
+        {
+          name: 'element-plus',
+          var: 'ElementPlus',
+          path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
+          css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
+        },
+        // ...其他依赖
+      ],
+    }),
   ],
   resolve: {
     alias: {
@@ -49,7 +67,7 @@ const config = defineConfig({
     rollupOptions: {
       // 覆盖默认的 .html 入口
       input: getAllModules(),
-      external: ['vue', 'element-plus'],
+      // external: [ 'element-plus','vue],
       watch: {
         buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
         exclude: ['node_modules/**', 'dist/**'], // 不监听 dist 目录
@@ -62,7 +80,8 @@ const config = defineConfig({
       },
       output: {
         manualChunks: {
-          'vue-extends': ['pinia', 'vue-i18n'],
+          // 'vue-extends': ['pinia', 'vue-i18n'],
+          // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios']
         }
       }

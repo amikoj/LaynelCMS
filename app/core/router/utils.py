@@ -21,10 +21,11 @@ def  load_dependencies(entryJs: Dict, libs: Dict, plugin_name: str) -> str:
     '''
     static_prefix = 'static' if plugin_name == 'main' else f'static/{plugin_name}/'
     def load_dep(dep: str) -> str:
-        if dep in libs: 
-            return f'<link rel="modulepreload" crossorigin src="/admin/{static_prefix}/{dep}" >'
-        else:
+        key = dep.replace('/', '.')[:-3]
+        info = libs.get(key)
+        if not info:
             return ''
+        return f'<link rel="modulepreload" crossorigin href="/admin/{static_prefix}/{info['file']}" >'
     deps: List[str] = []
     if 'imports' in entryJs:
         imports = entryJs['imports']
@@ -35,7 +36,6 @@ def  load_dependencies(entryJs: Dict, libs: Dict, plugin_name: str) -> str:
         for filePath in css:
             deps.append(f'<link rel="stylesheet" href="/admin/{static_prefix}/{filePath}" >')
     return deps
-
 
 
 __all__ = ['load_js_libs', 'load_dependencies']
