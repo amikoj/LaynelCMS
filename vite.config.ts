@@ -42,12 +42,6 @@ const config = defineConfig({
     },
   },
   build: {
-    watch: {
-      buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
-      exclude: ['node_modules/**', 'dist/**'], // 不监听 dist 目录
-      include: ['project/**'], // 只监听 project 目录
-      clearScreen: false, // 编译过程中不清屏
-    },
     // 在 outDir 中生成 .vite/manifest.json
     manifest: true,
     // 在 outDir 中生成 .vite/assets 目录
@@ -55,10 +49,20 @@ const config = defineConfig({
     rollupOptions: {
       // 覆盖默认的 .html 入口
       input: getAllModules(),
+      external: ['vue', 'element-plus'],
+      watch: {
+        buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
+        exclude: ['node_modules/**', 'dist/**'], // 不监听 dist 目录
+        include: ['project/**'], // 只监听 project 目录
+        clearScreen: false, // 编译过程中不清屏
+      },
+      cache: true,
+      treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
+        moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
+      },
       output: {
         manualChunks: {
-          vue: ['vue', 'pinia'],
-          elementPlus: ['element-plus'],
+          'vue-extends': ['pinia', 'vue-i18n'],
           common: ['dayjs', 'lodash', 'axios']
         }
       }

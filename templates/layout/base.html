@@ -3,11 +3,13 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" href="{{ url_for('main_static', path='favicon.ico') }}">
+	<link rel="stylesheet" href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.css') }}">
+	<link rel="modulepreload" crossorigin href="{{ url_for('main_static', path='libs/vue/vue@3.5.13.min.js') }}">
+    <link rel="modulepreload" crossorigin href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.js') }}">
 	<title>{% block title %} {{ title }}{% endblock %}</title>
-	<script src="{{ url_for('main_static', path='js/tailwindcss-3.4.15.min.js') }}"></script>
 	{% block extra_head  %}
 	{{ extra_head_str | safe | replace('\n', '') | replace('\t', '') }}
 	{% endblock %}
@@ -23,14 +25,6 @@
 		}
 		window.context =  {{ context|tojson|safe }};
 	</script>
-
-	<style type="text/tailwindcss">
-		@layer utilities {
-			.content-wrapper {
-				@apply max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8;
-			}
-		}
-	</style>
 	{% block head %}
 	{% endblock %}
 </head>
