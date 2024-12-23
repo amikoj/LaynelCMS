@@ -4,11 +4,11 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
         "build": "vue-tsc -b && vite build",
         "preview": "vite preview",
-        "watch": "vite build --watch",
-        "watch:base": "nodemon --watch project -e ts,vue,js  --exec 'pnpm run build'"
+        "serve": "vite preview",
+        "dev": "nodemon --watch vite.config.ts --exec 'pnpm run watch'",
+        "watch": "vite  build --watch"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",
