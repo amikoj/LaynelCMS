@@ -80,7 +80,7 @@ const config = defineConfig({
       },
       output: {
         manualChunks: {
-          // 'vue-extends': ['pinia', 'vue-i18n'],
+          'vue-extends': ['pinia', 'vue-i18n'],
           // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios']
         }
