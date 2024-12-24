@@ -42,13 +42,17 @@ const config = defineConfig({
         {
           name: 'vue',
           var: 'Vue',
-          path: '/static/libs/vue/vue@3.5.13.min.js',
+          // path: '/static/libs/vue/vue@3.5.13.min.js',
+          path:'https://cdn.jsdelivr.net/npm/vue@3'
         },
         {
           name: 'element-plus',
           var: 'ElementPlus',
-          path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
-          css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
+          // path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
+          path: 'https://cdn.jsdelivr.net/npm/element-plus',
+          // css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
+          css: 'https://cdn.jsdelivr.net/npm/element-plus/dist/index.css',
+  
         },
         // ...其他依赖
       ],
@@ -62,6 +66,8 @@ const config = defineConfig({
   build: {
     // 在 outDir 中生成 .vite/manifest.json
     manifest: true,
+    minify: false, // 压缩代码
+    sourcemap: true, // 生成 sourcemap
     // 在 outDir 中生成 .vite/assets 目录
     outDir: 'dist',
     rollupOptions: {
@@ -75,12 +81,12 @@ const config = defineConfig({
         clearScreen: false, // 编译过程中不清屏
       },
       cache: true,
-      treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
-        moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
-      },
+      // treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
+      //   moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
+      // },
       output: {
         manualChunks: {
-          'vue-extends': ['pinia', 'vue-i18n'],
+          // 'vue-extends': ['pinia', 'vue-i18n'],
           // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios']
         }
