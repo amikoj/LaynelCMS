@@ -21,8 +21,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "noImplicitAny": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["project/*"],
+      "@/*": ["project/*"]
     }
   },
   "include": ["project/**/*.ts", "project/**/*.tsx", "project/**/*.vue"]

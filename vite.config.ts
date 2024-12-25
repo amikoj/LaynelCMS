@@ -42,16 +42,16 @@ const config = defineConfig({
         {
           name: 'vue',
           var: 'Vue',
-          // path: '/static/libs/vue/vue@3.5.13.min.js',
-          path:'https://cdn.jsdelivr.net/npm/vue@3'
+          path: '/static/libs/vue/vue@3.5.13.min.js',
+          // path:'https://cdn.jsdelivr.net/npm/vue@3'
         },
         {
           name: 'element-plus',
           var: 'ElementPlus',
-          // path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
-          path: 'https://cdn.jsdelivr.net/npm/element-plus',
-          // css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
-          css: 'https://cdn.jsdelivr.net/npm/element-plus/dist/index.css',
+          path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
+          // path: 'https://cdn.jsdelivr.net/npm/element-plus',
+          css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
+          // css: 'https://cdn.jsdelivr.net/npm/element-plus/dist/index.css',
   
         },
         // ...其他依赖

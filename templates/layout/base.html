@@ -6,24 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" href="{{ url_for('main_static', path='favicon.ico') }}">
-	<!-- <link rel="stylesheet" href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.css') }}">
 	<script  crossorigin="anonymous" src="{{ url_for('main_static', path='libs/vue/vue@3.5.13.min.js') }}"> </script>
-    <script crossorigin="anonymous" src="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.js') }}"> </script> -->
+    <script crossorigin="anonymous" src="{{ url_for('main_static', path='libs/element-plus/element-plus@2.9.1.min.js') }}"> </script>
 
-	<link
+	<!-- <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css"
-  />
+  /> -->
   <!-- Import Vue 3 -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@3"></script> -->
   <!-- Import component library -->
-  <script src="https://cdn.jsdelivr.net/npm/element-plus"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/element-plus"></script> -->
 	<title>{% block title %} {{ title }}{% endblock %}</title>
 	{% block extra_head  %}
 	{{ extra_head_str | safe | replace('\n', '') | replace('\t', '') }}
 	{% endblock %}
 	<script>
-		window.context =  {{ context|tojson|safe }};
+		window.__context__ =  {{ __context__|tojson|safe }};
 	</script>
 	{% block head %}
 	{% endblock %}

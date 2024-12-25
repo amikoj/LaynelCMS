@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from .utils import load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 from fastapi.middleware.gzip import GZipMiddleware
-
+CONTEXT_DICT_KEY = "__context__"
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates", trim_blocks=True, lstrip_blocks=True)
@@ -27,7 +27,7 @@ mainRoute = RouteInfo(
     title='主页', 
     url='/', 
     icon='home', 
-    component='project.base.index', 
+    component='project.dashborad.index', 
     plugin_name='main'
     )
 
@@ -102,7 +102,7 @@ def get_context_from_route(route: RouteInfo) -> Dict:
         "scripts": extra['scripts'],
         'script_str':'',
         'extra_head_str': '',
-        'context': {
+        CONTEXT_DICT_KEY: {
             "name": route.name,
             'static': route.plugin_name if route.plugin_name else 'main' + '_static',
             'route': route.model_dump_json(),
@@ -270,5 +270,9 @@ def get_all_routes():
 
 def clear_routes_cache():
     get_all_routes.cache_clear()
+    
+    
+    
 
-__all__ = ["adminRouter", "load_routers", "clear_routes_cache", "reload_routes"]
+
+__all__ = ["adminRouter", "load_routers", "clear_routes_cache", "reload_routes", 'CONTEXT_DICT_KEY']
