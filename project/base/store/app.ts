@@ -5,7 +5,8 @@ import { AppSettings, WindowContext } from '../interface';
 import { computed, ref } from 'vue';
 
 const defaultAppSettings: AppSettings = {
-    layout:'common'
+    layout:'common',
+    primaryColor: '#007bff',
 }
 
 export const useAppStore = defineStore('app', () => {
@@ -17,10 +18,15 @@ export const useAppStore = defineStore('app', () => {
         return settings.value.layout ?? 'common';
     });
 
+    const primaryColor = computed(() => {
+        return settings.value.primaryColor?? '#007bff';
+    });
+
     return  {
         // state
         ctx: context.value as WindowContext,
         settings,
         layout,
+        primaryColor,
     }
 });

@@ -5,14 +5,19 @@ import Header from '@/base/components/header/header.vue'
 </script>
 
 <template>
-    <el-container>
-        common Layout
-        <Header />
-      <el-container>
-         <Aside />
-        <el-main>
-            <div id="app"></div>
-        </el-main>
-      </el-container>
-    </el-container>
+    <div class="common-layout">
+        <el-container>
+            <el-header>
+                <Header />
+            </el-header>
+            <el-container>
+                <el-aside width="200px">
+                    <Aside />
+                </el-aside>
+                <el-main>
+                    <slot />
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
 </template>

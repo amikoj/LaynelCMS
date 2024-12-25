@@ -36,7 +36,6 @@ const config = defineConfig({
         }),
       ],
     }),
-
     importToCDN({
       modules: [
         {
@@ -81,14 +80,15 @@ const config = defineConfig({
         clearScreen: false, // 编译过程中不清屏
       },
       cache: true,
-      // treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
-      //   moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
-      // },
+      treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
+        moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
+      },
       output: {
         manualChunks: {
-          // 'vue-extends': ['pinia', 'vue-i18n'],
+          'vue-extends': ['pinia', 'vue-i18n'],
           // vue: ['vue'],
-          common: ['dayjs', 'lodash', 'axios']
+          common: ['dayjs', 'lodash', 'axios'],
+          icons:['@iconify/vue']
         }
       }
     }

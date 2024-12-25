@@ -27,5 +27,5 @@
       "@/*": ["project/*"]
     }
   },
-  "include": ["project/**/*.ts", "project/**/*.tsx", "project/**/*.vue"]
+  "include": ["project/**/*.ts", "project/**/*.tsx", "project/**/*.vue","components.d.ts", "project/**/*.d.ts"]
 }
