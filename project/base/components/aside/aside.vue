@@ -13,8 +13,7 @@ const { primaryColor } = useAppStore()
             <h1>Laynel CMS</h1>
         </div>
 
-
-        <el-menu :style="{ backgroundColor: primaryColor }">
+        <el-menu :style="{ backgroundColor: primaryColor }" class="text-white text-14px">
             <el-menu-item index="1">
                 <Icon icon="material-symbols:home" width="24" height="24" />
                 <span slot="title">Dashboard</span>

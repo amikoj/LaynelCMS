@@ -21,3 +21,13 @@ import Header from '@/base/components/header/header.vue'
         </el-container>
     </div>
 </template>
+
+<style lang="scss">
+.common-layout {
+    .el-header {
+        padding:0;
+    }
+
+
+}
+</style>

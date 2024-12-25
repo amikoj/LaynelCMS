@@ -7,6 +7,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import';
 import { glob } from 'glob'
+import UnoCSS from 'unocss/vite';
 
 import { fileURLToPath } from 'node:url';
 
@@ -36,6 +37,7 @@ const config = defineConfig({
         }),
       ],
     }),
+    UnoCSS(),
     importToCDN({
       modules: [
         {
