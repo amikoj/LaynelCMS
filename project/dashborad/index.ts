@@ -1,8 +1,5 @@
-import { createApp } from "vue";
+import { withInstall } from "@laynel-ui/utils";
 import Dashborad from "./page.vue";
 
 
-
-const app = createApp(Dashborad)
-
-app.mount("#app")
+export default withInstall(Dashborad, 'dashborad'); //导出组件
