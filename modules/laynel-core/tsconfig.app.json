@@ -24,9 +24,8 @@
     "noImplicitAny": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["project/*"],
-      "@laynel/*": ["modules/*"]
+      "@/*": ["./*"]
     }
   },
-  "include": ["project/**/*.ts", "project/**/*.tsx", "project/**/*.vue","components.d.ts", "project/**/*.d.ts"]
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue","components.d.ts"]
 }
