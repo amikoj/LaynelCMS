@@ -27,7 +27,7 @@ mainRoute = RouteInfo(
     title='主页', 
     url='/', 
     icon='home', 
-    component='project.dashborad.index', 
+    component='project.dashborad.page', 
     plugin_name='main'
     )
 
@@ -37,7 +37,7 @@ loginRoute = RouteInfo(
     title='登录', 
     url='/login', 
     icon='login', 
-    component='project.login.index', 
+    component='project.login.page', 
     plugin_name='main'
     )
 
@@ -207,7 +207,10 @@ def get_static_routes():
     
 def parse_lib_info(info: Dict, key: str) -> JsLibInfo:
     info = JsLibInfo(**info)
-    targetKey = key.replace('/', '.')[:-3]
+    if key.endswith('.vue'):
+        targetKey = key.replace('/', '.')[:-4]
+    else:
+       targetKey = key.replace('/', '.')[:-3]
     info.component = targetKey
     return info
 

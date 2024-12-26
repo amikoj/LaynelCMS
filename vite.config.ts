@@ -14,11 +14,30 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 const getAllModules = () => {
-  return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
+
+  const entries: any  = {}
+
+  // base modules
+  const base = 'project.base.index'
+  entries[base] = path.resolve(__dirname, `project/base/index.ts`)
+
+  // project modules
+
+
+  glob.sync('project/*/page.vue').forEach((file: any) => {
     const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
     entries[module] = path.resolve(__dirname, file)
-    return entries
-  }, {})
+  })
+
+
+
+  return entries
+
+  // return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
+  //   const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
+  //   entries[module] = path.resolve(__dirname, file)
+  //   return entries
+  // }, {})
 }
 
 
