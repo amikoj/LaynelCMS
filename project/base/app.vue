@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { useAppStore } from '@laynel-ui/store';
 import { onMounted } from 'vue';
-import layouts  from './layout'
-
-
-
-
-const CommonLaout = layouts.common
+import {Layouts, LaynelCommonLayout}  from '@laynel-ui/layout'
 
 const { ctx, layout } = useAppStore()
-const Layout = layouts[layout] || CommonLaout
+const Layout = Layouts[`laynle-${layout}`] || LaynelCommonLayout
 
 /**
  * 动态加载当前模块的入口文件 

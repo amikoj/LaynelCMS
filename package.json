@@ -24,7 +24,8 @@
         "@laynel-ui/components": "workspace:*",
         "@laynel-ui/hooks": "workspace:*",
         "@laynel-ui/store": "workspace:*",
-        "@laynel-ui/i18n": "workspace:*"
+        "@laynel-ui/i18n": "workspace:*",
+        "@laynel-ui/utils": "workspace:*"
     },
     "devDependencies": {
         "@types/lodash": "^4.17.13",

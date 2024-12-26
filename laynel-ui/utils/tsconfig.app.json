@@ -22,11 +22,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": true,
+    "composite":true,
+    "declaration":true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["project/*"],
-      "@laynel/*": ["modules/*"]
+      "@/*": ["src/*"]
     }
   },
-  "include": ["project/**/*.ts", "project/**/*.tsx", "project/**/*.vue","*.d.ts", "project/**/*.d.ts"]
+  "include": ["src/**/*.ts",]
 }

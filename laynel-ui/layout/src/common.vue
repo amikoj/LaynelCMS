@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Aside, Header} from '@laynel-ui/components'
+import {LaynelAside, LaynelHeader} from '@laynel-ui/components'
 
 </script>
 
@@ -7,11 +7,11 @@ import {Aside, Header} from '@laynel-ui/components'
     <div class="common-layout">
         <el-container>
             <el-header>
-                <Header />
+                <LaynelHeader />
             </el-header>
             <el-container>
                 <el-aside width="200px">
-                    <Aside />
+                    <LaynelAside />
                 </el-aside>
                 <el-main>
                     <slot />
@@ -26,7 +26,5 @@ import {Aside, Header} from '@laynel-ui/components'
     .el-header {
         padding:0;
     }
-
-
 }
 </style>

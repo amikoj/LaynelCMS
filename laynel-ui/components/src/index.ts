@@ -1,8 +1,29 @@
-import Aside from './aside/aside.vue'
-import Header from './header/header.vue'
+
+import { LaynelHeader, LaynelToolkit } from './header'
+import { LaynelAside } from './aside'
+export * from './header'
+export * from './aside'
 
 
-export {
-    Aside,
-    Header
+
+const components: Record<string, any> = {
+    LaynelHeader,
+    LaynelToolkit,
+    LaynelAside
 }
+
+
+export default {
+    install(app: any) {
+
+        for (const key in components) {
+            const component = components[key]
+            if (component.install) {
+                component.install(app)
+            }else {
+                app.component(key, component)
+            }
+        }
+    }
+}
+

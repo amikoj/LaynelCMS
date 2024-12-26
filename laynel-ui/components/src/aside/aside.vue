@@ -9,8 +9,7 @@ const { primaryColor } = useAppStore()
 <template>
     <div class="aside-container flex flex-col">
         <div class="logo">
-            <img src="//admin/static/vercel.svg" alt="logo">
-            <h1>Laynel CMS</h1>
+            <h1>Laynel CMS Aside</h1>
         </div>
 
         <el-menu :style="{ backgroundColor: primaryColor }" class="text-white text-14px">
