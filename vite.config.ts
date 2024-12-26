@@ -87,10 +87,10 @@ const config = defineConfig({
       },
       output: {
         manualChunks: {
-          'vue-extends': ['pinia', 'vue-i18n'],
+          'vue-extends': ['pinia', 'vue-i18n', '@iconify/vue', '@iconify/vue'],
           // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios'],
-          icons:['@iconify/vue']
+          laynel: ['@laynel-ui/**',],
         }
       }
     }

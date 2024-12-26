@@ -43,7 +43,14 @@ pnpm-lock.yaml
 */pnpm-lock.json
 */pnpm-lock.yaml
 app/**/__pycache__/*
+app/**/__pycache__
+__pycache__/*
+__pycache__
 
 dist
 package-lock.json
 *d.ts
+node_modules
+node_modules/*
+*/node_modules/*
+*/node_modules

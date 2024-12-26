@@ -1,0 +1,31 @@
+{
+  "name": "@laynel-ui/hooks",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.ts",
+  "module": "index.ts",
+  "scripts": {
+    "dev": "vite",
+    "dev:mock": "run-p dev dev:mockServer",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.13",
+    "vue": "^3.5.13",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.10.2",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "typescript": "~5.6.2",
+    "unplugin-vue-components": "^0.27.5",
+    "vite": "^6.0.1",
+    "vite-plugin-cdn-import": "^1.0.1",
+    "vue-tsc": "^2.1.10"
+  }
+}
