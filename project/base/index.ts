@@ -1,15 +1,15 @@
 import { createApp} from 'vue'
 import App from './app.vue'
-import i18n from '@/base/i18n'
+import i18n from '@laynel-ui/i18n'
 import ElementPlus from 'element-plus'
-import { createPinia } from 'pinia'
 import '@/base/styles/global.css'
 import 'virtual:uno.css'
 import  LaynelComponents from '@laynel-ui/components'
+import store from '@laynel-ui/store'
 
 
 // Create a new Vue instance and mount the App component to the #root element
 const app = createApp(App)
 // install_components(app)
-app.use(i18n).use(ElementPlus).use(createPinia()).use(LaynelComponents)
+app.use(i18n).use(ElementPlus).use(store).use(LaynelComponents)
 app.mount('#root')
