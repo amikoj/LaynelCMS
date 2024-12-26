@@ -90,7 +90,7 @@ const config = defineConfig({
           'vue-extends': ['pinia', 'vue-i18n', '@iconify/vue', '@iconify/vue'],
           // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios'],
-          laynel: ['@laynel-ui/**',],
+          laynel: ['@laynel-ui/components','@laynel-ui/layout','@laynel-ui/hooks','@laynel-ui/i18n','@laynel-ui/store'],
         }
       }
     }

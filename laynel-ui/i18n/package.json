@@ -1,9 +1,9 @@
 {
-  "name": "@laynel-ui/store",
+  "name": "@laynel-ui/i18n",
   "version": "0.0.1",
   "private": true,
-  "main": "index.ts",
-  "module": "index.ts",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "scripts": {
     "dev": "vite",
     "dev:mock": "run-p dev dev:mockServer",
@@ -13,24 +13,14 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "peerDependencies": {
-    "dayjs": "^1.11.13",
     "vue": "^3.5.13",
-    "lodash": "^4.17.21",
-    "pinia": "^2.3.0"
+    "vue-i18n": "11.0.0-rc.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.2",
     "@vitejs/plugin-vue": "^5.2.1",
-    "@vitejs/plugin-vue-jsx": "^4.1.1",
-    "chokidar": "^4.0.2",
     "typescript": "~5.6.2",
-    "unocss": "^0.65.2",
-    "unplugin-auto-import": "^0.19.0",
-    "unplugin-icons": "^0.21.0",
-    "unplugin-vue-components": "^0.27.5",
     "vite": "^6.0.1",
-    "vite-plugin-cdn-import": "^1.0.1",
     "vue-tsc": "^2.1.10"
   }
 }

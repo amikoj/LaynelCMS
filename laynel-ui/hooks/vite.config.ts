@@ -21,9 +21,9 @@ const config = defineConfig({
     rollupOptions: {
       input: 'src/index.ts',
       cache: true,
-      treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
-        moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
-      },
+      // treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
+      //   moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
+      // },
     }
   },
 })

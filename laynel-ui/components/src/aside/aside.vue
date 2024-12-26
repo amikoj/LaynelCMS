@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAppStore } from '@/base/store/app';
+import { useAppStore } from '@laynel-ui/store';
 import { Icon } from '@iconify/vue';
 
 const { primaryColor } = useAppStore()

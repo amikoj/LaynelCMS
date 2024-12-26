@@ -2,8 +2,8 @@
   "name": "@laynel-ui/layout",
   "version": "0.0.1",
   "private": true,
-  "main": "index.ts",
-  "module": "index.ts",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "scripts": {
     "dev": "vite",
     "dev:mock": "run-p dev dev:mockServer",
@@ -18,7 +18,7 @@
     "dayjs": "^1.11.13",
     "element-plus": "^2.9.1",
     "vue": "^3.5.13",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.21"
   },
   "dependencies": {},
   "devDependencies": {

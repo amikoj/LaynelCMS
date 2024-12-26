@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAppStore } from 'laynelcms';
+import { useAppStore } from '@laynel-ui/store';
 import { onMounted } from 'vue';
 import layouts  from './layout'
 

@@ -1,11 +1,6 @@
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import Icons from 'unplugin-icons/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import UnoCSS from 'unocss/vite';
 
 import { fileURLToPath } from 'node:url';
 

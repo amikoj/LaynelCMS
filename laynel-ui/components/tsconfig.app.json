@@ -22,9 +22,17 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": true,
+
+    "composite":true,
+    "declaration":true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@laynel-ui/hooks/*": ["../hooks/src/*"],
+      "@laynel-ui/components/*": ["../components/src/*"],
+      "@laynel-ui/layout/*": ["../layout/src/*"],
+      "@laynel-ui/store/*": ["../store/src/*"],
+      "@laynel-ui/i18n/*": ["../i18n/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","components.d.ts"]

@@ -1,5 +1,5 @@
 import { computed, Ref } from "vue";
-import { WindowContext } from "../interface";
+import { WindowContext } from "./interface";
 
 
 

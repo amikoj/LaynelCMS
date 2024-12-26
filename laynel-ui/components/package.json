@@ -2,8 +2,8 @@
   "name": "@laynel-ui/components",
   "version": "0.0.1",
   "private": true,
-  "main": "index.ts",
-  "module": "index.ts",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "scripts": {
     "dev": "vite",
     "dev:mock": "run-p dev dev:mockServer",
