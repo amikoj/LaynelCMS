@@ -8,7 +8,10 @@ def load_js_libs(file_path: str):
         
     target: Dict = {}
     for key in chunks:
-        targetKey = key.replace('/', '.')[:-3]
+        if key.endswith(".vue"):
+            targetKey = key.replace('/', '.')[:-4]
+        else:
+            targetKey = key.replace('/', '.')[:-3]
         info = chunks[key]
         info['component'] = targetKey
         target[targetKey] = info

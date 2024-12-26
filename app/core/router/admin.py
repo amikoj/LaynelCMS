@@ -69,6 +69,7 @@ def get_extra(route: RouteInfo) -> str:
     is_main = plugin_name =='main'
     static_prefix = 'static' if is_main else f'static/{plugin_name}/'
     
+    
     entryJs: Dict = current_libs[component]
     baseEntryJs: Dict = main_libs['project.base.index']
     
