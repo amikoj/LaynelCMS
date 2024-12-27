@@ -2,16 +2,24 @@ import json
 from typing import Dict, List
 
 
+def  get_lib_key(file_path: str) -> str:
+    '''获取库的key
+    '''
+    try:
+        lastDotIndex = file_path.rindex('.')
+        return file_path.replace('/', '.')[:lastDotIndex]
+    except ValueError:
+        return file_path.replace('/', '.')
+    
+
+
 def load_js_libs(file_path: str):
     with open(file_path, 'r') as f:
         chunks = json.load(f)
         
     target: Dict = {}
     for key in chunks:
-        if key.endswith(".vue"):
-            targetKey = key.replace('/', '.')[:-4]
-        else:
-            targetKey = key.replace('/', '.')[:-3]
+        targetKey = get_lib_key(key)
         info = chunks[key]
         info['component'] = targetKey
         target[targetKey] = info
@@ -41,4 +49,4 @@ def  load_dependencies(entryJs: Dict, libs: Dict, plugin_name: str) -> str:
     return deps
 
 
-__all__ = ['load_js_libs', 'load_dependencies']
+__all__ = ['load_js_libs', 'load_dependencies', 'get_lib_key']

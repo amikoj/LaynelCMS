@@ -6,7 +6,7 @@ import {Layouts, LaynelCommonLayout}  from '@laynel-ui/layout'
 const { ctx, layout } = useAppStore()
 const Layout = Layouts[`laynle-${layout}`] || LaynelCommonLayout
 
-const Page = defineAsyncComponent(() => import(ctx.entry))
+const Page = defineAsyncComponent(() => import(ctx.entry!))
 
 
 
@@ -15,21 +15,21 @@ const Page = defineAsyncComponent(() => import(ctx.entry))
  * 动态加载当前模块的入口文件 
  */
  const loadEntry = () => {
-  const entryJs = ctx.entry
-  if (entryJs) {
-    import(entryJs).then(res => {
-      console.log('entryJs is loaded successfully:', res)
-      Page.value =   res
-    }).catch(err => {
-      console.error('entryJs load failed:', err)
-    })
-  }else {
-    console.error('entryJs is not found in appStore')
-  }
+  // const entryJs = ctx.entry
+  // if (entryJs) {
+  //   import(entryJs).then(res => {
+  //     console.log('entryJs is loaded successfully:', res)
+  //     Page.value =   res
+  //   }).catch(err => {
+  //     console.error('entryJs load failed:', err)
+  //   })
+  // }else {
+  //   console.error('entryJs is not found in appStore')
+  // }
 }
 
 onMounted(() => {
-  // loadEntry()
+  loadEntry()
 })
 </script>
 

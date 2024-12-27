@@ -26,7 +26,7 @@
     "declaration":true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@store/*": ["src/*"]
     }
   },
   "include": ["src/**/*.ts",]

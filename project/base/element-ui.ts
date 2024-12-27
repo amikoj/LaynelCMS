@@ -10,7 +10,6 @@ import {
   ElHeader,
   ElMain,
   ElFooter,
-  ElConfigProvider,
 } from 'element-plus'
 import type { App } from 'vue'
 

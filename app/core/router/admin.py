@@ -1,5 +1,4 @@
 from functools import lru_cache
-import gzip
 from typing import Callable, Dict, List
 from fastapi import  Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -7,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI
 
-from .utils import load_dependencies, load_js_libs
+from .utils import get_lib_key, load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 from fastapi.middleware.gzip import GZipMiddleware
 CONTEXT_DICT_KEY = "__context__"
@@ -27,7 +26,7 @@ mainRoute = RouteInfo(
     title='主页', 
     url='/', 
     icon='home', 
-    component='project.dashborad.page', 
+    component='project.dashborad.index', 
     plugin_name='main'
     )
 
@@ -37,14 +36,13 @@ loginRoute = RouteInfo(
     title='登录', 
     url='/login', 
     icon='login', 
-    component='project.login.page', 
+    component='project.login.index', 
     plugin_name='main'
     )
 
 @lru_cache(typed=False)   
 def get_main_libs_info():
     return load_js_libs('dist/.vite/manifest.json')
-
 
 def get_current_plugin_libs_info(plugin: ModuleInfo): 
     if not plugin or plugin.name =='main':
@@ -66,9 +64,9 @@ def get_extra(route: RouteInfo) -> str:
     main_libs = get_main_libs_info()
     pluginInfo: ModuleInfo = config.get_plugin_by_name(route.plugin_name)
     current_libs = get_current_plugin_libs_info(pluginInfo)
+    print(current_libs)
     is_main = plugin_name =='main'
     static_prefix = 'static' if is_main else f'static/{plugin_name}/'
-    
     
     entryJs: Dict = current_libs[component]
     baseEntryJs: Dict = main_libs['project.base.index']
@@ -208,10 +206,7 @@ def get_static_routes():
     
 def parse_lib_info(info: Dict, key: str) -> JsLibInfo:
     info = JsLibInfo(**info)
-    if key.endswith('.vue'):
-        targetKey = key.replace('/', '.')[:-4]
-    else:
-       targetKey = key.replace('/', '.')[:-3]
+    targetKey = get_lib_key(key)
     info.component = targetKey
     return info
 

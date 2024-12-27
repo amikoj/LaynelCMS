@@ -8,38 +8,20 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import';
 import { glob } from 'glob'
 import UnoCSS from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite'
+
 
 import { fileURLToPath } from 'node:url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-const getAllModules = () => {
-
-  const entries: any  = {}
-
-  // base modules
-  const base = 'project.base.index'
-  entries[base] = path.resolve(__dirname, `project/base/index.ts`)
-
-  // project modules
-
-
-  glob.sync('project/*/page.vue').forEach((file: any) => {
+const loadAllLibs = () => {
+  return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
     const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
-    entries[module] = path.resolve(__dirname, file)
-  })
-
-
-
-  return entries
-
-  // return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
-  //   const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
-  //   entries[module] = path.resolve(__dirname, file)
-  //   return entries
-  // }, {})
-}
-
+    entries[module] =  path.resolve(__dirname, file)
+    return entries
+  }, {})
+ }
 
 const config = defineConfig({
   plugins: [
@@ -63,20 +45,26 @@ const config = defineConfig({
           name: 'vue',
           var: 'Vue',
           path: '/static/libs/vue/vue@3.5.13.min.js',
-          // path:'https://cdn.jsdelivr.net/npm/vue@3'
         },
         {
           name: 'element-plus',
           var: 'ElementPlus',
           path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
-          // path: 'https://cdn.jsdelivr.net/npm/element-plus',
           css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
-          // css: 'https://cdn.jsdelivr.net/npm/element-plus/dist/index.css',
-  
         },
         // ...其他依赖
       ],
     }),
+    AutoImport({
+      imports: [
+         'vue',
+         'vue-i18n',
+         '@vueuse/core',
+         'pinia',
+       ],
+       dts: 'auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
+       dirs: ['@laynel-ui/hooks', '@laynel-ui/store', '@laynel-ui/utils'],
+      }),
   ],
   resolve: {
     alias: {
@@ -87,12 +75,20 @@ const config = defineConfig({
     // 在 outDir 中生成 .vite/manifest.json
     manifest: true,
     minify: false, // 压缩代码
-    sourcemap: true, // 生成 sourcemap
+    // sourcemap: true, // 生成 sourcemap
     // 在 outDir 中生成 .vite/assets 目录
     outDir: 'dist',
+    lib:{
+      entry: loadAllLibs(),
+      fileName: (_, entryName) => `assets/${entryName}-[hash].js`,
+      cssFileName: '[name]-[hash].css',
+      formats:['es']
+    },
+
     rollupOptions: {
       // 覆盖默认的 .html 入口
-      input: getAllModules(),
+      // input: getAllModules(),
+      // input: path.resolve(__dirname, './project/base/index.ts'),
       // external: [ 'element-plus','vue],
       watch: {
         buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
@@ -107,12 +103,18 @@ const config = defineConfig({
       output: {
         manualChunks: {
           'vue-extends': ['pinia', 'vue-i18n', '@iconify/vue', '@iconify/vue'],
-          // vue: ['vue'],
           common: ['dayjs', 'lodash', 'axios'],
           laynel: ['@laynel-ui/components','@laynel-ui/layout','@laynel-ui/hooks','@laynel-ui/i18n','@laynel-ui/store'],
         }
-      }
-    }
+      },
+
+    },
+  },
+  // 环境变量注入依赖
+  define: {
+    'process.env': {
+      NODE_ENV: "production"
+    },
   },
 })
 

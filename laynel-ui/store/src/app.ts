@@ -1,7 +1,7 @@
 
 import { useWindowContext, WindowContext } from '@laynel-ui/hooks'
 import { defineStore } from 'pinia'
-import { AppSettings } from '@/interface';
+import { AppSettings } from './interface';
 import { computed, ref } from 'vue';
 
 const defaultAppSettings: AppSettings = {
