@@ -7,6 +7,9 @@ import { computed, ref } from 'vue';
 const defaultAppSettings: AppSettings = {
     layout:'common',
     primaryColor: '#007bff',
+    theme: 'light',
+    direction: 'ltr',
+    language: 'zh-cn',
 }
 
 export const useAppStore = defineStore('app', () => {
