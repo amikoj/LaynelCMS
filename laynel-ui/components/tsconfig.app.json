@@ -35,5 +35,5 @@
       "@laynel-ui/i18n/*": ["../i18n/src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","components.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","*.d.ts"]
 }

@@ -6,13 +6,14 @@ import {LaynelAside, LaynelHeader} from '@laynel-ui/components'
 <template>
     <div class="common-layout">
         <el-container>
-            <el-header>
-                <LaynelHeader />
-            </el-header>
-            <el-container>
-                <el-aside width="200px">
+            <el-aside width="200px" class="p-0 h-full">
                     <LaynelAside />
                 </el-aside>
+
+            <el-container>
+                <el-header>
+                   <LaynelHeader />
+                </el-header>
                 <el-main>
                     <slot />
                 </el-main>

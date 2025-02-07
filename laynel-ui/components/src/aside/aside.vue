@@ -7,12 +7,12 @@ const { primaryColor } = useAppStore()
 </script>
 
 <template>
-    <div class="aside-container flex flex-col">
-        <div class="logo">
+    <div class="aside-container flex flex-col" :style="{ backgroundColor: primaryColor }">
+        <div class="logo text-white text-24px px-15px py-10px">
             <h1>Laynel CMS Aside</h1>
         </div>
 
-        <el-menu :style="{ backgroundColor: primaryColor }" class="text-white text-14px">
+        <el-menu  class="text-white text-14px">
             <el-menu-item index="1">
                 <Icon icon="material-symbols:home" width="24" height="24" />
                 <span slot="title">Dashboard</span>

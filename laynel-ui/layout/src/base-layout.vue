@@ -27,9 +27,9 @@ onMounted(() => {
 <template>
 <div class="common-layout">
     <el-container>
-        <Header />
+      <Aside />
       <el-container>
-         <Aside />
+        <Header />
         <el-main>
             <div id="app"></div>
         </el-main>
