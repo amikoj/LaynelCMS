@@ -38,7 +38,7 @@ const config = defineConfig({
         }),
       ],
     }),
-    UnoCSS(),
+  
     importToCDN({
       modules: [
         {
@@ -65,6 +65,7 @@ const config = defineConfig({
        dts: 'auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
        dirs: ['@laynel-ui/hooks', '@laynel-ui/store', '@laynel-ui/utils'],
       }),
+      UnoCSS(),
   ],
   resolve: {
     alias: {
@@ -81,7 +82,7 @@ const config = defineConfig({
     lib:{
       entry: loadAllLibs(),
       fileName: (_, entryName) => `assets/${entryName}-[hash].js`,
-      cssFileName: '[name]-[hash].css',
+      // cssFileName: '[name]-[hash].css',
       formats:['es']
     },
 
@@ -97,9 +98,9 @@ const config = defineConfig({
         clearScreen: false, // 编译过程中不清屏
       },
       cache: true,
-      treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
-        moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
-      },
+      // treeshake: {   // 开启 treeshake 优化, 减少 bundle 体积
+      //   moduleSideEffects: false, // 允许模块有副作用,不能设置为false,不然会影响postcss的处理
+      // },
       output: {
         manualChunks: {
           'vue-extends': ['pinia', 'vue-i18n', '@iconify/vue', '@iconify/vue'],

@@ -35,11 +35,8 @@ onMounted(() => {
 
 <template>
   <el-config-provider>
-     <Layout >
-        <!-- <div id="app"></div> -->
-
-        <Page />
-    
+     <Layout class="flex" >
+        <Page  />
      </Layout>
   </el-config-provider>
 </template>

@@ -1,9 +1,9 @@
 import { createApp} from 'vue'
+import '@/base/styles/global.css'
+import 'virtual:uno.css'
 import App from './app.vue'
 import i18n from '@laynel-ui/i18n'
 import ElementPlus from 'element-plus'
-import '@/base/styles/global.css'
-import 'virtual:uno.css'
 import  LaynelComponents from '@laynel-ui/components'
 import store from '@laynel-ui/store'
 
