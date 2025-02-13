@@ -85,6 +85,7 @@ def get_extra(route: RouteInfo) -> str:
         'entry': f'/admin/{static_prefix}/{entryJsFilePath}',
     }
     
+    
     if baseEntryJs['file'] != entryJs['file']:
         ctx['extra_head'].extend(load_dependencies(entryJs, current_libs, plugin_name))
     return ctx

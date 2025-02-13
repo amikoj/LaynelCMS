@@ -14,8 +14,12 @@ const defaultAppSettings: AppSettings = {
 
 export const useAppStore = defineStore('app', () => {
 
+
+    const isCollapse = ref<boolean>(false); // 是否收缩菜单
     const { context } = useWindowContext();
     const settings = ref<AppSettings>(defaultAppSettings);
+
+
 
     const layout = computed(() => {
         return settings.value.layout ?? 'common';
@@ -25,11 +29,23 @@ export const useAppStore = defineStore('app', () => {
         return settings.value.primaryColor?? '#007bff';
     });
 
+
+
+    /**
+     * toggle collapse menu
+     */
+    const toggleCollapse = () => {
+        isCollapse.value = !isCollapse.value;
+    }
+
     return  {
         // state
         ctx: context.value as WindowContext,
         settings,
         layout,
         primaryColor,
+        isCollapse,
+
+        toggleCollapse,
     }
 });

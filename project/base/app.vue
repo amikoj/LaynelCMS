@@ -8,9 +8,6 @@ const Layout = Layouts[`laynle-${layout}`] || LaynelCommonLayout
 
 const Page = defineAsyncComponent(() => import(ctx.entry!))
 
-
-
-
 /**
  * 动态加载当前模块的入口文件 
  */

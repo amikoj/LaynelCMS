@@ -1,34 +1,43 @@
 import { computed } from "vue"
+import { useAppStore } from '@laynel-ui/store';
 
 const STATIC_MENUS = [
     {
-        name: 'Dashboard',
+        title: '仪表盘',
         icon: 'fa fa-tachometer-alt',
         url: '/dashboard'
     },
     {
-        name: 'Users',
-        icon: 'fa fa-users',
-        url: '/users'
+        title: '系统管理',
+        icon: 'fa fa-setting',
+        url: '/setting',
+        children: [
+            {
+                title: '用户管理',
+                icon: 'fa fa-user',
+                url: '/settings/user'
+            }
+        ]
     },
-    {
-        name: 'Settings',
-        icon: 'fa fa-cogs',
-        url: '/settings'
-    }
 ]
 
 
 
 export const useAside = () => {
 
+
+    const  { primaryColor,isCollapse, toggleCollapse } = useAppStore()
     const menus = computed(() => {
         return STATIC_MENUS
     })
 
 
     return {
-        menus
+        menus,
+        primaryColor,
+
+        isCollapse, 
+        toggleCollapse,
     }
 
 }
