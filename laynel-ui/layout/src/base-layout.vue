@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Aside, Header} from '@laynel-ui/components'
+import { Aside, Header } from '@laynel-ui/components'
 import { useAppStore } from '@laynel-ui/store'
 import { onMounted } from 'vue';
 /**

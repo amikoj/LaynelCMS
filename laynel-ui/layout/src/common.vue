@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import {LaynelAside, LaynelHeader} from '@laynel-ui/components'
+import { LaynelAside, LaynelHeader } from "@laynel-ui/components";
+import { useAppStore } from '@laynel-ui/store';
+import { toRefs } from "vue";
+
+
+const appStore = useAppStore();
+const { isCollapse } = toRefs(appStore);
+
+
 
 </script>
 
 <template>
     <div class="common-layout">
         <el-container>
-            <el-aside width="200px" class="p-0 h-full">
-                    <LaynelAside />
-                </el-aside>
+            <el-aside class="p-0 h-full"  :width="isCollapse ? 64 : 200">
+                <LaynelAside />
+            </el-aside>
 
             <el-container>
                 <el-header>
-                   <LaynelHeader />
+                    <LaynelHeader />
                 </el-header>
                 <el-main>
                     <slot />
@@ -25,7 +33,7 @@ import {LaynelAside, LaynelHeader} from '@laynel-ui/components'
 <style lang="scss">
 .common-layout {
     .el-header {
-        padding:0;
+        padding: 0;
     }
 }
 </style>

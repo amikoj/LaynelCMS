@@ -1,34 +1,37 @@
-import { defineConfig } from 'vite'
-import path from 'node:path'
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import Icons from 'unplugin-icons/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { Plugin as importToCDN } from 'vite-plugin-cdn-import';
-import { glob } from 'glob'
-import UnoCSS from 'unocss/vite';
-import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from "vite";
+import path from "node:path";
+import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
+import Icons from "unplugin-icons/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { Plugin as importToCDN } from "vite-plugin-cdn-import";
+import { glob } from "glob";
+import UnoCSS from "unocss/vite";
+import AutoImport from "unplugin-auto-import/vite";
 
+import { fileURLToPath } from "node:url";
 
-import { fileURLToPath } from 'node:url';
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const loadAllLibs = () => {
-  return glob.sync('project/*/index.ts').reduce((entries: any, file: any) => {
-    const module = path.dirname(file).replace('project', '').replace('/', '').replace('\\', '')
-    entries[module] =  path.resolve(__dirname, file)
-    return entries
-  }, {})
- }
+  return glob.sync("project/*/index.ts").reduce((entries: any, file: any) => {
+    const module = path
+      .dirname(file)
+      .replace("project", "")
+      .replace("/", "")
+      .replace("\\", "");
+    entries[module] = path.resolve(__dirname, file);
+    return entries;
+  }, {});
+};
 
 const config = defineConfig({
   plugins: [
     vue(),
     vueJsx(),
     Icons({
-      compiler: 'vue3', // 根据项目使用的 Vue 版本设置
+      compiler: "vue3", // 根据项目使用的 Vue 版本设置
       autoInstall: true, // 自动安装图标
     }),
     Components({
@@ -38,38 +41,33 @@ const config = defineConfig({
         }),
       ],
     }),
-  
+
     importToCDN({
       modules: [
         {
-          name: 'vue',
-          var: 'Vue',
-          path: '/static/libs/vue/vue@3.5.13.min.js',
+          name: "vue",
+          var: "Vue",
+          path: "/static/libs/vue/vue@3.5.13.min.js",
         },
         {
-          name: 'element-plus',
-          var: 'ElementPlus',
-          path: '/static/libs/element-plus/element-plus@2.9.1.min.js',
-          css: '/static/libs/element-plus/element-plus@2.9.1.min.css',
+          name: "element-plus",
+          var: "ElementPlus",
+          path: "/static/libs/element-plus/element-plus@2.9.1.min.js",
+          css: "/static/libs/element-plus/element-plus@2.9.1.min.css",
         },
         // ...其他依赖
       ],
     }),
     AutoImport({
-      imports: [
-         'vue',
-         'vue-i18n',
-         '@vueuse/core',
-         'pinia',
-       ],
-       dts: 'auto-imports.d.ts', // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
-       dirs: ['@laynel-ui/hooks', '@laynel-ui/store', '@laynel-ui/utils'],
-      }),
-      UnoCSS(),
+      imports: ["vue", "vue-i18n", "@vueuse/core", "pinia", 'vue-router'],
+      dts: "auto-imports.d.ts", // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
+      dirs: ["@laynel-ui/hooks", "@laynel-ui/store", "@laynel-ui/utils"],
+    }),
+    UnoCSS(),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './project'),
+      "@": path.resolve(__dirname, "./project"),
     },
   },
   build: {
@@ -78,12 +76,12 @@ const config = defineConfig({
     minify: false, // 压缩代码
     // sourcemap: true, // 生成 sourcemap
     // 在 outDir 中生成 .vite/assets 目录
-    outDir: 'dist',
-    lib:{
+    outDir: "dist",
+    lib: {
       entry: loadAllLibs(),
       fileName: (_, entryName) => `assets/${entryName}-[hash].js`,
       // cssFileName: '[name]-[hash].css',
-      formats:['es']
+      formats: ["es"],
     },
 
     rollupOptions: {
@@ -93,8 +91,8 @@ const config = defineConfig({
       // external: [ 'element-plus','vue],
       watch: {
         buildDelay: 1200, // 延迟编译，解决某些情况下热更新失效的问题
-        exclude: ['node_modules/**', 'dist/**'], // 不监听 dist 目录
-        include: ['project/**'], // 只监听 project 目录
+        exclude: ["node_modules/**", "dist/**"], // 不监听 dist 目录
+        include: ["project/**"], // 只监听 project 目录
         clearScreen: false, // 编译过程中不清屏
       },
       cache: true,
@@ -103,20 +101,25 @@ const config = defineConfig({
       // },
       output: {
         manualChunks: {
-          'vue-extends': ['pinia', 'vue-i18n', '@iconify/vue', '@iconify/vue'],
-          common: ['dayjs', 'lodash', 'axios'],
-          laynel: ['@laynel-ui/components','@laynel-ui/layout','@laynel-ui/hooks','@laynel-ui/i18n','@laynel-ui/store'],
-        }
+          "vue-extends": ["pinia", "vue-i18n", "@iconify/vue", "@iconify/vue", "@vueuse/core", "vue-router"],
+          common: ["dayjs", "lodash", "axios"],
+          laynel: [
+            "@laynel-ui/components",
+            "@laynel-ui/layout",
+            "@laynel-ui/hooks",
+            "@laynel-ui/i18n",
+            "@laynel-ui/store",
+          ],
+        },
       },
-
     },
   },
   // 环境变量注入依赖
   define: {
-    'process.env': {
-      NODE_ENV: "production"
+    "process.env": {
+      NODE_ENV: "production",
     },
   },
-})
+});
 
-export default config
+export default config;

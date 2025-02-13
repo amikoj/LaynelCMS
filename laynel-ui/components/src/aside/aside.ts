@@ -1,7 +1,20 @@
-import { computed } from "vue"
+import { computed, toRefs } from "vue"
 import { useAppStore } from '@laynel-ui/store';
 
-const STATIC_MENUS = [
+export const URL_PREFIX = '/admin'
+
+export interface MenuItemProps {
+    title: string;
+    icon?: string;
+    url: string;
+    children?: MenuItemProps[];
+    [key: string]: any;
+}
+
+
+
+
+const STATIC_MENUS: MenuItemProps[] = [
     {
         title: '仪表盘',
         icon: 'material-symbols:home',
@@ -88,13 +101,18 @@ const STATIC_MENUS = [
 
 
 export const useAside = () => {
+    const appStore = useAppStore()
+    const { toggleCollapse } = appStore
+    const { isCollapse , primaryColor} = toRefs(appStore)
 
-
-    const  { primaryColor,isCollapse, toggleCollapse } = useAppStore()
     const menus = computed(() => {
         return STATIC_MENUS
     })
 
+
+    const jumpTo = (item: MenuItemProps) => {
+        window.location.href = `${URL_PREFIX}${item.url}`
+    }
 
     return {
         menus,
@@ -102,6 +120,7 @@ export const useAside = () => {
 
         isCollapse, 
         toggleCollapse,
+        jumpTo,
     }
 
 }

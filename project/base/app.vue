@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAppStore } from '@laynel-ui/store';
 import { onMounted, defineAsyncComponent } from 'vue';
-import {Layouts, LaynelCommonLayout}  from '@laynel-ui/layout'
+import { Layouts, LaynelCommonLayout } from '@laynel-ui/layout'
 
 const { ctx, layout } = useAppStore()
 const Layout = Layouts[`laynle-${layout}`] || LaynelCommonLayout
@@ -11,7 +11,7 @@ const Page = defineAsyncComponent(() => import(ctx.entry!))
 /**
  * 动态加载当前模块的入口文件 
  */
- const loadEntry = () => {
+const loadEntry = () => {
   // const entryJs = ctx.entry
   // if (entryJs) {
   //   import(entryJs).then(res => {
@@ -32,8 +32,8 @@ onMounted(() => {
 
 <template>
   <el-config-provider>
-     <Layout class="flex" >
-        <Page  />
-     </Layout>
+    <Layout class="flex">
+      <Page />
+    </Layout>
   </el-config-provider>
 </template>
