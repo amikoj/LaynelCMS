@@ -14,15 +14,16 @@ const  {
 
 <template>
     <div class="aside-container flex flex-col relative">
-        <div class="logo text-white text-24px px-15px py-10px">
-            <div>Laynel</div>
-        </div>
-
         <el-menu  
-          class="text-white text-14px" 
+          class="text-white text-14px flex-1" 
           :collapse="isCollapse" 
           @open="toggleCollapse"
           @close="toggleCollapse">
+
+          <!--  logo -->
+          <div class="logo text-black text-24px px-15px py-10px flex items-center justify-center">
+            <div>Laynel</div>
+         </div>
             <template v-for="(item, index) in menus">
                 <el-menu-item v-if="!item.children" :index="index + ''">
                    <Icon v-if="item.icon" :icon="item.icon" width="24" height="24" class="mr-5px" />
@@ -47,9 +48,9 @@ const  {
 
 
         <!--  toggle collapse button -->
-          <div class="toggle-collapse-btn absolute bottom-8px right-8px z-10 cursor-pointer" @click="toggleCollapse">
+          <div class="toggle-collapse-btn absolute bottom-10px right-10px z-10 cursor-pointer" @click="toggleCollapse">
             <el-icon>
-               <Expand />
+               <Expand  class="text-24px"/>
             </el-icon>
          </div>
     </div>

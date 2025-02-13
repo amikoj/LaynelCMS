@@ -46,11 +46,10 @@ def  load_dependencies(entryJs: Dict, libs: Dict, plugin_name: str) -> str:
         css = entryJs['css']
         for filePath in css:
             deps.append(f'<link rel="stylesheet" href="/admin/{static_prefix}/{filePath}" >')
-            
-    global_css = libs['style.css']
     
-    if not global_css:
-        deps.append(f'<link rel="stylesheet" href="/admin/{static_prefix}/{global_css.file}" >')
+    if 'style' in libs:
+        global_css = libs['style']
+        deps.append(f'<link rel="stylesheet" href="/admin/{static_prefix}/{global_css['file']}" >')
     return deps
 
 
