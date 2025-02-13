@@ -27,7 +27,11 @@ const  {
             <template v-for="(item, index) in menus">
                 <el-menu-item v-if="!item.children" :index="index + ''">
                    <Icon v-if="item.icon" :icon="item.icon" width="24" height="24" class="mr-5px" />
-                   <span slot="title"> {{ item.title }}</span>
+
+                   <<router-link to="{{ item.url }}">
+                    <span slot="title"> {{ item.title }}</span>
+                   </router-link>
+                
                </el-menu-item>
 
 
@@ -39,7 +43,9 @@ const  {
 
                 <el-menu-item v-for="(child, index) in item.children" :index="index + '-' + index">
                     <Icon v-if="child.icon" :icon="child.icon" width="24" height="24" class="mr-5px" />
+                    <<router-link to="{{ child.url }}">
                     <span slot="title"> {{ child.title }}</span>
+                   </router-link>
                 </el-menu-item>
 
                 </el-sub-menu>
