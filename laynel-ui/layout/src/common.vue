@@ -3,18 +3,15 @@ import { LaynelAside, LaynelHeader } from "@laynel-ui/components";
 import { useAppStore } from '@laynel-ui/store';
 import { toRefs } from "vue";
 
-
 const appStore = useAppStore();
 const { isCollapse } = toRefs(appStore);
-
-
 
 </script>
 
 <template>
     <div class="common-layout">
         <el-container>
-            <el-aside class="p-0 h-full"  :width="isCollapse ? 64 : 200">
+            <el-aside class="p-0 h-full"  :width="(isCollapse ? 64 : 220) + 'px'">
                 <LaynelAside />
             </el-aside>
 

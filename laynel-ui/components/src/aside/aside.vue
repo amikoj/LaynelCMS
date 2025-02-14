@@ -4,19 +4,20 @@ import { Icon } from "@iconify/vue";
 import { Expand } from "@element-plus/icons-vue";
 import submenu from "./submenu.vue";
 
-const { menus, isCollapse, toggleCollapse, jumpTo } = useAside();
+const { menus,route, isCollapse, toggleCollapse, jumpTo } = useAside();
 </script>
 
 <template>
     <div class="aside-container flex flex-col relative" >
-        <el-menu class="text-white text-14px flex-1 overflow-y-auto" :collapse="isCollapse">
+        <el-menu class="text-white text-14px flex-1 overflow-y-auto px-8px" :collapse="isCollapse"  :default-active="route.name">
             <!--  logo -->
-            <div  class="logo text-black text-24px px-15px py-10px flex items-center justify-center">
+            <div  class="logo text-black text-18px px-12px py-8px flex items-center justify-center">
                 <div v-if="!isCollapse">Laynel CMS</div>
             </div>
+            <el-divider :body-style="{marginBottom: '10px'}"></el-divider>
             <template v-for="(item, index) in menus">
-                <el-menu-item v-if="!item.children" :index="index + ''" @click="jumpTo(item)">
-                    <Icon v-if="item.icon" :icon="item.icon" width="24" height="24" class="mr-5px" />
+                <el-menu-item v-if="!item.children" :index="item.name" @click="jumpTo(item)">
+                    <Icon v-if="item.icon" :icon="item.icon" width="16" height="16" class="mr-12px text-gray-500" />
                     <span  >{{ item.title }}</span>
                 </el-menu-item>
 

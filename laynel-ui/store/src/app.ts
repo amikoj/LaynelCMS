@@ -22,7 +22,6 @@ export const useAppStore = defineStore('app', () => {
 
     // 当前路由
     const route = computed(() => {
-
         if(context.value?.route) {
             return JSON.parse(context.value.route);
         }
@@ -31,7 +30,7 @@ export const useAppStore = defineStore('app', () => {
 
 
     const routes = computed(() => {
-        return route.value.routes;
+        return context.value?.app?.pages ?? [];
     })
 
     const settings = ref<AppSettings>(defaultAppSettings);

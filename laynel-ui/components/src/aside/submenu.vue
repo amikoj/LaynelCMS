@@ -20,15 +20,15 @@ const {jumpTo} = useAside()
 </script>
 
 <template>
-    <el-sub-menu  :index="index">
+    <el-sub-menu  :index="item.name">
         <template #title>
-            <Icon v-if="item.icon" :icon="item.icon" width="24" height="24" class="mr-5px" />
+            <Icon v-if="item.icon" :icon="item.icon" width="16" height="16" class="mr-12px text-gray-500" />
             <span>{{ item.title }}</span>
         </template>
 
         <template v-for="(child, idx) in item.children">
-            <el-menu-item v-if="!child.children" :index="index + '-' + idx" @click="jumpTo(child)">
-                <Icon v-if="child.icon" :icon="child.icon" width="24" height="24" class="mr-3px" />
+            <el-menu-item v-if="!child.children" :index="child.name" @click="jumpTo(child)">
+                <Icon v-if="child.icon" :icon="child.icon"width="16" height="16" class="mr-12px text-gray-500" />
                 <span>{{ child.title }}</span>
             </el-menu-item>
             <submenu v-else-if="child.children && child.children.length > 0" :item="child" :index="index + '-' + idx"></submenu>

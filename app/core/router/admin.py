@@ -2,7 +2,7 @@ from functools import lru_cache
 import json
 from typing import Callable, Dict, List
 from fastapi import  Request, Response
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI
@@ -111,7 +111,7 @@ def get_context_from_route(route: RouteInfo) -> Dict:
             'libs': get_main_libs_info(),
             'entry': extra['entry'],
             'extra_head': extra['extra_head'],
-            'routes': [route.model_dump_json() for route in config.appInfo.pages],
+            "app": json.loads(config.appInfo.model_dump_json()),
         }
     } 
     
@@ -149,6 +149,16 @@ async def login(request: Request, response: Response):
         **get_context_from_route(mainRoute),
     })
     return content  
+
+@admin.get("/config")
+async def all_config(request: Request):
+    '''获取后台管理系统配置信息
+    '''
+    return  {
+        'app': config.appInfo.__dict__,
+        'plugins': [plugin.__dict__ for plugin in config.plugins],
+        'routes':  get_all_routes(),
+    }
 
 
 def redirect_to(url: str):
@@ -229,6 +239,7 @@ def flat_routes(routes: List[RouteInfo], parent_name: str = None):
         result.append(route)
         if route.children:
             result.extend(flat_routes(route.children, route.name))
+            route.children = [] # 防止多次扁平化
     return result
     
 def  generate_admin_router(routes: List[RouteInfo]):
@@ -236,16 +247,14 @@ def  generate_admin_router(routes: List[RouteInfo]):
     生成后台管理系统路由【包含层级关系，且仅限用于导航存在路由】
     ''' 
     route_map: Dict[str, RouteInfo] =  {  } # 路由层级关系映射
-
-    for r in routes:
-        route_map[r.name] = r
     
     for route in routes:
+        route_map[route.name] = route
         if route.parent_name:
             if not route_map[route.parent_name].children:
                 route_map[route.parent_name].children = []
             route_map[route.parent_name].children.append(route)
-            
+
     return [route for route in routes if not route.parent_name]
 
 def add_plugin_name(route: RouteInfo, plugin_name: str):
