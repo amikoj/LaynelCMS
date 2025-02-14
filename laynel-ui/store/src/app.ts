@@ -2,7 +2,7 @@
 import { useWindowContext, WindowContext } from '@laynel-ui/hooks'
 import { defineStore } from 'pinia'
 import { AppSettings } from './interface';
-import { computed, ref } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 
 const defaultAppSettings: AppSettings = {
     layout:'common',
@@ -14,12 +14,27 @@ const defaultAppSettings: AppSettings = {
 
 export const useAppStore = defineStore('app', () => {
 
-
     const isCollapse = ref<boolean>(false); // 是否收缩菜单
-    const { context } = useWindowContext();
+    const windowContext = useWindowContext();
+
+    const { context } = toRefs(windowContext);
+
+
+    // 当前路由
+    const route = computed(() => {
+
+        if(context.value?.route) {
+            return JSON.parse(context.value.route);
+        }
+        return {};
+    });
+
+
+    const routes = computed(() => {
+        return route.value.routes;
+    })
+
     const settings = ref<AppSettings>(defaultAppSettings);
-
-
 
     const layout = computed(() => {
         return settings.value.layout ?? 'common';
@@ -40,7 +55,9 @@ export const useAppStore = defineStore('app', () => {
 
     return  {
         // state
-        ctx: context.value as WindowContext,
+        context,
+        route,
+        routes,
         settings,
         layout,
         primaryColor,

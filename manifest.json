@@ -18,7 +18,7 @@
             "title": "Dashboard",
             "url": "/dashboard",
             "icon": "fa:dashboard",
-            "component": "project.base.index"
+            "component": "project.dashborad.index"
         },
         {
             "name": "content",

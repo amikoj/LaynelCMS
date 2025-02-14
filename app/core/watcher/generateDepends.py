@@ -8,9 +8,7 @@ class HtmlDependencyHandler(FileSystemEventHandler):
         self.app = app
           
     def on_modified(self, event):
-        print(event.src_path, "has been modified")
         reload_routes(self.app)
-        print("Routes reloaded")
             
 def notify_watcher(app: FastAPI):
     print("Start watching for html dependencies...")

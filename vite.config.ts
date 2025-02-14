@@ -14,13 +14,18 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
+
+
+
 const loadAllLibs = () => {
-  return glob.sync("project/*/index.ts").reduce((entries: any, file: any) => {
+  return glob.sync("project/**/index.ts").reduce((entries: any, file: any) => {
+
+    console.log(' sync file:', file, entries)
     const module = path
       .dirname(file)
-      .replace("project", "")
-      .replace("/", "")
-      .replace("\\", "");
+      .replace("project" + path.sep, "")
+      .replaceAll(path.sep, "-");
+    console.log(' module:', module)
     entries[module] = path.resolve(__dirname, file);
     return entries;
   }, {});
@@ -59,7 +64,7 @@ const config = defineConfig({
       ],
     }),
     AutoImport({
-      imports: ["vue", "vue-i18n", "@vueuse/core", "pinia", 'vue-router'],
+      imports: ["vue", "vue-i18n", "@vueuse/core", "pinia"],
       dts: "auto-imports.d.ts", // 使用typescript，需要指定生成对应的d.ts文件或者设置为true,生成默认导入d.ts文件
       dirs: ["@laynel-ui/hooks", "@laynel-ui/store", "@laynel-ui/utils"],
     }),
@@ -101,7 +106,7 @@ const config = defineConfig({
       // },
       output: {
         manualChunks: {
-          "vue-extends": ["pinia", "vue-i18n", "@iconify/vue", "@iconify/vue", "@vueuse/core", "vue-router"],
+          "vue-extends": ["pinia", "vue-i18n", "@iconify/vue", "@iconify/vue", "@vueuse/core"],
           common: ["dayjs", "lodash", "axios"],
           laynel: [
             "@laynel-ui/components",

@@ -1,4 +1,5 @@
 from functools import lru_cache
+import json
 from typing import Callable, Dict, List
 from fastapi import  Request, Response
 from fastapi.responses import RedirectResponse, HTMLResponse
@@ -10,6 +11,7 @@ from .utils import get_lib_key, load_dependencies, load_js_libs
 from ..config import BaseConfig, get_config, RouteInfo, ModuleType,ModuleInfo, JsLibInfo
 from fastapi.middleware.gzip import GZipMiddleware
 CONTEXT_DICT_KEY = "__context__"
+URL_PREFIX = '/admin' # 后台管理系统路由前缀
 
 admin = FastAPI(title="后台管理系统", description="后台管理系统", version="0.0.1")
 templates: Jinja2Templates = Jinja2Templates(directory="templates", trim_blocks=True, lstrip_blocks=True)
@@ -22,10 +24,10 @@ config: BaseConfig  = get_config()
 
 # 主路由
 mainRoute = RouteInfo(
-    name='main', 
-    title='主页', 
+    name='dashboard', 
+    title='Dashboard', 
     url='/', 
-    icon='home', 
+    icon='fa:dashboard', 
     component='project.dashborad.index', 
     plugin_name='main'
     )
@@ -64,7 +66,7 @@ def get_extra(route: RouteInfo) -> str:
     main_libs = get_main_libs_info()
     pluginInfo: ModuleInfo = config.get_plugin_by_name(route.plugin_name)
     current_libs = get_current_plugin_libs_info(pluginInfo)
-    print(current_libs)
+
     is_main = plugin_name =='main'
     static_prefix = 'static' if is_main else f'static/{plugin_name}/'
     
@@ -76,13 +78,13 @@ def get_extra(route: RouteInfo) -> str:
     
     ctx: Dict = {
         "scripts": [
-            f'<script type="module" src="/admin/{static_prefix}/{baseEntryJsFilePath}"></script>', 
-            f'<script type="module" src="/admin/{static_prefix}/{entryJsFilePath}"></script>'
+            f'<script type="module" src="{URL_PREFIX}/{static_prefix}/{baseEntryJsFilePath}"></script>', 
+            f'<script type="module" src="{URL_PREFIX}/{static_prefix}/{entryJsFilePath}"></script>'
         ],
         "extra_head": [
             *load_dependencies(baseEntryJs, main_libs, 'main'),
         ],
-        'entry': f'/admin/{static_prefix}/{entryJsFilePath}',
+        'entry': f'{URL_PREFIX}/{static_prefix}/{entryJsFilePath}',
     }
     
     
@@ -109,11 +111,15 @@ def get_context_from_route(route: RouteInfo) -> Dict:
             'libs': get_main_libs_info(),
             'entry': extra['entry'],
             'extra_head': extra['extra_head'],
+            'routes': [route.model_dump_json() for route in config.appInfo.pages],
         }
     } 
     
     ctx['script_str'] = '\n'.join(extra['scripts'])
     ctx['extra_head_str'] ='\n'.join(extra['extra_head'])
+    
+    ctx_json = json.dumps(ctx, indent=4, sort_keys=True)
+    print(ctx_json)
     
     return ctx
 
@@ -166,7 +172,7 @@ def load_route(route: RouteInfo):
         for child in route.children:
             load_route(child)
         if route.redirect:
-            admin.get(route.url, name=route.name, response_class=HTMLResponse)(redirect_to(route.redirect))     
+            admin.get(route.url, name=route.name, response_class=HTMLResponse)(redirect_to(URL_PREFIX + route.redirect))     
     else:
         admin.get(route.url, name=route.name, response_class=HTMLResponse)(renderFunc(route))
 
@@ -174,7 +180,7 @@ def  load_routes(app: FastAPI):
     '''
     通过子应用挂载来加载后端服务路由，
     '''
-    app.mount("/admin", admin)
+    app.mount(URL_PREFIX, admin)
     
     global config
     config = get_config()

@@ -3,10 +3,10 @@ import { useAppStore } from '@laynel-ui/store';
 import { onMounted, defineAsyncComponent } from 'vue';
 import { Layouts, LaynelCommonLayout } from '@laynel-ui/layout'
 
-const { ctx, layout } = useAppStore()
+const { context, layout } = useAppStore()
 const Layout = Layouts[`laynle-${layout}`] || LaynelCommonLayout
 
-const Page = defineAsyncComponent(() => import(ctx.entry!))
+const Page = defineAsyncComponent(() => import(context.entry!))
 
 /**
  * 动态加载当前模块的入口文件 
