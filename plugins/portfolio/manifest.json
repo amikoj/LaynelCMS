@@ -1,0 +1,26 @@
+{
+    "name": "protfolio",
+    "version": "1.0.0",
+    "description": "protfolio module to display portfolio items",  
+    "author": "amiko",
+    "license": "MIT",
+    "homepage": "https://github.com/LaynelCMS/theme001",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LaynelCMS/theme001.git"
+    },
+    "keywords": [
+        "LaynelCMS",
+        "portfolio"
+    ],
+    "type": "plugin",
+    "pages": [
+        {
+            "name": "portfolio",
+            "title": "Protfolio",
+            "url": "/portfolio",
+            "icon": "fa:briefcase",
+            "component": "project.portfolio.index"
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "name": "protfolio",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "main": "src/index.ts",
+    "module": "src/index.ts",
+    "scripts": {
+        "dev": "vite",
+        "dev:mock": "run-p dev dev:mockServer",
+        "build": "run-p type-check build-only",
+        "preview": "vite preview",
+        "build-only": "vite build",
+        "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
+    },
+    "peerDependencies": {
+        "@element-plus/icons-vue": "^2.3.1",
+        "@iconify/vue": "^4.2.0",
+        "@laynel-ui/hooks": "workspace:*",
+        "@laynel-ui/store": "workspace:*",
+        "@laynel-ui/utils": "workspace:*",
+        "dayjs": "^1.11.13",
+        "element-plus": "^2.9.1",
+        "lodash": "^4.17.21",
+        "vue": "^3.5.13"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.17.13",
+        "@types/node": "^22.10.2",
+        "@vitejs/plugin-vue": "^5.2.1",
+        "@vitejs/plugin-vue-jsx": "^4.1.1",
+        "chokidar": "^4.0.2",
+        "typescript": "~5.6.2",
+        "unocss": "^0.65.2",
+        "unplugin-auto-import": "^0.19.0",
+        "unplugin-icons": "^0.21.0",
+        "unplugin-vue-components": "^0.27.5",
+        "vite": "^6.0.1",
+        "vite-plugin-cdn-import": "^1.0.1",
+        "vue-tsc": "^2.1.10"
+    }
+}

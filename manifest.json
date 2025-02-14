@@ -56,12 +56,6 @@
             "icon": "material-symbols:subject-rounded",
             "component": "project.subject.index"
 
-        },{
-            "name": "portfolio",
-            "title": "Protfolio",
-            "url": "/portfolio",
-            "icon": "fa:briefcase",
-            "component": "project.portfolio.index"
         },
         {
             "name": "settings",
