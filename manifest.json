@@ -21,33 +21,68 @@
             "component": "project.base.index"
         },
         {
-            "name": "settings",
-            "title": "Settings",
-            "url": "/settings",
-            "icon": "fa:setting",
-            "redirect": "/users/list",
+            "name": "content",
+            "title": "Content",
+            "url": "/content",
+            "icon": "fa:book",
+            "component": "project.content.index",
+            "redirect": "/content/article",
             "children": [{
-                    "name": "users",
-                    "title": "Users",
-                    "url": "/settings/users",
-                    "icon": "fa:users",
-                    "component": "project.user.index"
-                }, {
-                    "name": "roles",
-                    "url": "Roles",
-                    "path": "/settings/roles",
-                    "icon": "fa:role",
-                    "component": "project.role.index"
+                    "name": "articles",
+                    "title": "Articles",
+                    "url": "/content/article",
+                    "component": "project.content.article.index"
+                },
+                {
+                    "name": "categories",
+                    "title": "Categories",
+                    "url": "/content/category",
+                    "component": "project.content.category.index"
                 }
-
             ]
+    
         },
         {
             "name": "plugins",
             "title": "Plugins",
-            "url": "/plugins",
+            "url": "/plugin",
             "icon": "fa:plug",
             "component": "project.plugin.index"
+        },
+
+        {
+            "name": "subject",
+            "title": "Subject",
+            "url": "/subject",
+            "icon": "material-symbols:subject-rounded",
+            "component": "project.subject.index"
+
+        },{
+            "name": "portfolio",
+            "title": "Protfolio",
+            "url": "/portfolio",
+            "icon": "fa:briefcase",
+            "component": "project.portfolio.index"
+        },
+        {
+            "name": "settings",
+            "title": "Settings",
+            "url": "/setting",
+            "icon": "material-symbols:settings",
+            "redirect": "/setting/user",
+            "children": [{
+                    "name": "users",
+                    "title": "Users",
+                    "url": "/setting/user",
+                    "component": "project.settings.user.index"
+                }, {
+                    "name": "roles",
+                    "url": "/setting/role",
+                    "title": "Roles",
+                    "component": "project.settings.role.index"
+                }
+
+            ]
         }
     ]
 }
